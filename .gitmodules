@@ -1,0 +1,3 @@
+[submodule "basalt"]
+	path = basalt
+	url = git@github.com:LittleGreenViper/basalt.git
