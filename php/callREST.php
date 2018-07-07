@@ -11,15 +11,6 @@
 
     Little Green Viper Software Development: https://littlegreenviper.com
 */
-
-$config_file_path = dirname(__FILE__).'/config/s_config.class.php';
-
-date_default_timezone_set ( 'America/NewYork' );
-
-define('LGV_CONFIG_CATCHER', 1);
-
-require_once($config_file_path);
-
 global $g_server_secret;
 
 $g_server_secret = CO_Config::server_secret();    // Get the server secret.
@@ -139,9 +130,9 @@ function call_REST_API( $method,                /**< REQUIRED:  This is the meth
     // This is if we want to see a display log (echoed directly).
     if (isset($display_log) && $display_log) {
         curl_setopt($curl, CURLOPT_HEADERFUNCTION, function ( $curl, $header_line ) {
-            echo "<pre>".$header_line.'</pre>';
-            return strlen($header_line);
-        });
+                                                                                        echo "<pre>$header_line</pre>";
+                                                                                        return strlen($header_line);
+                                                                                    });
         echo('<div style="margin:1em">');
         echo("<h4>Sending REST $method CALL:</h4>");
         echo('<div>URL: <code>'.htmlspecialchars($url).'</code></div>');
@@ -152,12 +143,6 @@ function call_REST_API( $method,                /**< REQUIRED:  This is the meth
     }
     
     $result = curl_exec($curl); // Do it to it.
-    
-    // See if everything went as planned. If not, report an error.
-    if ($result === false) {
-        $info = curl_getinfo($curl);
-        $result = 'error occured during curl. Info: '.var_export($info);
-    }
     
     // If they want a report, we send it.
     if (isset($httpCode)) {
@@ -179,7 +164,8 @@ function call_REST_API( $method,                /**< REQUIRED:  This is the meth
         if (isset($httpCode) && $httpCode) {
             echo('<div>HTTP CODE:<code>'.htmlspecialchars($httpCode, true).'</code></div>');
         }
-        echo('<div>RESULT:<pre>'.htmlspecialchars(print_r($result, true)).'</pre></div>');
+
+        echo('<div>RESULT:<pre>'.htmlspecialchars(print_r(chunk_split($result, 2048), true)).'</pre></div>');
         echo("</div>");
     }
 

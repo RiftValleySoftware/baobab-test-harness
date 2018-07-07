@@ -11,10 +11,8 @@
 
     Little Green Viper Software Development: https://littlegreenviper.com
 */
-require_once(dirname(dirname(__FILE__)).'/callREST.php');
-
 if (!class_exists('CO_Config')) {
-    $config_file_path = dirname(__FILE__).'/config/s_config.class.php';
+    $config_file_path = dirname(dirname(__FILE__)).'/config/s_config.class.php';
 
     date_default_timezone_set ( 'UTC' );
 
@@ -24,6 +22,8 @@ if (!class_exists('CO_Config')) {
 
     require_once($config_file_path);
 }
+
+require_once(dirname(__FILE__).'/callREST.php');
 
 function prettify_xml($xml) {
     $domxml = new DOMDocument('1.0');
@@ -35,6 +35,7 @@ function prettify_xml($xml) {
 }
 
 function prettify_json($json) {
+    $json .= "\n";
     $result = '';
     $level = 0;
     $in_quotes = false;
@@ -87,9 +88,71 @@ function prettify_json($json) {
         $result .= $char.$post;
     }
     
-    $result = stripslashes(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');}, $result));
+    $result = trim(stripslashes(preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');}, $result)));
     
     return $result;
+}
+
+function validate_xml($in_xml, $in_plugin_name) {
+    $schema = get_xsd($in_plugin_name, ('baseline' == $in_plugin_name) ? 'main' : NULL);
+    
+    $domxml = new DOMDocument('1.0');
+    $domxml->preserveWhiteSpace = false;
+    $domxml->formatOutput = true;
+    $domxml->loadXML($in_xml);
+    
+    echo('<div class="indent_1">');
+    if ($domxml->schemaValidateSource($schema)) {
+        echo('<h4 style="color:green">XML Is Valid!</h4>');
+    } else {
+        echo('<h4 style="color:red">XML Is Not Valid!</h4>');
+    }
+    echo('</div>');
+}
+
+function test_header($in_title, $in_method, $in_uri, $in_result_code) {
+    echo('<h3>'.htmlspecialchars($in_title).'</h3><div class="indent_1">');
+    echo('<p><em><strong>METHOD:</strong> '.htmlspecialchars($in_method).'</em></p>');
+    echo('<p><em><strong>URI:</strong> '.htmlspecialchars($in_uri).'</em></p>');
+    echo('<p><em><strong>EXPECTED RESPONSE CODE:</strong> '.htmlspecialchars($in_result_code).'</em></p></div>');
+}
+
+function timing_report($in_start, $in_text = 'execute this query') {
+    $fetchTime = sprintf('%01.4f', microtime(true) - $in_start);
+    echo("<div class=\"indent_1 timing_report\">It took $fetchTime seconds to $in_text.</div>");
+}
+
+function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_result) {
+    echo('<div class="indent_1 test_report bad_report"><h3 style="color:red">Did Not Receive Expected Result Code: '.intval($in_result_code).'</h3>');
+    if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
+        echo('<div class="indent_1" style="color:green"><strong>Received Expected Result</strong><div>');
+    } elseif ($in_expected_result) {
+        echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong><div>');
+    }
+    
+    timing_report($in_st_1);
+    
+    echo('</div>');
+}
+
+function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_result) {
+    echo('<div class="indent_1 test_report good_report"><h3 style="color:green">Received Expected Result Code: '.intval($in_result_code).'</h3>');
+    if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
+        echo('<div class="indent_1" style="color:green"><p>Received Expected Result</p></div>');
+        $matches = [];
+        if (preg_match('|\/xsd\/([^\"]+?)"|', $in_result, $matches)) {
+            $plugin_name = trim($matches[1]);
+            if ($plugin_name) {
+                validate_xml($in_result, $plugin_name);
+            }
+        }
+    } elseif ($in_expected_result || $in_result && ($in_expected_result != $in_result)) {
+        echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong><div>');
+    }
+    
+    timing_report($in_st_1);
+    
+    echo('</div>');
 }
 
 function make_andisol($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
