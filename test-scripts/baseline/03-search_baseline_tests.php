@@ -363,6 +363,46 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
     }
+    
+    $title = 'Baseline Test 6R: Test With A Fairly Specific Tag 7 (Large Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag7=USA';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = file_get_contents(dirname(__FILE__).'/03-search_baseline_tests-6R-Value.txt');
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 6S: Test With An Empty Tag 7 (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag7=';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"people":[1725,1726,1727,1728,1729],"things":[1732,1733,1734,1735,1736,1737,1738,1739,1740,1741,1742,1743,1744]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
 }
 
 // --------------------
@@ -699,6 +739,46 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $api_key = NULL;
     $expected_result_code = 200;
     $expected_result = get_xml_header('baseline').'<places><value sequence_index="0">32</value><value sequence_index="1">76</value><value sequence_index="2">110</value><value sequence_index="3">119</value><value sequence_index="4">123</value><value sequence_index="5">137</value><value sequence_index="6">207</value><value sequence_index="7">222</value><value sequence_index="8">258</value><value sequence_index="9">282</value><value sequence_index="10">291</value><value sequence_index="11">325</value><value sequence_index="12">332</value><value sequence_index="13">364</value><value sequence_index="14">398</value><value sequence_index="15">415</value><value sequence_index="16">419</value><value sequence_index="17">435</value><value sequence_index="18">440</value></places></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 7R: Test With A Fairly Specific Tag 7 (Large Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag7=USA';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').file_get_contents(dirname(__FILE__).'/03-search_baseline_tests-7R-Value.txt').'</baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 7S: Test With An Empty Tag 7 (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag7=';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<people><value sequence_index="0">1725</value><value sequence_index="1">1726</value><value sequence_index="2">1727</value><value sequence_index="3">1728</value><value sequence_index="4">1729</value></people><things><value sequence_index="0">1732</value><value sequence_index="1">1733</value><value sequence_index="2">1734</value><value sequence_index="3">1735</value><value sequence_index="4">1736</value><value sequence_index="5">1737</value><value sequence_index="6">1738</value><value sequence_index="7">1739</value><value sequence_index="8">1740</value><value sequence_index="9">1741</value><value sequence_index="10">1742</value><value sequence_index="11">1743</value><value sequence_index="12">1744</value></things></baseline>';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
