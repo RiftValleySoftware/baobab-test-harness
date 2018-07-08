@@ -184,13 +184,73 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'Baseline Test 6I: Test With A Fairly Vage Tag 3 (Large Response)';
+    $title = 'Baseline Test 6I: Test With A Fairly Vague Tag 3 (Large Response)';
     $method = 'GET';
     $uri = __SERVER_URI__.'/json/baseline/search/?search_tag3=w%';
     $data = NULL;
     $api_key = NULL;
     $expected_result_code = 200;
     $expected_result = file_get_contents(dirname(__FILE__).'/03-search_baseline_tests-6I-Value.txt');
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 6J: Test With A Fairly Specific Tag 4 (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag4=Clarke+County';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"places":[995,1091,1260]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 6K: Test With Another Fairly Specific Tag 4 (Medium Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag4=Montgomery+County';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"places":[32,46,66,76,109,110,123,207,258,291,325,332,364,398,415,434,435,440,974,1142]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 6L: Test With A Fairly Vague Tag 4 (Large Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag4=%county';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = file_get_contents(dirname(__FILE__).'/03-search_baseline_tests-6L-Value.txt');
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -372,13 +432,73 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'Baseline Test 7I: Test With A Fairly Vage Tag 3 (Large Response)';
+    $title = 'Baseline Test 7I: Test With A Fairly Vague Tag 3 (Large Response)';
     $method = 'GET';
     $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag3=w%';
     $data = NULL;
     $api_key = NULL;
     $expected_result_code = 200;
     $expected_result = get_xml_header('baseline').file_get_contents(dirname(__FILE__).'/03-search_baseline_tests-7I-Value.txt').'</baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 7J: Test With A Fairly Specific Tag 4 (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag4=Clarke+County';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<places><value sequence_index="0">995</value><value sequence_index="1">1091</value><value sequence_index="2">1260</value></places></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 7K: Test With Another Fairly Specific Tag 4 (Medium Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag4=Montgomery+County';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<places><value sequence_index="0">32</value><value sequence_index="1">46</value><value sequence_index="2">66</value><value sequence_index="3">76</value><value sequence_index="4">109</value><value sequence_index="5">110</value><value sequence_index="6">123</value><value sequence_index="7">207</value><value sequence_index="8">258</value><value sequence_index="9">291</value><value sequence_index="10">325</value><value sequence_index="11">332</value><value sequence_index="12">364</value><value sequence_index="13">398</value><value sequence_index="14">415</value><value sequence_index="15">434</value><value sequence_index="16">435</value><value sequence_index="17">440</value><value sequence_index="18">974</value><value sequence_index="19">1142</value></places></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 7L: Test With A Fairly Vague Tag 4 (Large Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag4=%county';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').file_get_contents(dirname(__FILE__).'/03-search_baseline_tests-7L-Value.txt').'</baseline>';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
