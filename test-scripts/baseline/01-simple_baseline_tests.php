@@ -37,7 +37,7 @@ function get_xsd($in_plugin_name, $in_dirname = NULL) {
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
 function basalt_test_define_0001() {
-    basalt_run_single_direct_test(1, 'List Plugins (JSON)', 'We first try with no plugin selector. We expect that to fail, then we try with \'baseline\' as the selector.', 'user_tests');
+    basalt_run_single_direct_test(1, 'List Plugins (JSON)', 'We first try with no plugin selector. We expect that to fail, then we try with \'baseline\' as the selector.', 'things_tests');
 }
 
 function basalt_test_0001($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -85,7 +85,7 @@ function basalt_test_0001($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0002() {
-    basalt_run_single_direct_test(2, 'List Plugins (XML)', 'We first try with no plugin selector. We expect that to fail, then we try with \'baseline\' as the selector.', 'user_tests');
+    basalt_run_single_direct_test(2, 'List Plugins (XML)', 'We first try with no plugin selector. We expect that to fail, then we try with \'baseline\' as the selector.', 'things_tests');
 }
 
 function basalt_test_0002($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -133,7 +133,7 @@ function basalt_test_0002($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0003() {
-    basalt_run_single_direct_test(3, 'Get All Plugin Schemas (XSD)', 'We determine what plugins we have, then get the XML schema for each', 'user_tests');
+    basalt_run_single_direct_test(3, 'Get All Plugin Schemas (XSD)', 'We determine what plugins we have, then get the XML schema for each', 'things_tests');
 }
 
 function basalt_test_0003($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
