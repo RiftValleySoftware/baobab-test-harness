@@ -403,6 +403,66 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
     }
+    
+    $title = 'Baseline Test 6T: Test With A Fairly Specific Tag 8 (Medium Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag8=17:30:00';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"places":[7,53,65,176,311,334,362,363,902,903,904,907,985,986,1056,1101,1226,1227,1282,1284,1331,1405,1406,1442,1480,1545,1616,1657,1677,1684,1688]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 6U: Test With A Fairly Vague Tag 8 (Medium Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag8=17:%';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"places":[7,51,52,53,59,65,176,211,308,309,311,328,333,334,362,363,902,903,904,907,985,986,1056,1073,1101,1221,1223,1224,1226,1227,1282,1284,1331,1344,1345,1405,1406,1442,1480,1545,1599,1616,1657,1677,1684,1688]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 6V: Test With A Blank Tag 8 (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag8=';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"people":[1725,1726,1727,1728,1729],"things":[1732,1733,1734,1735,1736,1737,1738,1739,1740,1741,1742,1743,1744]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
 }
 
 // --------------------
@@ -775,6 +835,66 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $title = 'Baseline Test 7S: Test With An Empty Tag 7 (Small Response)';
     $method = 'GET';
     $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag7=';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<people><value sequence_index="0">1725</value><value sequence_index="1">1726</value><value sequence_index="2">1727</value><value sequence_index="3">1728</value><value sequence_index="4">1729</value></people><things><value sequence_index="0">1732</value><value sequence_index="1">1733</value><value sequence_index="2">1734</value><value sequence_index="3">1735</value><value sequence_index="4">1736</value><value sequence_index="5">1737</value><value sequence_index="6">1738</value><value sequence_index="7">1739</value><value sequence_index="8">1740</value><value sequence_index="9">1741</value><value sequence_index="10">1742</value><value sequence_index="11">1743</value><value sequence_index="12">1744</value></things></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 7T: Test With A Fairly Specific Tag 8 (Medium Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag8=17:30:00';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<places><value sequence_index="0">7</value><value sequence_index="1">53</value><value sequence_index="2">65</value><value sequence_index="3">176</value><value sequence_index="4">311</value><value sequence_index="5">334</value><value sequence_index="6">362</value><value sequence_index="7">363</value><value sequence_index="8">902</value><value sequence_index="9">903</value><value sequence_index="10">904</value><value sequence_index="11">907</value><value sequence_index="12">985</value><value sequence_index="13">986</value><value sequence_index="14">1056</value><value sequence_index="15">1101</value><value sequence_index="16">1226</value><value sequence_index="17">1227</value><value sequence_index="18">1282</value><value sequence_index="19">1284</value><value sequence_index="20">1331</value><value sequence_index="21">1405</value><value sequence_index="22">1406</value><value sequence_index="23">1442</value><value sequence_index="24">1480</value><value sequence_index="25">1545</value><value sequence_index="26">1616</value><value sequence_index="27">1657</value><value sequence_index="28">1677</value><value sequence_index="29">1684</value><value sequence_index="30">1688</value></places></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 7U: Test With A Fairly Vague Tag 8 (Medium Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag8=17:%';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<places><value sequence_index="0">7</value><value sequence_index="1">51</value><value sequence_index="2">52</value><value sequence_index="3">53</value><value sequence_index="4">59</value><value sequence_index="5">65</value><value sequence_index="6">176</value><value sequence_index="7">211</value><value sequence_index="8">308</value><value sequence_index="9">309</value><value sequence_index="10">311</value><value sequence_index="11">328</value><value sequence_index="12">333</value><value sequence_index="13">334</value><value sequence_index="14">362</value><value sequence_index="15">363</value><value sequence_index="16">902</value><value sequence_index="17">903</value><value sequence_index="18">904</value><value sequence_index="19">907</value><value sequence_index="20">985</value><value sequence_index="21">986</value><value sequence_index="22">1056</value><value sequence_index="23">1073</value><value sequence_index="24">1101</value><value sequence_index="25">1221</value><value sequence_index="26">1223</value><value sequence_index="27">1224</value><value sequence_index="28">1226</value><value sequence_index="29">1227</value><value sequence_index="30">1282</value><value sequence_index="31">1284</value><value sequence_index="32">1331</value><value sequence_index="33">1344</value><value sequence_index="34">1345</value><value sequence_index="35">1405</value><value sequence_index="36">1406</value><value sequence_index="37">1442</value><value sequence_index="38">1480</value><value sequence_index="39">1545</value><value sequence_index="40">1599</value><value sequence_index="41">1616</value><value sequence_index="42">1657</value><value sequence_index="43">1677</value><value sequence_index="44">1684</value><value sequence_index="45">1688</value></places></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 7V: Test With A Blank Tag 8 (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag8=';
     $data = NULL;
     $api_key = NULL;
     $expected_result_code = 200;
