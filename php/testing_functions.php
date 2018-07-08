@@ -150,8 +150,50 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
     echo('<div class="indent_1 test_report bad_report"><h3 style="color:red">Did Not Receive Expected Result Code: '.intval($in_result_code).'</h3>');
     if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
         echo('<div class="indent_1" style="color:green"><strong>Received Expected Result</strong><div>');
+        if ($in_result) {
+            if (preg_match('|^\<\?xml|', $in_result)) {
+                echo('<div id="'.$id.'" class="inner_closed">');
+                    echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                    echo('<div class="inner_container">');
+                        echo('<div class="container"><pre>');
+                            echo(prettify_xml($in_result));
+                        echo('</pre></div>');
+                    echo('</div>');
+                echo('</div>');
+            } else {
+                echo('<div id="'.$id.'" class="inner_closed">');
+                    echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                    echo('<div class="inner_container">');
+                        echo('<div class="container"><pre>');
+                            echo(prettify_json($in_result));
+                        echo('</pre></div>');
+                    echo('</div>');
+                echo('</div>');
+            }
+        }
     } elseif ($in_expected_result) {
         echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong></div>');
+        if ($in_result) {
+            if (preg_match('|^\<\?xml|', $in_result)) {
+                echo('<div id="'.$id.'" class="inner_closed">');
+                    echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                    echo('<div class="inner_container">');
+                        echo('<div class="container"><pre>');
+                            echo(prettify_xml($in_result));
+                        echo('</pre></div>');
+                    echo('</div>');
+                echo('</div>');
+            } else {
+                echo('<div id="'.$id.'" class="inner_closed">');
+                    echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                    echo('<div class="inner_container">');
+                        echo('<div class="container"><pre>');
+                            echo(prettify_json($in_result));
+                        echo('</pre></div>');
+                    echo('</div>');
+                echo('</div>');
+            }
+        }
     }
     
     timing_report($in_st_1);
@@ -200,6 +242,27 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
         }
     } elseif ($in_expected_result || $in_result && ($in_expected_result != $in_result)) {
         echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong></div>');
+        if ($in_result) {
+            if (preg_match('|^\<\?xml|', $in_result)) {
+                echo('<div id="'.$id.'" class="inner_closed">');
+                    echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                    echo('<div class="inner_container">');
+                        echo('<div class="container"><pre>');
+                            echo(prettify_xml($in_result));
+                        echo('</pre></div>');
+                    echo('</div>');
+                echo('</div>');
+            } else {
+                echo('<div id="'.$id.'" class="inner_closed">');
+                    echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                    echo('<div class="inner_container">');
+                        echo('<div class="container"><pre>');
+                            echo(prettify_json($in_result));
+                        echo('</pre></div>');
+                    echo('</div>');
+                echo('</div>');
+            }
+        }
     }
     
     timing_report($in_st_1);
