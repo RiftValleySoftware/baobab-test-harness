@@ -463,6 +463,66 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
     }
+    
+    $title = 'Baseline Test 6W: Test With A Fairly Specific Tag 9 (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag9=TAG-9-TEST-PEOPLE';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"people":[1726,1728]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 6X: Test With A Fairly Vague Tag 9 (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag9=TAG-9-TEST%';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"people":[1726,1728],"things":[1735,1743,1744]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 6Y: Test With An Empty Tag 9 (Large Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag9=';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = file_get_contents(dirname(__FILE__).'/03-search_baseline_tests-6Y-Value.txt');
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
 }
 
 // --------------------
@@ -911,6 +971,65 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
     }
+    
+    $title = 'Baseline Test 7W: Test With A Fairly Specific Tag 9 (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag9=TAG-9-TEST-PEOPLE';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<people><value sequence_index="0">1726</value><value sequence_index="1">1728</value></people></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 7X: Test With A Fairly Vague Tag 9 (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag9=TAG-9-TEST%';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<people><value sequence_index="0">1726</value><value sequence_index="1">1728</value></people><things><value sequence_index="0">1735</value><value sequence_index="1">1743</value><value sequence_index="2">1744</value></things></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 7Y: Test With An Empty Tag 9 (Large Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag9=';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').file_get_contents(dirname(__FILE__).'/03-search_baseline_tests-7Y-Value.txt').'</baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
 }
-
 ?>

@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(4, 'RESOURCE-NEUTRAL BASELINE SEARCHES', 'We search for resources with the baseline plugin, which returns them as groups of IDs.');
+baobab_run_tests(4, 'RESOURCE-NEUTRAL NAME STRING BASELINE SEARCHES', 'We search for resources with the baseline plugin, which returns them as groups of IDs.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
