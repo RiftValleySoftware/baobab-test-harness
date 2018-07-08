@@ -16,23 +16,6 @@
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
 baobab_run_tests(1, 'GENERIC BASELINE AND SCHEMA', 'Try the basic list plugins command, and access each plugin for its XML schema.');
-    
-function get_xsd($in_plugin_name, $in_dirname = NULL) {
-    if (!$in_dirname) {
-        $in_dirname = "/plugins/$in_plugin_name";
-    }
-    
-    $xsd_path = dirname(dirname(dirname(__FILE__))).'/basalt/'.$in_dirname.'/schema.xsd';
-    
-    $ret = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-    $server_url = __SERVER_URI__;
-    $xsd_uri = $server_url.'/xsd/'.$in_plugin_name;
-    $ret .= "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:b='$server_url' elementFormDefault='qualified' targetNamespace='$server_url'>";
-
-    $ret .= file_get_contents($xsd_path);
-    $ret .= '</xs:schema>';
-    return $ret;
-}
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 

@@ -93,9 +93,33 @@ function prettify_json($json) {
     return $result;
 }
 
+function get_xml_header($in_plugin_name) {
+    $ret = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+    $xsd_uri = __SERVER_URI__.'/xsd/'.$in_plugin_name;
+    $ret .= '<'.$in_plugin_name." xsi:schemaLocation=\"".__SERVER_URI__." $xsd_uri\" xmlns=\"".__SERVER_URI__."\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">";
+    
+    return $ret;
+}
+
+function get_xsd($in_plugin_name, $in_dirname = NULL) {
+    if (!$in_dirname) {
+        $in_dirname = "/plugins/$in_plugin_name";
+    }
+    
+    $xsd_path = dirname(dirname(__FILE__)).'/basalt/'.$in_dirname.'/schema.xsd';
+    
+    $ret = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+    $server_url = __SERVER_URI__;
+    $xsd_uri = $server_url.'/xsd/'.$in_plugin_name;
+    $ret .= "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:b='$server_url' elementFormDefault='qualified' targetNamespace='$server_url'>";
+
+    $ret .= file_get_contents($xsd_path);
+    $ret .= '</xs:schema>';
+    return $ret;
+}
+
 function validate_xml($in_xml, $in_plugin_name) {
     $schema = get_xsd($in_plugin_name, ('baseline' == $in_plugin_name) ? 'main' : NULL);
-    
     $domxml = new DOMDocument('1.0');
     $domxml->preserveWhiteSpace = false;
     $domxml->formatOutput = true;
@@ -127,7 +151,7 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
     if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
         echo('<div class="indent_1" style="color:green"><strong>Received Expected Result</strong><div>');
     } elseif ($in_expected_result) {
-        echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong><div>');
+        echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong></div>');
     }
     
     timing_report($in_st_1);
@@ -136,6 +160,7 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
 }
 
 function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_result) {
+    $id = uniqid('test-result-');
     echo('<div class="indent_1 test_report good_report"><h3 style="color:green">Received Expected Result Code: '.intval($in_result_code).'</h3>');
     if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
         echo('<div class="indent_1" style="color:green"><p>Received Expected Result</p></div>');
@@ -145,9 +170,36 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
             if ($plugin_name) {
                 validate_xml($in_result, $plugin_name);
             }
+            
+            echo('<div id="'.$id.'" class="inner_closed">');
+                echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                echo('<div class="inner_container">');
+                    echo('<div class="container"><pre>');
+                        echo(prettify_xml($in_result));
+                    echo('</pre></div>');
+                echo('</div>');
+            echo('</div>');
+        } elseif (preg_match('|^\<\?xml|', $in_result)) {
+            echo('<div id="'.$id.'" class="inner_closed">');
+                echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                echo('<div class="inner_container">');
+                    echo('<div class="container"><pre>');
+                        echo(prettify_xml($in_result));
+                    echo('</pre></div>');
+                echo('</div>');
+            echo('</div>');
+        } else {
+            echo('<div id="'.$id.'" class="inner_closed">');
+                echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                echo('<div class="inner_container">');
+                    echo('<div class="container"><pre>');
+                        echo(prettify_json($in_result));
+                    echo('</pre></div>');
+                echo('</div>');
+            echo('</div>');
         }
     } elseif ($in_expected_result || $in_result && ($in_expected_result != $in_result)) {
-        echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong><div>');
+        echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong></div>');
     }
     
     timing_report($in_st_1);
