@@ -1032,4 +1032,140 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
 }
+
+// --------------------
+
+function basalt_test_define_0008() {
+    basalt_run_single_direct_test(8, 'Combined Tag Search (JSON)', 'Search with combinations of tags.', 'baseline_tests');
+}
+
+function basalt_test_0008($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Baseline Test 8A: See what the Tag 0 search for "Grace%" gives us: (Medium Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag0=Grace%';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"places":[17,102,158,274,280,315,377,400,408,441,949,1050,1278,1330,1476,1592,1621,1626,1646,1704,1717,1721]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 8B: See what the Tag 5 search for "WV" gives us: (Medium Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag5=wv';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"places":[1590,1591,1592,1593,1594,1595,1596,1597,1598,1599,1600,1601,1602,1603,1604,1605,1606,1607,1608]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 8C: See what the Tag 0 search for "Grace%" and the Tag 5 search for "WV" gives us: (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search/?search_tag0=Grace%&search_tag5=wv';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"baseline":{"places":[1592]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+}
+
+// --------------------
+
+function basalt_test_define_0009() {
+    basalt_run_single_direct_test(9, 'Combined Tag Search (XML)', 'Search with combinations of tags.', 'baseline_tests');
+}
+
+function basalt_test_0009($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Baseline Test 9A: See what the Tag 0 search for "Grace%" gives us: (Medium Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag0=Grace%';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<places><value sequence_index="0">17</value><value sequence_index="1">102</value><value sequence_index="2">158</value><value sequence_index="3">274</value><value sequence_index="4">280</value><value sequence_index="5">315</value><value sequence_index="6">377</value><value sequence_index="7">400</value><value sequence_index="8">408</value><value sequence_index="9">441</value><value sequence_index="10">949</value><value sequence_index="11">1050</value><value sequence_index="12">1278</value><value sequence_index="13">1330</value><value sequence_index="14">1476</value><value sequence_index="15">1592</value><value sequence_index="16">1621</value><value sequence_index="17">1626</value><value sequence_index="18">1646</value><value sequence_index="19">1704</value><value sequence_index="20">1717</value><value sequence_index="21">1721</value></places></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 9B: See what the Tag 5 search for "WV" gives us: (Medium Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag5=wv';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<places><value sequence_index="0">1590</value><value sequence_index="1">1591</value><value sequence_index="2">1592</value><value sequence_index="3">1593</value><value sequence_index="4">1594</value><value sequence_index="5">1595</value><value sequence_index="6">1596</value><value sequence_index="7">1597</value><value sequence_index="8">1598</value><value sequence_index="9">1599</value><value sequence_index="10">1600</value><value sequence_index="11">1601</value><value sequence_index="12">1602</value><value sequence_index="13">1603</value><value sequence_index="14">1604</value><value sequence_index="15">1605</value><value sequence_index="16">1606</value><value sequence_index="17">1607</value><value sequence_index="18">1608</value></places></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'Baseline Test 9C: See what the Tag 0 search for "Grace%" and the Tag 5 search for "WV" gives us: (Small Response)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search/?search_tag0=Grace%&search_tag5=wv';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').'<places><value sequence_index="0">1592</value></places></baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+}
 ?>
