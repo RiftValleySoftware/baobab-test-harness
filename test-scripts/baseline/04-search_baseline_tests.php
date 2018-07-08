@@ -148,7 +148,7 @@ function basalt_test_define_0013() {
 }
 
 function basalt_test_0013($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
-    $title = 'Baseline Test 12A: Search for all resources within 10Km of Princeton, West Virginia (Empty Response).';
+    $title = 'Baseline Test 13A: Search for all resources within 10Km of Princeton, West Virginia (Empty Response).';
     $method = 'GET';
     $uri = __SERVER_URI__.'/xml/baseline/search/?search_radius=10&search_longitude=-81.094659&search_latitude=37.367334';
     $data = NULL;
@@ -168,7 +168,7 @@ function basalt_test_0013($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'Baseline Test 12B: Try again, but at 50KM (Small Response).';
+    $title = 'Baseline Test 13B: Try again, but at 50KM (Small Response).';
     $method = 'GET';
     $uri = __SERVER_URI__.'/xml/baseline/search/?search_radius=50&search_longitude=-81.094659&search_latitude=37.367334';
     $data = NULL;
@@ -188,7 +188,7 @@ function basalt_test_0013($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'Baseline Test 12B: Try again, but at 200KM (Medium Response).';
+    $title = 'Baseline Test 13B: Try again, but at 200KM (Medium Response).';
     $method = 'GET';
     $uri = __SERVER_URI__.'/xml/baseline/search/?search_radius=200&search_longitude=-81.094659&search_latitude=37.367334';
     $data = NULL;
