@@ -20,7 +20,7 @@ baobab_run_tests(4, 'RESOURCE-NEUTRAL BASELINE SEARCHES', 'We search for resourc
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
 function basalt_test_define_0004() {
-    basalt_run_single_direct_test(4, 'Simple Name Search (JSON)', 'Do a simple search on an object name.', 'things_tests');
+    basalt_run_single_direct_test(4, 'Simple Name Search (JSON)', 'Do a simple search on an object name.', 'baseline_tests');
 }
 
 function basalt_test_0004($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -68,7 +68,7 @@ function basalt_test_0004($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0005() {
-    basalt_run_single_direct_test(5, 'Simple Name Search (XML)', 'Do a simple search on an object name.', 'things_tests');
+    basalt_run_single_direct_test(5, 'Simple Name Search (XML)', 'Do a simple search on an object name.', 'baseline_tests');
 }
 
 function basalt_test_0005($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
