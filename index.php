@@ -23,8 +23,8 @@ require_once($config_file_path);
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>BASALT</title>
-        <link rel="shortcut icon" href="icon.png" type="image/png" />
+        <title>BAOBAB</title>
+        <link rel="shortcut icon" href="images/BAOBAB.png" type="image/png" />
         <style>
             *{margin:0;padding:0}
             body {
@@ -60,7 +60,7 @@ require_once($config_file_path);
     
                 require_once(CO_Config::main_class_dir()."/co_basalt.class.php");
             ?>
-            <img src="icon.png" style="display:block;margin:auto;width:80px" alt="BAOBAB Logo" />
+            <img src="images/BAOBAB.png" style="display:block;margin:auto;width:80px" alt="BAOBAB Logo" />
             <h1 class="header">MAIN ENVIRONMENT SETUP</h1>
             <div style="text-align:left;margin:auto;display:table">
                 <div class="main_div container">
