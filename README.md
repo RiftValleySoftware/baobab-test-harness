@@ -1,9 +1,13 @@
-\page BAOBAB BAOBAB
+\mainpage BAOBAB
 
-![BASALT](images/BASALT.png)
+![BAOBAB](images/BAOBAB.png)
 
-BAOBAB
-======
+BAOBAB APPLICATION SERVER
+=========================
+
+Part of the Rift Valley Platform
+-----------------------------------------------------------------------------------------------------------------
+![BAOBAB Server and The Rift Valley Platform](images/BothLogos.png)
 
 LICENSE
 =======
