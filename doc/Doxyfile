@@ -792,7 +792,8 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = ../README.md \
-                         ../basalt/main \
+                         ../basalt/main/a_co_basalt_plugin.class.php \
+                         ../basalt/main/co_basalt.class.php \
                          ../basalt/lang \
                          ../basalt/README.md \
                          ../basalt/badger_extension_classes \
@@ -816,6 +817,7 @@ INPUT                  = ../README.md \
                          ../basalt/andisol/cobra/chameleon/badger/README.md \
                          ../basalt/entrypoint.php \
                          ../basalt/plugins \
+                         ../basalt/main/README.md \
                          ../basalt/plugins/people \
                          ../basalt/plugins/places \
                          ../basalt/plugins/things \
