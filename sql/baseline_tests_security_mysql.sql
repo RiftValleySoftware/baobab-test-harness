@@ -20,7 +20,7 @@ INSERT INTO co_security_nodes (id, api_key, login_id, access_class, last_access,
 (9, NULL, 'DCAdmin', 'CO_Security_Login', '1970-01-01 00:00:00', 9, 9, 'Washington DC Login', 'a:2:{s:4:"lang";s:2:"en";s:15:\"hashed_password\";s:13:\"CodYOzPtwxb4A\";}', ''),
 (10, NULL, 'WVAdmin', 'CO_Security_Login', '1970-01-01 00:00:00', 10, 10, 'West Virginia Login', 'a:2:{s:4:"lang";s:2:"en";s:15:\"hashed_password\";s:13:\"CodYOzPtwxb4A\";}', ''),
 (11, NULL, 'DEAdmin', 'CO_Security_Login', '1970-01-01 00:00:00', 11, 11, 'Delaware Login', 'a:2:{s:4:"lang";s:2:"en";s:15:\"hashed_password\";s:13:\"CodYOzPtwxb4A\";}', ''),
-(12, NULL, 'MainAdmin', 'CO_Security_Login', '1970-01-01 00:00:00', 12, 12, 'Main Admin Login', 'a:2:{s:4:"lang";s:2:"en";s:15:\"hashed_password\";s:13:\"CodYOzPtwxb4A\";}', '7,8,9,10,11');
+(12, NULL, 'MainAdmin', 'CO_Login_Manager', '1970-01-01 00:00:00', 12, 12, 'Main Admin Login', 'a:2:{s:4:"lang";s:2:"en";s:15:\"hashed_password\";s:13:\"CodYOzPtwxb4A\";}', '7,8,9,10,11');
 
 ALTER TABLE co_security_nodes
   ADD PRIMARY KEY (id),
