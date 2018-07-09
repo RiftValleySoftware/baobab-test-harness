@@ -208,4 +208,102 @@ function basalt_test_0013($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
 }
+
+// --------------------
+
+function basalt_test_define_0014() {
+    basalt_run_single_direct_test(14, 'No Search Criteria Search (JSON)', 'Just find everything (no query arguments).', 'baseline_tests');
+}
+
+function basalt_test_0014($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Baseline Test 14A: Don\'t log in, and do a "blank" search (Large Response).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = file_get_contents(dirname(__FILE__).'/04-search_baseline_tests-14A-Value.txt');
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $result_code = '';
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+
+    $title = 'Baseline Test 14B: Log in, and do a "blank" search (Large Response).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/baseline/search';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = file_get_contents(dirname(__FILE__).'/04-search_baseline_tests-14B-Value.txt');
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+}
+
+// --------------------
+
+function basalt_test_define_0015() {
+    basalt_run_single_direct_test(15, 'No Search Criteria Search (XML)', 'Just find everything (no query arguments).', 'baseline_tests');
+}
+
+function basalt_test_0015($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Baseline Test 15A: Don\'t log in, and do a "blank" search (Large Response).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').file_get_contents(dirname(__FILE__).'/04-search_baseline_tests-15A-Value.txt').'</baseline>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $result_code = '';
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+
+    $title = 'Baseline Test 15B: Log in, and do a "blank" search (Large Response).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/baseline/search';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('baseline').file_get_contents(dirname(__FILE__).'/04-search_baseline_tests-15B-Value.txt').'</baseline>';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+}
 ?>
