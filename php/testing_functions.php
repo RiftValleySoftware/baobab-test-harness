@@ -25,6 +25,14 @@ if (!class_exists('CO_Config')) {
 
 require_once(dirname(__FILE__).'/callREST.php');
 
+function clean_last_access_json($in_json) {
+    return preg_replace('|"last_access":"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d"|', '"last_access":"1970-01-02 00:00:00"', $in_json);
+}
+
+function clean_last_access_xml($in_xml) {
+    return preg_replace('|\<last_access\>\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d|', '<last_access>1970-01-02 00:00:00', $in_xml);
+}
+
 function prettify_xml($xml) {
     $domxml = new DOMDocument('1.0');
     $domxml->preserveWhiteSpace = false;

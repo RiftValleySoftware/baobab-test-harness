@@ -27,7 +27,7 @@ INSERT INTO co_security_nodes (id, api_key, login_id, access_class, last_access,
 (16, NULL, 'Alice', 'CO_Cobra_Login', '1970-01-01 00:00:00', 16, 16, 'Alice Login', 'a:2:{s:4:"lang";s:2:"en";s:15:\"hashed_password\";s:13:\"CodYOzPtwxb4A\";}', ''),
 (17, NULL, 'Tina', 'CO_Cobra_Login', '1970-01-01 00:00:00', 17, 17, 'Tina Login', 'a:2:{s:4:"lang";s:2:"en";s:15:\"hashed_password\";s:13:\"CodYOzPtwxb4A\";}', ''),
 (18, NULL, 'PHB', 'CO_Login_Manager', '1970-01-01 00:00:00', 18, 18, 'Pointy-Haired Boss login', 'a:2:{s:4:"lang";s:2:"en";s:15:\"hashed_password\";s:13:\"CodYOzPtwxb4A\";}', '13,14,15,16,17'),
-(19, NULL, 'MeLeet', 'CO_Security_Login', '1970-01-01 00:00:00', 19, 19, 'Elbonian Hacker', 'a:2:{s:4:"lang";s:2:"en";s:15:\"hashed_password\";s:13:\"CodYOzPtwxb4A\";}', '2');
+(19, NULL, 'MeLeet', 'CO_Security_Login', '1970-01-01 00:00:00', 19, 19, 'Elbonian Hacker', 'a:2:{s:4:"lang";s:2:"eb";s:15:\"hashed_password\";s:13:\"CodYOzPtwxb4A\";}', '2');
 
 ALTER TABLE co_security_nodes
   ADD PRIMARY KEY (id),
