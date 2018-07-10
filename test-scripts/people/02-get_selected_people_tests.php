@@ -812,7 +812,7 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0029() {
-    basalt_run_single_direct_test(29, 'Access A Single User By Login ID (JSON)', 'GET tests for users, where we access one single user, by its numerical or string login ID.', 'people_tests');
+    basalt_run_single_direct_test(29, 'Access A Single User By Login ID (XML)', 'GET tests for users, where we access one single user, by its numerical or string login ID.', 'people_tests');
 }
 
 function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -1023,5 +1023,93 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0030() {
+    basalt_run_single_direct_test(30, 'Access Logins (JSON)', 'GET tests for logins', 'people_tests');
+}
+
+function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 30A: Access Logins (Not Logged In)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 403;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 30A: Access Logins (Regular User Login)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MeLeet&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 403;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 30A: Access Logins (Manager Login)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":7,"name":"Maryland Login","lang":"en","login_id":"MDAdmin"},{"id":8,"name":"Virginia Login","lang":"en","login_id":"VAAdmin"},{"id":9,"name":"Washington DC Login","lang":"en","login_id":"DCAdmin"},{"id":10,"name":"West Virginia Login","lang":"en","login_id":"WVAdmin"},{"id":11,"name":"Delaware Login","lang":"en","login_id":"DEAdmin"},{"id":12,"name":"Main Admin Login","lang":"en","login_id":"MainAdmin"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 30A: Access Logins (PHB Manager Login)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=PHB&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":13,"name":"Dilbert Login","lang":"en","login_id":"Dilbert"},{"id":14,"name":"Wally Login","lang":"en","login_id":"Wally"},{"id":15,"name":"Ted Login","lang":"en","login_id":"Ted"},{"id":16,"name":"Alice Login","lang":"en","login_id":"Alice"},{"id":17,"name":"Tina Login","lang":"en","login_id":"Tina"},{"id":18,"name":"Pointy-Haired Boss login","lang":"en","login_id":"PHB"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
 }
 ?>
