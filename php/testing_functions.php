@@ -247,18 +247,22 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                 echo('<div id="'.$id.'" class="inner_closed">');
                     echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                     echo('<div class="inner_container">');
-                        echo('<div class="container"><pre>');
+                        echo('<div class="container"><div><pre>');
                             echo(prettify_xml($in_result));
                         echo('</pre></div>');
+                        echo('<div><strong>EXPECTED:</strong><pre>'.prettify_xml($in_expected_result).'</pre></div>');
+                        echo('</div>');
                     echo('</div>');
                 echo('</div>');
             } else {
                 echo('<div id="'.$id.'" class="inner_closed">');
                     echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                     echo('<div class="inner_container">');
-                        echo('<div class="container"><pre>');
+                        echo('<div class="container"><div><pre>');
                             echo(prettify_json($in_result));
                         echo('</pre></div>');
+                        echo('<div><strong>EXPECTED:</strong><pre>'.prettify_json($in_expected_result).'</pre></div>');
+                        echo('</div>');
                     echo('</div>');
                 echo('</div>');
             }

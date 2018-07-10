@@ -15,12 +15,12 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(20, 'BASIC PEOPLE TESTS', 'Access All Available Resources.');
+baobab_run_tests(20, 'BASIC PEOPLE TESTS', 'Access All Available Resources. NOTE: For the last two tests, it is possible to get "false negative" results, because of the last_access field. Re-running the test should resolve that.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
 function basalt_test_define_0020() {
-    basalt_run_single_direct_test(20, 'List People and Logins (JSON)', '', 'people_tests');
+    basalt_run_single_direct_test(20, 'List People and Logins (JSON)', 'GET tests for people and logins; with and without various logins.', 'people_tests');
 }
 
 function basalt_test_0020($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -50,7 +50,7 @@ function basalt_test_0020($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
     $expected_result_code = 200;
-    $expected_result = '{"people":["people","my_info"]}';
+    $expected_result = '{"people":["people"]}';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -72,7 +72,7 @@ function basalt_test_0020($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
     $expected_result_code = 200;
-    $expected_result = '{"people":["people","my_info","logins"]}';
+    $expected_result = '{"people":["people","logins"]}';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -264,7 +264,7 @@ function basalt_test_0020($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0021() {
-    basalt_run_single_direct_test(21, 'List People and Logins (XML)', '', 'people_tests');
+    basalt_run_single_direct_test(21, 'List People and Logins (XML)', 'GET tests for people and logins; with and without various logins.', 'people_tests');
 }
 
 function basalt_test_0021($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -294,7 +294,7 @@ function basalt_test_0021($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
     $expected_result_code = 200;
-    $expected_result = get_xml_header('people').'<value sequence_index="0">people</value><value sequence_index="1">my_info</value></people>';
+    $expected_result = get_xml_header('people').'<value sequence_index="0">people</value></people>';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -316,7 +316,7 @@ function basalt_test_0021($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
     $expected_result_code = 200;
-    $expected_result = get_xml_header('people').'<value sequence_index="0">people</value><value sequence_index="1">my_info</value><value sequence_index="2">logins</value></people>';
+    $expected_result = get_xml_header('people').'<value sequence_index="0">people</value><value sequence_index="1">logins</value></people>';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -505,4 +505,465 @@ function basalt_test_0021($in_login = NULL, $in_hashed_password = NULL, $in_pass
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
 }
 
+// --------------------
+
+function basalt_test_define_0022() {
+    basalt_run_single_direct_test(22, 'My Info (JSON)', 'Look at "My Info" GET test; with and without various logins.', 'people_tests');
+}
+
+function basalt_test_0022($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 22A: Get My People Info (Not Logged In). We expect this to fail with a 403.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 403;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 22B: Get My Login Info (Not Logged In). We expect this to fail with a 403.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/my_info';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 403;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 22C: Get My People Info (Logged In As A Regular User).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=Dilbert&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1745,"name":"Dilbert","lang":"en","coords":"37.331820,-122.031180","read_token":13,"write_token":13,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":37.33182,"longitude":-122.03118,"surname":"Ramone","given_name":"Dilbert","associated_login_id":13}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 22D: Get My People Info, along with the associated login info (Logged In As A Regular User).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info?login_user';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1745,"name":"Dilbert","lang":"en","coords":"37.331820,-122.031180","read_token":13,"write_token":13,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":37.33182,"longitude":-122.03118,"surname":"Ramone","given_name":"Dilbert","current_login":true,"associated_login":{"id":13,"name":"Dilbert Login","lang":"en","login_id":"Dilbert","read_token":13,"write_token":13,"last_access":"'.$access_time.'","writeable":true,"current_login":true,"user_object_id":1745,"security_tokens":[13],"current_api_key":true}}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 22E: Get My Login Info (Logged In As A Regular User).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/my_info';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":{"my_info":{"id":13,"name":"Dilbert Login","lang":"en","login_id":"Dilbert","read_token":13,"write_token":13,"last_access":"'.$access_time.'","writeable":true,"current_login":true,"user_object_id":1745,"security_tokens":[13],"current_api_key":true}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 22F: Get My People Info (Logged In As A Manager).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1730,"name":"Main Admin","lang":"en","coords":"38.989700,-76.937800","read_token":1,"write_token":12,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":38.9897,"longitude":-76.9378,"associated_login_id":12}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 22G: Get My People Info, along with the associated login info (Logged In As A Manager).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info?login_user';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1730,"name":"Main Admin","lang":"en","coords":"38.989700,-76.937800","read_token":1,"write_token":12,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":38.9897,"longitude":-76.9378,"current_login":true,"associated_login":{"id":12,"name":"Main Admin Login","lang":"en","login_id":"MainAdmin","read_token":12,"write_token":12,"last_access":"'.$access_time.'","writeable":true,"current_login":true,"user_object_id":1730,"security_tokens":[12,7,8,9,10,11],"current_api_key":true}}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 22H: Get My Login Info (Logged In As A Manager).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/my_info';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":{"my_info":{"id":12,"name":"Main Admin Login","lang":"en","login_id":"MainAdmin","read_token":12,"write_token":12,"last_access":"'.$access_time.'","writeable":true,"current_login":true,"user_object_id":1730,"security_tokens":[12,7,8,9,10,11],"current_api_key":true}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 22I: Get My People Info (Logged In As "God").';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1731,"name":"God Admin","lang":"en","coords":"38.871900,-77.056300","read_token":1,"write_token":2,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":38.8719,"longitude":-77.0563,"middle_name":"TAG-2-TEST-PEOPLE","associated_login_id":2}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 22J: Get My People Info, along with the associated login info (Logged In As "God").';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info?login_user';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1731,"name":"God Admin","lang":"en","coords":"38.871900,-77.056300","read_token":1,"write_token":2,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":38.8719,"longitude":-77.0563,"middle_name":"TAG-2-TEST-PEOPLE","current_login":true,"associated_login":{"id":2,"name":"God Admin Login","lang":"en","login_id":"admin","last_access":"'.$access_time.'","writeable":true,"current_login":true,"user_object_id":1731,"security_tokens":[2],"current_api_key":true,"api_key":"'.$api_key.'","api_key_age_in_seconds":1}}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 22K: Get My Login Info (Logged In As "God").';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/my_info';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":{"my_info":{"id":2,"name":"God Admin Login","lang":"en","login_id":"admin","last_access":"'.$access_time.'","writeable":true,"current_login":true,"user_object_id":1731,"security_tokens":[2],"current_api_key":true,"api_key":"'.$api_key.'","api_key_age_in_seconds":1}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0023() {
+    basalt_run_single_direct_test(23, 'My Info (XML)', 'Look at "My Info" GET test; with and without various logins.', 'people_tests');
+}
+
+function basalt_test_0023($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 23A: Get My People Info (Not Logged In). We expect this to fail with a 403.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 403;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 23B: Get My Login Info (Not Logged In). We expect this to fail with a 403.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/my_info';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 403;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 23C: Get My People Info (Logged In As A Regular User).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=Dilbert&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1745</id><name>Dilbert</name><lang>en</lang><coords>37.331820,-122.031180</coords><read_token>13</read_token><write_token>13</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>37.33182</latitude><longitude>-122.03118</longitude><surname>Ramone</surname><given_name>Dilbert</given_name><associated_login_id>13</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 23D: Get My People Info, along with the associated login info (Logged In As A Regular User).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info?login_user';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1745</id><name>Dilbert</name><lang>en</lang><coords>37.331820,-122.031180</coords><read_token>13</read_token><write_token>13</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>37.33182</latitude><longitude>-122.03118</longitude><surname>Ramone</surname><given_name>Dilbert</given_name><current_login>1</current_login><associated_login><id>13</id><name>Dilbert Login</name><lang>en</lang><login_id>Dilbert</login_id><read_token>13</read_token><write_token>13</write_token><last_access>'.$access_time.'</last_access><writeable>1</writeable><current_login>1</current_login><user_object_id>1745</user_object_id><security_tokens><value sequence_index="0">13</value></security_tokens><current_api_key>1</current_api_key></associated_login></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 23E: Get My Login Info (Logged In As A Regular User).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/my_info';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><my_info><id>13</id><name>Dilbert Login</name><lang>en</lang><login_id>Dilbert</login_id><read_token>13</read_token><write_token>13</write_token><last_access>'.$access_time.'</last_access><writeable>1</writeable><current_login>1</current_login><user_object_id>1745</user_object_id><security_tokens><value sequence_index="0">13</value></security_tokens><current_api_key>1</current_api_key></my_info></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 23F: Get My People Info (Logged In As A Manager).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1730</id><name>Main Admin</name><lang>en</lang><coords>38.989700,-76.937800</coords><read_token>1</read_token><write_token>12</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>38.9897</latitude><longitude>-76.9378</longitude><associated_login_id>12</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 23G: Get My People Info, along with the associated login info (Logged In As A Manager).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info?login_user';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1730</id><name>Main Admin</name><lang>en</lang><coords>38.989700,-76.937800</coords><read_token>1</read_token><write_token>12</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>38.9897</latitude><longitude>-76.9378</longitude><current_login>1</current_login><associated_login><id>12</id><name>Main Admin Login</name><lang>en</lang><login_id>MainAdmin</login_id><read_token>12</read_token><write_token>12</write_token><last_access>'.$access_time.'</last_access><writeable>1</writeable><current_login>1</current_login><user_object_id>1730</user_object_id><security_tokens><value sequence_index="0">12</value><value sequence_index="1">7</value><value sequence_index="2">8</value><value sequence_index="3">9</value><value sequence_index="4">10</value><value sequence_index="5">11</value></security_tokens><current_api_key>1</current_api_key></associated_login></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 23H: Get My Login Info (Logged In As A Manager).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/my_info';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><my_info><id>12</id><name>Main Admin Login</name><lang>en</lang><login_id>MainAdmin</login_id><read_token>12</read_token><write_token>12</write_token><last_access>'.$access_time.'</last_access><writeable>1</writeable><current_login>1</current_login><user_object_id>1730</user_object_id><security_tokens><value sequence_index="0">12</value><value sequence_index="1">7</value><value sequence_index="2">8</value><value sequence_index="3">9</value><value sequence_index="4">10</value><value sequence_index="5">11</value></security_tokens><current_api_key>1</current_api_key></my_info></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 23I: Get My People Info (Logged In As "God").';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1731</id><name>God Admin</name><lang>en</lang><coords>38.871900,-77.056300</coords><read_token>1</read_token><write_token>2</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>38.8719</latitude><longitude>-77.0563</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>2</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 23J: Get My People Info, along with the associated login info (Logged In As "God").';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info?login_user';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1731</id><name>God Admin</name><lang>en</lang><coords>38.871900,-77.056300</coords><read_token>1</read_token><write_token>2</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>38.8719</latitude><longitude>-77.0563</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><current_login>1</current_login><associated_login><id>2</id><name>God Admin Login</name><lang>en</lang><login_id>admin</login_id><last_access>'.$access_time.'</last_access><writeable>1</writeable><current_login>1</current_login><user_object_id>1731</user_object_id><security_tokens><value sequence_index="0">2</value></security_tokens><current_api_key>1</current_api_key><api_key>'.$api_key.'</api_key><api_key_age_in_seconds>1</api_key_age_in_seconds></associated_login></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 23K: Get My Login Info (Logged In As "God").';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/my_info';
+    $data = NULL;
+    $access_time = date('Y-m-d H:i:s');
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><my_info><id>2</id><name>God Admin Login</name><lang>en</lang><login_id>admin</login_id><last_access>'.$access_time.'</last_access><writeable>1</writeable><current_login>1</current_login><user_object_id>1731</user_object_id><security_tokens><value sequence_index="0">2</value></security_tokens><current_api_key>1</current_api_key><api_key>'.$api_key.'</api_key><api_key_age_in_seconds>1</api_key_age_in_seconds></my_info></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
 ?>
