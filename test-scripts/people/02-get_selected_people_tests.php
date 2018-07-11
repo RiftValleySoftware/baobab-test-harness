@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(30, 'BASIC SELECTED PEOPLE TESTS', 'Access Users and Logins Specifically. NOTE: in these tests, we "normalize" all the "last_access" values, so the match works.');
+baobab_run_tests(26, 'BASIC SELECTED PEOPLE TESTS', 'Access Users and Logins Specifically. NOTE: in these tests, we "normalize" all the "last_access" values, so the match works.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
@@ -1028,11 +1028,11 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0030() {
-    basalt_run_single_direct_test(30, 'Access Logins (JSON)', 'GET tests for logins', 'people_tests');
+    basalt_run_single_direct_test(30, 'Access All Available Logins (JSON)', 'GET tests for logins', 'people_tests');
 }
 
 function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
-    $title = 'People Test 30A: Access Logins (Not Logged In)';
+    $title = 'People Test 30A: Access All Available Logins (Not Logged In)';
     $method = 'GET';
     $uri = __SERVER_URI__.'/json/people/logins/';
     $data = NULL;
@@ -1052,7 +1052,7 @@ function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 30A: Access Logins (Regular User Login)';
+    $title = 'People Test 30B: Access All Available Logins (Regular User Login)';
     $method = 'GET';
     $uri = __SERVER_URI__.'/json/people/logins/';
     $data = NULL;
@@ -1072,7 +1072,9 @@ function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 30A: Access Logins (Manager Login)';
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 30C: Access All Available Logins (Manager Login)';
     $method = 'GET';
     $uri = __SERVER_URI__.'/json/people/logins/';
     $data = NULL;
@@ -1092,7 +1094,9 @@ function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 30A: Access Logins (PHB Manager Login)';
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 30D: Access All Available Logins (PHB Manager Login)';
     $method = 'GET';
     $uri = __SERVER_URI__.'/json/people/logins/';
     $data = NULL;
@@ -1111,5 +1115,145 @@ function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_pass
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
     }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 30E: Access All Available Logins, and show details ("God" Login)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/?show_details';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":2,"name":"God Admin Login","lang":"en","login_id":"admin","read_token":2,"write_token":2,"last_access":"1970-01-02 00:00:00","writeable":true,"current_login":true,"security_tokens":[2],"current_api_key":true,"api_key":"'.$api_key.'","api_key_age_in_seconds":1},{"id":7,"name":"Maryland Login","lang":"en","login_id":"MDAdmin","read_token":7,"write_token":7,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[7]},{"id":8,"name":"Virginia Login","lang":"en","login_id":"VAAdmin","read_token":8,"write_token":8,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[8]},{"id":9,"name":"Washington DC Login","lang":"en","login_id":"DCAdmin","read_token":9,"write_token":9,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[9]},{"id":10,"name":"West Virginia Login","lang":"en","login_id":"WVAdmin","read_token":10,"write_token":10,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[10]},{"id":11,"name":"Delaware Login","lang":"en","login_id":"DEAdmin","read_token":11,"write_token":11,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[11]},{"id":12,"name":"Main Admin Login","lang":"en","login_id":"MainAdmin","read_token":12,"write_token":12,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[12,7,8,9,10,11]},{"id":13,"name":"Dilbert Login","lang":"en","login_id":"Dilbert","read_token":13,"write_token":13,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[13]},{"id":14,"name":"Wally Login","lang":"en","login_id":"Wally","read_token":14,"write_token":14,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[14]},{"id":15,"name":"Ted Login","lang":"en","login_id":"Ted","read_token":15,"write_token":15,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[15]},{"id":16,"name":"Alice Login","lang":"en","login_id":"Alice","read_token":16,"write_token":16,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[16]},{"id":17,"name":"Tina Login","lang":"en","login_id":"Tina","read_token":17,"write_token":17,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[17]},{"id":18,"name":"Pointy-Haired Boss login","lang":"en","login_id":"PHB","read_token":18,"write_token":18,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[18,13,14,15,16,17]},{"id":19,"name":"Elbonian Hacker","lang":"eb","login_id":"MeLeet","read_token":19,"write_token":19,"last_access":"1970-01-02 00:00:00","writeable":true,"security_tokens":[19,2]}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0031() {
+    basalt_run_single_direct_test(31, 'Access All Available Logins (XML)', 'GET tests for logins', 'people_tests');
+}
+
+function basalt_test_0031($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 31A: Access All Available Logins (Not Logged In)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 403;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 31B: Access All Available Logins (Regular User Login)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MeLeet&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 403;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 31C: Access All Available Logins (Manager Login)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>7</id><name>Maryland Login</name><lang>en</lang><login_id>MDAdmin</login_id></value><value sequence_index="1"><id>8</id><name>Virginia Login</name><lang>en</lang><login_id>VAAdmin</login_id></value><value sequence_index="2"><id>9</id><name>Washington DC Login</name><lang>en</lang><login_id>DCAdmin</login_id></value><value sequence_index="3"><id>10</id><name>West Virginia Login</name><lang>en</lang><login_id>WVAdmin</login_id></value><value sequence_index="4"><id>11</id><name>Delaware Login</name><lang>en</lang><login_id>DEAdmin</login_id></value><value sequence_index="5"><id>12</id><name>Main Admin Login</name><lang>en</lang><login_id>MainAdmin</login_id></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 31D: Access All Available Logins (PHB Manager Login)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=PHB&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>13</id><name>Dilbert Login</name><lang>en</lang><login_id>Dilbert</login_id></value><value sequence_index="1"><id>14</id><name>Wally Login</name><lang>en</lang><login_id>Wally</login_id></value><value sequence_index="2"><id>15</id><name>Ted Login</name><lang>en</lang><login_id>Ted</login_id></value><value sequence_index="3"><id>16</id><name>Alice Login</name><lang>en</lang><login_id>Alice</login_id></value><value sequence_index="4"><id>17</id><name>Tina Login</name><lang>en</lang><login_id>Tina</login_id></value><value sequence_index="5"><id>18</id><name>Pointy-Haired Boss login</name><lang>en</lang><login_id>PHB</login_id></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 31E: Access All Available Logins, and show details ("God" Login)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/?show_details';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>2</id><name>God Admin Login</name><lang>en</lang><login_id>admin</login_id><read_token>2</read_token><write_token>2</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><current_login>1</current_login><security_tokens><value sequence_index="0">2</value></security_tokens><current_api_key>1</current_api_key><api_key>'.$api_key.'</api_key><api_key_age_in_seconds>1</api_key_age_in_seconds></value><value sequence_index="1"><id>7</id><name>Maryland Login</name><lang>en</lang><login_id>MDAdmin</login_id><read_token>7</read_token><write_token>7</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">7</value></security_tokens></value><value sequence_index="2"><id>8</id><name>Virginia Login</name><lang>en</lang><login_id>VAAdmin</login_id><read_token>8</read_token><write_token>8</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">8</value></security_tokens></value><value sequence_index="3"><id>9</id><name>Washington DC Login</name><lang>en</lang><login_id>DCAdmin</login_id><read_token>9</read_token><write_token>9</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">9</value></security_tokens></value><value sequence_index="4"><id>10</id><name>West Virginia Login</name><lang>en</lang><login_id>WVAdmin</login_id><read_token>10</read_token><write_token>10</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">10</value></security_tokens></value><value sequence_index="5"><id>11</id><name>Delaware Login</name><lang>en</lang><login_id>DEAdmin</login_id><read_token>11</read_token><write_token>11</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">11</value></security_tokens></value><value sequence_index="6"><id>12</id><name>Main Admin Login</name><lang>en</lang><login_id>MainAdmin</login_id><read_token>12</read_token><write_token>12</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">12</value><value sequence_index="1">7</value><value sequence_index="2">8</value><value sequence_index="3">9</value><value sequence_index="4">10</value><value sequence_index="5">11</value></security_tokens></value><value sequence_index="7"><id>13</id><name>Dilbert Login</name><lang>en</lang><login_id>Dilbert</login_id><read_token>13</read_token><write_token>13</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">13</value></security_tokens></value><value sequence_index="8"><id>14</id><name>Wally Login</name><lang>en</lang><login_id>Wally</login_id><read_token>14</read_token><write_token>14</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">14</value></security_tokens></value><value sequence_index="9"><id>15</id><name>Ted Login</name><lang>en</lang><login_id>Ted</login_id><read_token>15</read_token><write_token>15</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">15</value></security_tokens></value><value sequence_index="10"><id>16</id><name>Alice Login</name><lang>en</lang><login_id>Alice</login_id><read_token>16</read_token><write_token>16</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">16</value></security_tokens></value><value sequence_index="11"><id>17</id><name>Tina Login</name><lang>en</lang><login_id>Tina</login_id><read_token>17</read_token><write_token>17</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">17</value></security_tokens></value><value sequence_index="12"><id>18</id><name>Pointy-Haired Boss login</name><lang>en</lang><login_id>PHB</login_id><read_token>18</read_token><write_token>18</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">18</value><value sequence_index="1">13</value><value sequence_index="2">14</value><value sequence_index="3">15</value><value sequence_index="4">16</value><value sequence_index="5">17</value></security_tokens></value><value sequence_index="13"><id>19</id><name>Elbonian Hacker</name><lang>eb</lang><login_id>MeLeet</login_id><read_token>19</read_token><write_token>19</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><security_tokens><value sequence_index="0">19</value><value sequence_index="1">2</value></security_tokens></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
 }
 ?>
