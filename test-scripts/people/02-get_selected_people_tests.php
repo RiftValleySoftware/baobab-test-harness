@@ -1256,4 +1256,224 @@ function basalt_test_0031($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
 }
+
+// --------------------
+
+function basalt_test_define_0032() {
+    basalt_run_single_direct_test(32, 'Access Single Login Directly by ID (JSON)', 'GET test for logins. We log in as a manager, and look for a specific login.', 'people_tests');
+}
+
+function basalt_test_0032($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 32A: Access A Login (Logged in as a Manager). We try to get the login via its user ID (We\'ll get nothing).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/1725';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 32B: Access A Login (Logged in as a Manager). Now, we try with the login ID (not the user ID).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/7';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":7,"name":"Maryland Login","lang":"en","login_id":"MDAdmin"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    
+    $title = 'People Test 32C: Access A Login (Logged in as a Manager). Now, we try with the text login ID.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/MDAdmin';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":7,"name":"Maryland Login","lang":"en","login_id":"MDAdmin"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+
+    $title = 'People Test 32D: Access A Login (Logged in as a PHB Manager). We try to get the same login, but logged in with a different manager. We expect to get nothing.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/1725';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=PHB&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = 'People Test 32E: Access A Login (Logged in as a PHB Manager). But we will be able to see one of our employees\' logins.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/Dilbert?show_details';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":13,"name":"Dilbert Login","lang":"en","login_id":"Dilbert","read_token":13,"write_token":13,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1745,"security_tokens":[13]}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0033() {
+    basalt_run_single_direct_test(33, 'Access Single Login Directly by ID (XML)', 'GET test for logins. We log in as a manager, and look for a specific login.', 'people_tests');
+}
+
+function basalt_test_0033($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 33A: Access A Login (Logged in as a Manager). We try to get the login via its user ID (We\'ll get nothing).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/1725';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'</people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 33B: Access A Login (Logged in as a Manager). Now, we try with the login ID (not the user ID).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/7';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>7</id><name>Maryland Login</name><lang>en</lang><login_id>MDAdmin</login_id></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    
+    $title = 'People Test 33C: Access A Login (Logged in as a Manager). Now, we try with the text login ID.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/MDAdmin';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>7</id><name>Maryland Login</name><lang>en</lang><login_id>MDAdmin</login_id></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+
+    $title = 'People Test 33D: Access A Login (Logged in as a PHB Manager). We try to get the same login, but logged in with a different manager. We expect to get nothing.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/1725';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=PHB&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'</people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = 'People Test 33E: Access A Login (Logged in as a PHB Manager). But we will be able to see one of our employees\' logins.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/Dilbert?show_details';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>13</id><name>Dilbert Login</name><lang>en</lang><login_id>Dilbert</login_id><read_token>13</read_token><write_token>13</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1745</user_object_id><security_tokens><value sequence_index="0">13</value></security_tokens></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
 ?>
