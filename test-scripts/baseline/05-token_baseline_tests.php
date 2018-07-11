@@ -120,7 +120,7 @@ function basalt_test_0016($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_bad($result_code, $result, $st1, NULL);
     } else {
         $expected_result_code = 200;
-        $expected_result = '{"baseline":{"tokens":[2,1,7,8,9,10,11,12]}}';
+        $expected_result = '{"baseline":{"tokens":[2,1,3,4,5,6,7,8,9,10,11,12]}}';
         $result_code = '';
 
         test_header($title, $method, $uri, $expected_result_code);
@@ -316,7 +316,7 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_bad($result_code, $result, $st1, NULL);
     } else {
         $expected_result_code = 200;
-        $expected_result = get_xml_header('baseline').'<tokens><value sequence_index="0">2</value><value sequence_index="1">1</value><value sequence_index="2">7</value><value sequence_index="3">8</value><value sequence_index="4">9</value><value sequence_index="5">10</value><value sequence_index="6">11</value><value sequence_index="7">12</value></tokens></baseline>';
+        $expected_result = get_xml_header('baseline').'<tokens><value sequence_index="0">2</value><value sequence_index="1">1</value><value sequence_index="2">3</value><value sequence_index="3">4</value><value sequence_index="4">5</value><value sequence_index="5">6</value><value sequence_index="6">7</value><value sequence_index="7">8</value><value sequence_index="8">9</value><value sequence_index="9">10</value><value sequence_index="10">11</value><value sequence_index="11">12</value></tokens></baseline>';
         $result_code = '';
 
         test_header($title, $method, $uri, $expected_result_code);
