@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(37, 'BASIC SELECTED PEOPLE TESTS', 'Access Users and Logins Specifically. NOTE: in these tests, we "normalize" all the "last_access" values, so the match works.');
+baobab_run_tests(26, 'BASIC SELECTED PEOPLE TESTS', 'Access Users and Logins Specifically. NOTE: in these tests, we "normalize" all the "last_access" values, so the match works.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
@@ -2159,6 +2159,282 @@ function basalt_test_0037($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $title = 'People Test 37F: Access a bunch of individually-selected users (Logged in as "God"). We should get everything, including the Elbonian Hacker login.';
     $method = 'GET';
     $uri = __SERVER_URI__.'/xml/people/logins/2,7,8,9,10,11,12,13,14,15,16,17,18,19';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>2</id><name>God Admin Login</name><lang>en</lang><login_id>admin</login_id></value><value sequence_index="1"><id>7</id><name>Maryland Login</name><lang>en</lang><login_id>MDAdmin</login_id></value><value sequence_index="2"><id>8</id><name>Virginia Login</name><lang>en</lang><login_id>VAAdmin</login_id></value><value sequence_index="3"><id>9</id><name>Washington DC Login</name><lang>en</lang><login_id>DCAdmin</login_id></value><value sequence_index="4"><id>10</id><name>West Virginia Login</name><lang>en</lang><login_id>WVAdmin</login_id></value><value sequence_index="5"><id>11</id><name>Delaware Login</name><lang>en</lang><login_id>DEAdmin</login_id></value><value sequence_index="6"><id>12</id><name>Main Admin Login</name><lang>en</lang><login_id>MainAdmin</login_id></value><value sequence_index="7"><id>13</id><name>Dilbert Login</name><lang>en</lang><login_id>Dilbert</login_id></value><value sequence_index="8"><id>14</id><name>Wally Login</name><lang>en</lang><login_id>Wally</login_id></value><value sequence_index="9"><id>15</id><name>Ted Login</name><lang>en</lang><login_id>Ted</login_id></value><value sequence_index="10"><id>16</id><name>Alice Login</name><lang>en</lang><login_id>Alice</login_id></value><value sequence_index="11"><id>17</id><name>Tina Login</name><lang>en</lang><login_id>Tina</login_id></value><value sequence_index="12"><id>18</id><name>Pointy-Haired Boss login</name><lang>en</lang><login_id>PHB</login_id></value><value sequence_index="13"><id>19</id><name>Elbonian Hacker</name><lang>eb</lang><login_id>MeLeet</login_id></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0038() {
+    basalt_run_single_direct_test(38, 'Access A Bunch of Individually-Selected Logins by their login strings (not integer IDs) (JSON)', 'GET tests for logins', 'people_tests');
+}
+
+function basalt_test_0038($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 38A: Access a bunch of individually-selected logins (Not Logged In). We should get an empty response.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 38B: Access a bunch of individually-selected logins (Logged in as MDAdmin). We should get a single login (ours), as that is the only one we\'re cleared to see.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":7,"name":"Maryland Login","lang":"en","login_id":"MDAdmin"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 38C: Access a bunch of individually-selected logins (Logged in as Elbonian Hacker). We should get a single login (ours), as that is the only one we\'re cleared to see.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MeLeet&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":19,"name":"Elbonian Hacker","lang":"eb","login_id":"MeLeet"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 38D: Access a bunch of individually-selected logins (Logged in as DC Area Main Admin). We should get several logins, as we are cleared to see all the DC Area admin logins.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":7,"name":"Maryland Login","lang":"en","login_id":"MDAdmin"},{"id":8,"name":"Virginia Login","lang":"en","login_id":"VAAdmin"},{"id":9,"name":"Washington DC Login","lang":"en","login_id":"DCAdmin"},{"id":10,"name":"West Virginia Login","lang":"en","login_id":"WVAdmin"},{"id":11,"name":"Delaware Login","lang":"en","login_id":"DEAdmin"},{"id":12,"name":"Main Admin Login","lang":"en","login_id":"MainAdmin"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 38E: Access a bunch of individually-selected logins (Logged in as the Dilbert Co. PHB). We should get several logins, as we are cleared to see all the Dilbert Co. logins.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=PHB&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":13,"name":"Dilbert Login","lang":"en","login_id":"Dilbert"},{"id":14,"name":"Wally Login","lang":"en","login_id":"Wally"},{"id":15,"name":"Ted Login","lang":"en","login_id":"Ted"},{"id":16,"name":"Alice Login","lang":"en","login_id":"Alice"},{"id":17,"name":"Tina Login","lang":"en","login_id":"Tina"},{"id":18,"name":"Pointy-Haired Boss login","lang":"en","login_id":"PHB"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 38F: Access a bunch of individually-selected users (Logged in as "God"). We should get everything, including the Elbonian Hacker login.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":[{"id":2,"name":"God Admin Login","lang":"en","login_id":"admin"},{"id":7,"name":"Maryland Login","lang":"en","login_id":"MDAdmin"},{"id":8,"name":"Virginia Login","lang":"en","login_id":"VAAdmin"},{"id":9,"name":"Washington DC Login","lang":"en","login_id":"DCAdmin"},{"id":10,"name":"West Virginia Login","lang":"en","login_id":"WVAdmin"},{"id":11,"name":"Delaware Login","lang":"en","login_id":"DEAdmin"},{"id":12,"name":"Main Admin Login","lang":"en","login_id":"MainAdmin"},{"id":13,"name":"Dilbert Login","lang":"en","login_id":"Dilbert"},{"id":14,"name":"Wally Login","lang":"en","login_id":"Wally"},{"id":15,"name":"Ted Login","lang":"en","login_id":"Ted"},{"id":16,"name":"Alice Login","lang":"en","login_id":"Alice"},{"id":17,"name":"Tina Login","lang":"en","login_id":"Tina"},{"id":18,"name":"Pointy-Haired Boss login","lang":"en","login_id":"PHB"},{"id":19,"name":"Elbonian Hacker","lang":"eb","login_id":"MeLeet"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0039() {
+    basalt_run_single_direct_test(39, 'Access A Bunch of Individually-Selected Logins (XML)', 'GET tests for logins', 'people_tests');
+}
+
+function basalt_test_0039($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 39A: Access a bunch of individually-selected logins (Not Logged In). We should get an empty response.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'</people>';;
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 39B: Access a bunch of individually-selected logins (Logged in as MDAdmin). We should get a single login (ours), as that is the only one we\'re cleared to see.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>7</id><name>Maryland Login</name><lang>en</lang><login_id>MDAdmin</login_id></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 39C: Access a bunch of individually-selected logins (Logged in as Elbonian Hacker). We should get a single login (ours), as that is the only one we\'re cleared to see.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MeLeet&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>19</id><name>Elbonian Hacker</name><lang>eb</lang><login_id>MeLeet</login_id></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 39D: Access a bunch of individually-selected logins (Logged in as DC Area Main Admin). We should get several logins, as we are cleared to see all the DC Area admin logins.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>7</id><name>Maryland Login</name><lang>en</lang><login_id>MDAdmin</login_id></value><value sequence_index="1"><id>8</id><name>Virginia Login</name><lang>en</lang><login_id>VAAdmin</login_id></value><value sequence_index="2"><id>9</id><name>Washington DC Login</name><lang>en</lang><login_id>DCAdmin</login_id></value><value sequence_index="3"><id>10</id><name>West Virginia Login</name><lang>en</lang><login_id>WVAdmin</login_id></value><value sequence_index="4"><id>11</id><name>Delaware Login</name><lang>en</lang><login_id>DEAdmin</login_id></value><value sequence_index="5"><id>12</id><name>Main Admin Login</name><lang>en</lang><login_id>MainAdmin</login_id></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 39E: Access a bunch of individually-selected logins (Logged in as the Dilbert Co. PHB). We should get several logins, as we are cleared to see all the Dilbert Co. logins.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=PHB&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><value sequence_index="0"><id>13</id><name>Dilbert Login</name><lang>en</lang><login_id>Dilbert</login_id></value><value sequence_index="1"><id>14</id><name>Wally Login</name><lang>en</lang><login_id>Wally</login_id></value><value sequence_index="2"><id>15</id><name>Ted Login</name><lang>en</lang><login_id>Ted</login_id></value><value sequence_index="3"><id>16</id><name>Alice Login</name><lang>en</lang><login_id>Alice</login_id></value><value sequence_index="4"><id>17</id><name>Tina Login</name><lang>en</lang><login_id>Tina</login_id></value><value sequence_index="5"><id>18</id><name>Pointy-Haired Boss login</name><lang>en</lang><login_id>PHB</login_id></value></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    
+    $title = 'People Test 39F: Access a bunch of individually-selected users (Logged in as "God"). We should get everything, including the Elbonian Hacker login.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/admin,MDAdmin,VAAdmin,DCAdmin,WVAdmin,DEAdmin,MainAdmin,Dilbert,Wally,Ted,Alice,Tina,PHB,MeLeet';
     $data = NULL;
     $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
     $expected_result_code = 200;

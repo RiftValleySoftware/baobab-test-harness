@@ -50,7 +50,7 @@ function basalt_test_0020($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
     $expected_result_code = 200;
-    $expected_result = '{"people":["people"]}';
+    $expected_result = '{"people":["people","logins"]}';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -338,7 +338,7 @@ function basalt_test_0021($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
     $expected_result_code = 200;
-    $expected_result = get_xml_header('people').'<value sequence_index="0">people</value></people>';
+    $expected_result = get_xml_header('people').'<value sequence_index="0">people</value><value sequence_index="1">logins</value></people>';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
