@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(40, 'POST METHOD PEOPLE TESTS', 'Create New Users and Logins. NOTE: in these tests, we "normalize" all the "last_access" and "password" values, so the match works.');
+baobab_run_tests(44, 'POST METHOD PEOPLE TESTS', 'Create New Users and Logins. NOTE: in these tests, we "normalize" all the "last_access" and "password" values, so the match works.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
@@ -508,7 +508,7 @@ function basalt_test_0044($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $uri = __SERVER_URI__.'/json/people/people/?login_id=DickFromTheInternet';
     $data = NULL;
     $expected_result_code = 200;
-    $expected_result = '{"people":{"people":{"new_user":{"id":1752,"name":"DickFromTheInternet","lang":"en","read_token":0,"write_token":20,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":false,"is_main_admin":false,"associated_login":{"id":20,"name":"DickFromTheInternet","lang":"en","login_id":"DickFromTheInternet","read_token":20,"write_token":20,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1752,"is_manager":false,"is_main_admin":false,"security_tokens":[20],"password":"-PASSWORD-"}}}}}';
+    $expected_result = '{"people":{"people":{"new_user":{"id":1752,"name":"DickFromTheInternet","lang":"en","read_token":1,"write_token":20,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":false,"is_main_admin":false,"associated_login":{"id":20,"name":"DickFromTheInternet","lang":"en","login_id":"DickFromTheInternet","read_token":20,"write_token":20,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1752,"is_manager":false,"is_main_admin":false,"security_tokens":[20],"password":"-PASSWORD-"}}}}}';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -527,7 +527,7 @@ function basalt_test_0044($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $uri = __SERVER_URI__.'/json/people/people/?login_id=RichardFromTheWeb&is_manager';
     $data = NULL;
     $expected_result_code = 200;
-    $expected_result = '{"people":{"people":{"new_user":{"id":1753,"name":"RichardFromTheWeb","lang":"en","read_token":0,"write_token":21,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":true,"is_main_admin":false,"associated_login":{"id":21,"name":"RichardFromTheWeb","lang":"en","login_id":"RichardFromTheWeb","read_token":21,"write_token":21,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1753,"is_manager":true,"is_main_admin":false,"security_tokens":[21],"password":"-PASSWORD-"}}}}}';
+    $expected_result = '{"people":{"people":{"new_user":{"id":1753,"name":"RichardFromTheWeb","lang":"en","read_token":1,"write_token":21,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":true,"is_main_admin":false,"associated_login":{"id":21,"name":"RichardFromTheWeb","lang":"en","login_id":"RichardFromTheWeb","read_token":21,"write_token":21,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1753,"is_manager":true,"is_main_admin":false,"security_tokens":[21],"password":"-PASSWORD-"}}}}}';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -595,7 +595,7 @@ function basalt_test_0045($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $uri = __SERVER_URI__.'/xml/people/people/?login_id=DickFromTheInternet';
     $data = NULL;
     $expected_result_code = 200;
-    $expected_result = get_xml_header('people').'<people><new_user><id>1752</id><name>DickFromTheInternet</name><lang>en</lang><write_token>20</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><associated_login><id>20</id><name>DickFromTheInternet</name><lang>en</lang><login_id>DickFromTheInternet</login_id><read_token>20</read_token><write_token>20</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1752</user_object_id><security_tokens><value sequence_index="0">20</value></security_tokens><password>-PASSWORD-</password></associated_login></new_user></people></people>';
+    $expected_result = get_xml_header('people').'<people><new_user><id>1752</id><name>DickFromTheInternet</name><lang>en</lang><read_token>1</read_token><write_token>20</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><associated_login><id>20</id><name>DickFromTheInternet</name><lang>en</lang><login_id>DickFromTheInternet</login_id><read_token>20</read_token><write_token>20</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1752</user_object_id><security_tokens><value sequence_index="0">20</value></security_tokens><password>-PASSWORD-</password></associated_login></new_user></people></people>';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -614,7 +614,7 @@ function basalt_test_0045($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $uri = __SERVER_URI__.'/xml/people/people/?login_id=RichardFromTheWeb&is_manager';
     $data = NULL;
     $expected_result_code = 200;
-    $expected_result = get_xml_header('people').'<people><new_user><id>1753</id><name>RichardFromTheWeb</name><lang>en</lang><write_token>21</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><is_manager>1</is_manager><associated_login><id>21</id><name>RichardFromTheWeb</name><lang>en</lang><login_id>RichardFromTheWeb</login_id><read_token>21</read_token><write_token>21</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1753</user_object_id><is_manager>1</is_manager><security_tokens><value sequence_index="0">21</value></security_tokens><password>-PASSWORD-</password></associated_login></new_user></people></people>';
+    $expected_result = get_xml_header('people').'<people><new_user><id>1753</id><name>RichardFromTheWeb</name><lang>en</lang><read_token>1</read_token><write_token>21</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><is_manager>1</is_manager><associated_login><id>21</id><name>RichardFromTheWeb</name><lang>en</lang><login_id>RichardFromTheWeb</login_id><read_token>21</read_token><write_token>21</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1753</user_object_id><is_manager>1</is_manager><security_tokens><value sequence_index="0">21</value></security_tokens><password>-PASSWORD-</password></associated_login></new_user></people></people>';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
