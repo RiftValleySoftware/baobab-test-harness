@@ -138,7 +138,24 @@ function basalt_test_0016($in_login = NULL, $in_hashed_password = NULL, $in_pass
         $method = 'GET';
         $uri = __SERVER_URI__.'/json/baseline/serverinfo';
         $expected_result_code = 200;
-        $expected_result = '{"baseline":{"serverinfo":{"basalt_version":"'.__BASALT_VERSION__.'","andisol_version":"'.__ANDISOL_VERSION__.'","cobra_version":"'.__COBRA_VERSION__.'","chameleon_version":"'.__CHAMELEON_VERSION__.'","badger_version":"'.__BADGER_VERSION__.'","security_db_type":"'.CO_Config::$sec_db_type.'","data_db_type":"'.CO_Config::$data_db_type.'","min_pw_length":'.intval(CO_Config::$min_pw_len).',"regular_timeout_in_seconds":'.intval(CO_Config::$session_timeout_in_seconds).',"god_timeout_in_seconds":'.intval(CO_Config::$god_session_timeout_in_seconds).',"block_repeated_logins":'.(CO_Config::$block_logins_for_valid_api_key ? 'true' : 'false').',"block_differing_ip_address":'.(CO_Config::$api_key_includes_ip_address ? 'true' : 'false').',"ssl_requirement_level":'.intval(CO_Config::$ssl_requirement_level).'}}}';
+        $expected_result = '{"baseline":{"serverinfo":{"basalt_version":"'.__BASALT_VERSION__;
+        $expected_result .= '","andisol_version":"'.__ANDISOL_VERSION__;
+        $expected_result .= '","cobra_version":"'.__COBRA_VERSION__;
+        $expected_result .= '","chameleon_version":"'.__CHAMELEON_VERSION__;
+        $expected_result .= '","badger_version":"'.__BADGER_VERSION__;
+        $expected_result .= '","security_db_type":"'.CO_Config::$sec_db_type;
+        $expected_result .= '","data_db_type":"'.CO_Config::$data_db_type;
+        $expected_result .= '","lang":"'.CO_Config::$lang;
+        $expected_result .= '","min_pw_length":'.intval(CO_Config::$min_pw_len);
+        $expected_result .= ',"regular_timeout_in_seconds":'.intval(CO_Config::$session_timeout_in_seconds);
+        $expected_result .= ',"god_timeout_in_seconds":'.intval(CO_Config::$god_session_timeout_in_seconds);
+        $expected_result .= ',"block_repeated_logins":'.(CO_Config::$block_logins_for_valid_api_key ? 'true' : 'false');
+        $expected_result .= ',"block_differing_ip_address":'.(CO_Config::$api_key_includes_ip_address ? 'true' : 'false');
+        $expected_result .= ',"ssl_requirement_level":'.intval(CO_Config::$ssl_requirement_level);
+        $expected_result .= ',"google_api_key":"'.CO_Config::$google_api_key;
+        $expected_result .= '","allow_address_lookup":'.(CO_Config::$allow_address_lookup ? 'true' : 'false');
+        $expected_result .= ',"allow_general_address_lookup":'.(CO_Config::$allow_general_address_lookup ? 'true' : 'false');
+        $expected_result .= ',"default_region_bias":"'.CO_Config::$default_region_bias.'"}}}';
         $result_code = '';
 
         test_header($title, $method, $uri, $expected_result_code);
@@ -342,6 +359,7 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
         $expected_result .= '<badger_version>'.__BADGER_VERSION__.'</badger_version>';
         $expected_result .= '<security_db_type>'.CO_Config::$sec_db_type.'</security_db_type>';
         $expected_result .= '<data_db_type>'.CO_Config::$data_db_type.'</data_db_type>';
+        $expected_result .= '<lang>'.CO_Config::$lang.'</lang>';
         $expected_result .= '<min_pw_length>'.intval(CO_Config::$min_pw_len).'</min_pw_length>';
         $expected_result .= '<regular_timeout_in_seconds>'.intval(CO_Config::$session_timeout_in_seconds).'</regular_timeout_in_seconds>';
         $expected_result .= '<god_timeout_in_seconds>'.intval(CO_Config::$god_session_timeout_in_seconds).'</god_timeout_in_seconds>';
@@ -353,6 +371,18 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
         }
         if (intval(CO_Config::$ssl_requirement_level)) {
             $expected_result .= '<ssl_requirement_level>'.intval(CO_Config::$ssl_requirement_level).'</ssl_requirement_level>';
+        }
+        if (CO_Config::$google_api_key) {
+            $expected_result .= '<google_api_key>'.CO_Config::$google_api_key.'</google_api_key>';
+        }
+        if (intval(CO_Config::$allow_address_lookup)) {
+            $expected_result .= '<allow_address_lookup>'.intval(CO_Config::$allow_address_lookup).'</allow_address_lookup>';
+        }
+        if (intval(CO_Config::$allow_general_address_lookup)) {
+            $expected_result .= '<allow_general_address_lookup>'.intval(CO_Config::$allow_general_address_lookup).'</allow_general_address_lookup>';
+        }
+        if (CO_Config::$default_region_bias) {
+            $expected_result .= '<default_region_bias>'.CO_Config::$default_region_bias.'</default_region_bias>';
         }
         
         $expected_result .= '</serverinfo></baseline>';

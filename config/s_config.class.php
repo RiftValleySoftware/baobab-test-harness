@@ -120,7 +120,7 @@ class CO_Config {
     */
     static $allow_address_lookup = true;    
     static $allow_general_address_lookup = true;    ///< If true (default is false), then just anyone (login not required) can do an address lookup. If false, then only logged-in users can do an address lookup. Ignored if $allow_address_lookup is false.
-    static $default_region_bias = '';       ///< A default server Region bias.
+    static $default_region_bias = '';               ///< A default server Region bias.
     
     /***********************/
     /**
