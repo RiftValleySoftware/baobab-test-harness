@@ -25,14 +25,14 @@ if (!class_exists('CO_Config')) {
 
 require_once(dirname(__FILE__).'/callREST.php');
 
-function clean_last_access_json($in_json) {
+function clean_last_access_json($in_json, $in_scrub_password = true) {
     $in_result = preg_replace('|"last_access":"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d"|', '"last_access":"1970-01-02 00:00:00"', $in_json);
-    return preg_replace('|"password":".*?"|', '"password":"-PASSWORD-"', $in_result);
+    return $in_scrub_password ? preg_replace('|"password":".*?"|', '"password":"-PASSWORD-"', $in_result) : $in_result;
 }
 
-function clean_last_access_xml($in_xml) {
+function clean_last_access_xml($in_xml, $in_scrub_password = true) {
     $in_result = preg_replace('|\<last_access\>\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d|', '<last_access>1970-01-02 00:00:00', $in_xml);
-    return preg_replace('|\<password\>.*?\<\/password\>|', '"<password>-PASSWORD-</password>', $in_result);
+    return $in_scrub_password ? preg_replace('|\<password\>.*?\<\/password\>|', '<password>-PASSWORD-</password>', $in_result) : $in_result;
 }
 
 function prettify_xml($xml) {
