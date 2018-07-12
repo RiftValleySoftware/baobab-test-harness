@@ -793,7 +793,6 @@ WARN_LOGFILE           =
 
 INPUT                  = ../README.md \
                          ../basalt/main/README.md \
-                         ../basalt/callREST.php \
                          ../basalt/plugins/people/README.md \
                          ../basalt/plugins/places/README.md \
                          ../basalt/plugins/things/README.md
