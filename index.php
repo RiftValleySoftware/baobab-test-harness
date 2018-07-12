@@ -66,7 +66,7 @@ require_once($config_file_path);
                 <div class="main_div container">
                     <?php
                         echo("<div style=\"margin:auto;text-align:center;display:table\">");
-                        echo("<h3><a href=\"doc/html/index.html\">BAOBAB Documentation</a></h3>");
+                        echo("<h3><a href=\"doc/index.html\">BAOBAB Documentation</a></h3>");
                         echo("<h2>File/Folder Locations</h2>");
                         echo("<pre style=\"margin:auto;text-align:left;display:table\">");
                         echo("<strong>BASALT Version</strong>..........".__BASALT_VERSION__."\n");
