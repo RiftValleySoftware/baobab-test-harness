@@ -121,7 +121,7 @@ You make a login call in this fashion:
 
     {GET} http[s]://{SERVER URL}/login?login_id=<YOUR LOGIN ID>&password=<YOUR PASSWORD>
     
-Where `"{SERVER URL}"` is the root URL to the BAOBAB server, and the `"login_id="` and `"password"` query arguments reference the user string login ID and password (not the Server Secret or API Key).
+Where `"{SERVER URL}"` is the root URL to the BAOBAB server, and the `"login_id="` and `"password="` query arguments reference the user string login ID and password (not the Server Secret or API Key).
 
 The response from this call is a simple string, which will be the API Key. Once an API Key is generated, its "clock" starts ticking, and it will not be reset. Also, the server may be configured to prevent the same login from receiving a new API Key while one is still active, so it is important to retain this response.
 
@@ -142,7 +142,7 @@ BAOBAB will respond with four different formats:
     
 - XML
 
-    This is a BABAB-specifc XML dialect that will be defined by XML Schema documents.
+    This is a BAOBAB-specifc XML dialect that will be defined by XML Schema documents.
     
 - JSON
 
@@ -150,7 +150,11 @@ BAOBAB will respond with four different formats:
 
 - XSD (XML SCHEMA)
 
-    Each plugin can be queried for its XML data schema.
+    Each plugin can be queried for its XML data schema. The schema will be comprehensive, describing all possible responses from the plugin. XSD responses are always "publicly-accessible." There are no restrictions on reading them. They are read-only resources.
+    
+LOCALIZATION FLAGS
+==================
+Every resource in the BAOBAB server, regardless of its type, can have a `"lang"` data member. This is a simple [ISO 639-1 or ISO 639-2](http://www.loc.gov/standards/iso639-2/php/code_list.php) code. It is up to the client endpoint to provide localizations, but the resources can be flagged with localization hints.
 
 RESPONSE HEADERS
 ================
