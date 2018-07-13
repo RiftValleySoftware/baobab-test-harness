@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>TEST JS</title>
+        <script type="text/javascript">
+            var g_server_uri = 'http://localhost/baobab-test-harness/php/baobab-server.php';
+            var g_server_secret = 'Supercalifragilisticexpialidocious';
+            var g_api_key = '';
+            
+            function AjaxRequest (  url,        ///< The URI to be called
+                                    callback,   ///< The success callback
+                                    method,     ///< The method ('get' or 'post')
+                                    extra_data  ///< If supplied, extra data to be delivered to the callback.
+                                    ) {
+                /************************************************************************************//**
+                *   \brief Create a generic XMLHTTPObject.                                              *
+                *                                                                                       *
+                *   This will account for the various flavors imposed by different browsers.            *
+                *                                                                                       *
+                *   \returns a new XMLHTTPRequest object.                                               *
+                ****************************************************************************************/
+    
+                function createXMLHTTPObject() {
+                    var XMLHttpArray = [
+                        function() {return new XMLHttpRequest()},
+                        function() {return new ActiveXObject("Msxml2.XMLHTTP")},
+                        function() {return new ActiveXObject("Msxml2.XMLHTTP")},
+                        function() {return new ActiveXObject("Microsoft.XMLHTTP")}
+                        ];
+            
+                    var xmlhttp = false;
+        
+                    for ( var i=0; i < XMLHttpArray.length; i++ ) {
+                        try {
+                            xmlhttp = XMLHttpArray[i]();
+                        } catch(e) {
+                            continue;
+                        };
+                        break;
+                    };
+        
+                    return xmlhttp;
+                };
+    
+                var req = createXMLHTTPObject();
+                req.finalCallback = callback;
+                var sVars = null;
+                method = method.toString().toUpperCase();
+                var drupal_kludge = '';
+    
+                // Split the URL up, if this is a POST.
+                if ( method == "POST" ) {
+                    var rmatch = /^([^\?]*)\?(.*)$/.exec ( url );
+                    url = rmatch[1];
+                    sVars = rmatch[2];
+                    // This horrible, horrible kludge, is because Drupal insists on having its q parameter in the GET list only.
+                    var rmatch_kludge = /(q=admin\/settings\/bmlt)&?(.*)/.exec ( rmatch[2] );
+                    if ( rmatch_kludge && rmatch_kludge[1] ) {
+                        url += '?'+rmatch_kludge[1];
+                        sVars = rmatch_kludge[2];
+                    };
+                };
+                    
+                if ( extra_data ) {
+                    req.extra_data = extra_data;
+                };
+                
+                if ('' != g_api_key) {
+                    req.open ( method, url, true );
+                    var header_content = btoa(unescape(encodeURIComponent(g_server_secret + ':' + g_api_key)));
+                    req.setRequestHeader("Authorization", "Basic " + header_content);
+                } else {
+                    method = "GET"
+                    response = req.open ( method, url, true );
+                };
+                
+                if ( method == "POST" ) {
+                    req.setRequestHeader("Method", "POST "+url+" HTTP/1.1");
+                    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                };
+                
+                req.onreadystatechange = function ( ) {
+                    if ( req.readyState != 4 ) return;
+                    if( req.status != 200 ) return;
+                    callback ( req, req.extra_data );
+                    req = null;
+                    };
+                
+                req.send ( sVars );
+    
+                return req;
+            };
+        </script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            function display_callback (in_request, in_extra_data) {
+                alert(in_request.responseText);
+            };
+            
+            function auth_callback (in_request, in_extra_data) {
+                g_api_key = in_request.responseText;
+                url = g_server_uri + '/json/people/people/my_info/?login_user';
+                AjaxRequest(url, display_callback, 'GET');
+            };
+            
+            AjaxRequest(g_server_uri + '/login?login_id=MDAdmin&password=CoreysGoryStory', auth_callback, 'GET');
+        </script>
+    </body>
+</html>
