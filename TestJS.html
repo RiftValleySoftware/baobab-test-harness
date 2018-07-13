@@ -7,13 +7,14 @@
             var g_server_uri = 'http://localhost/baobab-test-harness/php/baobab-server.php';
             var g_server_secret = 'Supercalifragilisticexpialidocious';
             var g_api_key = '';
-            var g_login_id ='MDAdmin';
+            var g_login_id ='PHB';
             var g_password = 'CoreysGoryStory';
             
-            function AjaxRequest (  url,        ///< The URI to be called
-                                    callback,   ///< The success callback
-                                    method,     ///< The method ('get' or 'post')
-                                    extra_data  ///< If supplied, extra data to be delivered to the callback.
+            function AjaxRequest (  url,            ///< The URI to be called
+                                    callback,       ///< The success callback
+                                    error_callback, ///< The fail callback
+                                    method,         ///< The method ('GET', 'PUT', or 'POST')
+                                    extra_data      ///< If supplied, extra data to be delivered to the callback.
                                     ) {
                 /************************************************************************************//**
                 *   \brief Create a generic XMLHTTPObject.                                              *
@@ -45,11 +46,15 @@
                     return xmlhttp;
                 };
     
-                var req = createXMLHTTPObject();
-                req.finalCallback = callback;
-                var sVars = null;
                 method = method.toString().toUpperCase();
-                var drupal_kludge = '';
+                var sVars = null;
+                
+                if ('' == g_api_key) {
+                    method = "GET"
+                    extra_data = Array(url, callback);
+                    url = g_server_uri + '/login?login_id=' + encodeURIComponent(g_login_id) + '&password=' + encodeURIComponent(g_password);
+                    callback = auth_callback;
+                };
     
                 // Split the URL up, if this is a POST.
                 if ( method == "POST" ) {
@@ -63,59 +68,69 @@
                         sVars = rmatch_kludge[2];
                     };
                 };
+
+                var req = createXMLHTTPObject();
+                
+                req.finalCallback = callback;
+                req.errorCallback = error_callback;
+                req.open ( method, url, true );
+
+                if ('' != g_api_key) {
+                    req.setRequestHeader("Authorization", "Basic " + btoa(unescape(encodeURIComponent(g_server_secret + ':' + g_api_key))));
+                };
                     
                 if ( extra_data ) {
                     req.extra_data = extra_data;
                 };
                 
-                if ('' != g_api_key) {
-                    req.open ( method, url, true );
-                    req.setRequestHeader("Authorization", "Basic " + btoa(unescape(encodeURIComponent(g_server_secret + ':' + g_api_key))));
-                } else {
-                    method = "GET"
-                    url = g_server_uri + '/login?login_id=' + encodeURIComponent(g_login_id) + '&password=' + encodeURIComponent(g_password);
-                    extra_data = callback;
-                    callback = auth_callback;
-                    req.open ( method, url, true );
-                };
-                
                 if ( method == "POST" ) {
                     req.setRequestHeader("Method", "POST "+url+" HTTP/1.1");
+                    req.setRequestHeader("Expect", "");
                     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                };
+                
+                if ( method == "PUT" ) {
+                    req.setRequestHeader("Method", "PUT "+url+" HTTP/1.1");
+                    req.setRequestHeader("Expect", "");
                 };
                 
                 req.onreadystatechange = function ( ) {
                     if ( req.readyState != 4 ) return;
-                    if( req.status != 200 ) return;
-                    callback ( req, req.extra_data );
-                    req = null;
+                    if( req.status >= 400 ) {
+                        req.errorCallback ( req, req.extra_data );
+                        req = null;
+                    } else {
+                        if( req.status == 200 ) {
+                            req.finalCallback ( req, req.extra_data );
+                            req = null;
+                        };
                     };
+                };
                 
                 req.send ( sVars );
     
                 return req;
             };
             
-            function perform_log_in(    in_login_id,
-                                        in_password,
-                                        in_redirect_uri
-                                    ) {
-                AjaxRequest(g_server_uri + '/login?login_id=' + in_login_id + '&password=' + in_password, auth_callback, 'GET', in_redirect_uri);
-            };
-            
             function call_server (  in_uri
                                 ) {
-                AjaxRequest(in_uri, normal_callback, 'GET');
+                AjaxRequest(in_uri, normal_callback, error_callback, 'GET');
             };
             
             function logout() {
-                AjaxRequest(g_server_uri + '/logout', logout_callback, 'GET');
+                AjaxRequest(g_server_uri + '/logout', logout_callback, error_callback, 'GET');
             };
             
             function normal_callback(   in_request,
                                         in_extra_data
                                     ) {
                 alert(in_request.responseText);
+                logout();
+            };
+            
+            function error_callback(    in_request
+                                    ) {
+                alert('ERROR: ' + in_request.status);
             };
             
             function logout_callback(   in_request,
@@ -126,11 +141,11 @@
             };
             
             function auth_callback(     in_request,
-                                        in_redirect_uri
+                                        in_extra_data
                                     ) {
                 if (in_request.responseText) {
                     g_api_key = in_request.responseText;
-                    AjaxRequest(in_redirect_uri, normal_callback, 'GET');
+                    AjaxRequest(in_extra_data[0], in_extra_data[1], error_callback, 'GET');
                 } else {
                     alert('ERROR!');
                 };
@@ -139,7 +154,7 @@
     </head>
     <body>
         <script type="text/javascript">
-            call_server(g_server_uri + '/people/people/my_info?login_user', auth_callback, 'GET');
+            call_server(g_server_uri + '/json/people/people/my_info?login_user', auth_callback, error_callback, 'GET');
         </script>
     </body>
 </html>
