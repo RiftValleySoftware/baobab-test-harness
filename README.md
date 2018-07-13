@@ -158,7 +158,7 @@ Every resource in the BAOBAB server, regardless of its type, can have a `"lang"`
 
 RESPONSE HEADERS
 ================
-Unsuccessful attemts at operations may reult in response headers of 400 (error), 401, 403 (Forbidden), or even 500.
+Unsuccessful attemts at operations may result in response headers of 400 (error), 401, 403 (Forbidden), or even 500.
 
 In most cases, you will also receive some text that may help to explain the cause. For reasons of security, this may be limited (A good security practice is to keep people guessing as to what, exactly, happened).
 
