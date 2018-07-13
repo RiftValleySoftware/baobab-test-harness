@@ -120,7 +120,9 @@ BAOBAB uses a "plugin" system to provide primary-level REST API services. The de
 
     This is a plugin that allows key/value storage of generic data. You can attach all kinds of data to these resources, but the data upload is MIME/FORM-MULTIPART or INLINE, and will be further discussed in the \ref rest-plugin-things plugin documentation.
     
-All of these resources can have geographic locations (long/lat), as well as the ability to aggregate other resources (of any type). It is possible for a resource to aggregate resources to which the current user has no permissions. In these cases, the aggregated resources will be "invisible" to the user.
+All of these resources can have geographic locations (long/lat), as well as the ability to aggregate other resources (of any type).
+
+It is possible for a resource to aggregate resources to which the current user has no permissions. In these cases, the aggregated resources will be "invisible" to the user.
 
 LOGGING IN/OUT
 ==============
@@ -142,7 +144,7 @@ You log out by calling the logout call, like so:
 
 This should be accompanied by the authorization header. The requirement for SSL is the one for regular interactions (independent of login). Once this has been successfully called, the API Key is no longer valid, and can be disposed of.
 
-**NOTE:** Logout does not return 200 as an HTTP Status. Instead, it returns 205 (RESET CONTENT). This indicates that the recipient has a different server context, and should reset their content.
+**NOTE:** Logout does not return [200 (OK)](https://httpstatuses.com/200) as an HTTP Status. Instead, it returns [205 (Reset Content)](https://httpstatuses.com/205). This indicates to the recipient that there is a different server context, and they should reset their content.
 
 DATA FORMATS
 ============
@@ -159,7 +161,7 @@ BAOBAB will respond with four different formats:
     
 - JSON
 
-    This is a very straigtforward JSON object model.
+    This is a very straigtforward JSON object model. Both JSON and XML will contain the same information, and will use the same keys.
 
 - XSD (XML SCHEMA)
 
@@ -171,9 +173,9 @@ Every resource in the BAOBAB server, regardless of its type, can have a `"lang"`
 
 RESPONSE HEADERS
 ================
-Unsuccessful attempts at operations may result in response headers of 400 (error), 401, 403 (Forbidden), or even 500.
+Unsuccessful attempts at operations may result in response headers of [400 (Bad Request)](https://httpstatuses.com/400), [401 (Unauthorized)](https://httpstatuses.com/401), [403 (Forbidden)](https://httpstatuses.com/403), or even [500 (Internal Server Error)](https://httpstatuses.com/500).
 
-Successful operations will return 200 (205, in the case of a successful logout).
+Successful operations will return [200 (OK)](https://httpstatuses.com/200), or [205 (Reset Content)](https://httpstatuses.com/205), in the case of a successful logout.
 
 In most cases, you will also receive some text that may help to explain the cause. For reasons of security, this may be limited (A good security practice is to keep people guessing as to what, exactly, happened).
 
