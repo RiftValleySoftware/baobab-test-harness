@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(44, 'POST METHOD PEOPLE TESTS', 'Create New Users and Logins. NOTE: in these tests, we "normalize" all the "last_access" and "password" values, so the match works.');
+baobab_run_tests(40, 'POST METHOD PEOPLE TESTS', 'Create New Users and Logins. NOTE: in these tests, we "normalize" all the "last_access" and "password" values, so the match works.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
@@ -72,7 +72,7 @@ function basalt_test_0040($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
     $expected_result_code = 200;
-    $expected_result = '{"people":{"people":{"new_user":{"id":1752,"name":"New User 1752","lang":"en","read_token":0,"write_token":12,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":false,"is_main_admin":false}}}}';
+    $expected_result = '{"people":{"people":{"new_user":{"id":1752,"name":"New User 1752","lang":"en","read_token":1,"write_token":12,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":false,"is_main_admin":false}}}}';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -144,7 +144,7 @@ function basalt_test_0041($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
     $expected_result_code = 200;
-    $expected_result = get_xml_header('people').'<people><new_user><id>1752</id><name>New User 1752</name><lang>en</lang><write_token>12</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable></new_user></people></people>';
+    $expected_result = get_xml_header('people').'<people><new_user><id>1752</id><name>New User 1752</name><lang>en</lang><read_token>1</read_token><write_token>12</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable></new_user></people></people>';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -292,7 +292,7 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $uri = __SERVER_URI__.'/json/people/logins/?login_string=DickFromTheInternet';
     $data = NULL;
     $expected_result_code = 200;
-    $expected_result = '{"people":{"logins":{"new_login":{"id":20,"name":"DickFromTheInternet","lang":"en","login_id":"DickFromTheInternet","read_token":1,"write_token":20,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":false,"is_main_admin":false,"security_tokens":[],"password":"-PASSWORD-"}}}}';
+    $expected_result = '{"people":{"logins":{"new_login":{"id":20,"name":"DickFromTheInternet","lang":"en","login_id":"DickFromTheInternet","read_token":20,"write_token":20,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":false,"is_main_admin":false,"security_tokens":[],"password":"-PASSWORD-"}}}}';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -440,7 +440,7 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $uri = __SERVER_URI__.'/xml/people/logins/?login_string=DickFromTheInternet';
     $data = NULL;
     $expected_result_code = 200;
-    $expected_result = get_xml_header('people').'<logins><new_login><id>20</id><name>DickFromTheInternet</name><lang>en</lang><login_id>DickFromTheInternet</login_id><read_token>1</read_token><write_token>20</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><password>-PASSWORD-</password></new_login></logins></people>';
+    $expected_result = get_xml_header('people').'<logins><new_login><id>20</id><name>DickFromTheInternet</name><lang>en</lang><login_id>DickFromTheInternet</login_id><read_token>20</read_token><write_token>20</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><password>-PASSWORD-</password></new_login></logins></people>';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -625,6 +625,160 @@ function basalt_test_0045($in_login = NULL, $in_hashed_password = NULL, $in_pass
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
     } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0046() {
+    basalt_run_single_direct_test(46, 'Create a User/Login Pair, with Some Initial Settings (JSON).', 'NOTE: Although the password is shown as \'-PASSWORD-\', what is actually returned is a randomly-generated password.', 'people_tests');
+}
+
+function basalt_test_0046($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 46A: Try A POST (Manager Login). We will add some basic parameters to the new object. We try to give a write token outside of our bailiwick, so we can expect a FAIL.';
+    $method = 'POST';
+    $uri = __SERVER_URI__.'/json/people/people/?login_id=DickFromTheInternet&name=Dick&surname=The+Internet&given_name=Dick&middle_name=From&nickname=Troll&tokens=5,6,7,8,9,10,13,14&write_token=5';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 400;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 46B: Try A POST (Manager Login). We will add some basic parameters to the new object. This time, we give it a write token in our set. Note that we advance an extra ID, because the last failure upped the increment. Note that we ask to apply more security tokens than get written.';
+    $method = 'POST';
+    $uri = __SERVER_URI__.'/json/people/people/?login_id=DickFromTheInternet&name=Dick&surname=The+Internet&given_name=Dick&middle_name=From&nickname=Troll&tokens=5,6,7,8,9,10,13,14&write_token=7';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"new_user":{"id":1753,"name":"Dick","lang":"en","read_token":1,"write_token":7,"last_access":"1970-01-02 00:00:00","writeable":true,"surname":"The Internet","middle_name":"From","given_name":"Dick","nickname":"Troll","is_manager":false,"is_main_admin":false,"associated_login":{"id":21,"name":"Dick","lang":"en","login_id":"DickFromTheInternet","read_token":21,"write_token":7,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1753,"is_manager":false,"is_main_admin":false,"security_tokens":[21,7,8,9,10],"password":"-PASSWORD-"}}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        $new_object = json_decode($result);
+        $new_password = $new_object->people->people->new_user->associated_login->password;
+        $result = clean_last_access_json($result, $new_password);
+        $expected_result = preg_replace('|"password":".*?"|', '"password":"'.$new_password.'"', $expected_result);
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 46C: Try A POST Again, but This Time, We Make a Manager (Manager Login). We will add some basic parameters to the new object.';
+    $method = 'POST';
+    $uri = __SERVER_URI__.'/json/people/people/?login_id=RichardFromTheWeb&name=Dick&surname=The+Internet&given_name=Dick&middle_name=From&nickname=NiceBoy&tokens=9,10&is_manager';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"new_user":{"id":1754,"name":"Dick","lang":"en","read_token":1,"write_token":22,"last_access":"1970-01-02 00:00:00","writeable":true,"surname":"The Internet","middle_name":"From","given_name":"Dick","nickname":"NiceBoy","is_manager":true,"is_main_admin":false,"associated_login":{"id":22,"name":"Dick","lang":"en","login_id":"RichardFromTheWeb","read_token":22,"write_token":22,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1754,"is_manager":true,"is_main_admin":false,"security_tokens":[22,9,10],"password":"-PASSWORD-"}}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        $new_object = json_decode($result);
+        $new_password = $new_object->people->people->new_user->associated_login->password;
+        $result = clean_last_access_json($result, $new_password);
+        $expected_result = preg_replace('|"password":".*?"|', '"password":"'.$new_password.'"', $expected_result);
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0047() {
+    basalt_run_single_direct_test(47, 'Create a User/Login Pair, with Some Initial Settings (XML).', 'NOTE: Although the password is shown as \'-PASSWORD-\', what is actually returned is a randomly-generated password.', 'people_tests');
+}
+
+function basalt_test_0047($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 47A: Try A POST (Manager Login). We will add some basic parameters to the new object. We try to give a write token outside of our bailiwick, so we can expect a FAIL.';
+    $method = 'POST';
+    $uri = __SERVER_URI__.'/xml/people/people/?login_id=DickFromTheInternet&name=Dick&surname=The+Internet&given_name=Dick&middle_name=From&nickname=Troll&tokens=5,6,7,8,9,10,13,14&write_token=5';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 400;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 47B: Try A POST (Manager Login). We will add some basic parameters to the new object. This time, we give it a write token in our set. Note that we advance an extra ID, because the last failure upped the increment. Note that we ask to apply more security tokens than get written.';
+    $method = 'POST';
+    $uri = __SERVER_URI__.'/xml/people/people/?login_id=DickFromTheInternet&name=Dick&surname=The+Internet&given_name=Dick&middle_name=From&nickname=Troll&tokens=5,6,7,8,9,10,13,14&write_token=7';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><new_user><id>1753</id><name>Dick</name><lang>en</lang><read_token>1</read_token><write_token>7</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><surname>The Internet</surname><middle_name>From</middle_name><given_name>Dick</given_name><nickname>Troll</nickname><associated_login><id>21</id><name>Dick</name><lang>en</lang><login_id>DickFromTheInternet</login_id><read_token>21</read_token><write_token>7</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1753</user_object_id><security_tokens><value sequence_index="0">21</value><value sequence_index="1">7</value><value sequence_index="2">8</value><value sequence_index="3">9</value><value sequence_index="4">10</value></security_tokens><password>XguWY2604q</password></associated_login></new_user></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        $new_object = simplexml_load_string($result);
+        $people = $new_object->people;
+        $new_password = $people->new_user->associated_login->password;
+        $result = clean_last_access_xml($result, $new_password);
+        $expected_result = preg_replace('|\<password\>.*?\<\/password\>|', '<password>'.$new_password.'</password>', $expected_result);
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 47C: Try A POST Again, but This Time, We Make a Manager (Manager Login). We will add some basic parameters to the new object.';
+    $method = 'POST';
+    $uri = __SERVER_URI__.'/xml/people/people/?login_id=RichardFromTheWeb&name=Dick&surname=The+Internet&given_name=Dick&middle_name=From&nickname=NiceBoy&tokens=9,10&is_manager';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><new_user><id>1754</id><name>Dick</name><lang>en</lang><read_token>1</read_token><write_token>22</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><surname>The Internet</surname><middle_name>From</middle_name><given_name>Dick</given_name><nickname>NiceBoy</nickname><is_manager>1</is_manager><associated_login><id>22</id><name>Dick</name><lang>en</lang><login_id>RichardFromTheWeb</login_id><read_token>22</read_token><write_token>22</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1754</user_object_id><is_manager>1</is_manager><security_tokens><value sequence_index="0">22</value><value sequence_index="1">9</value><value sequence_index="2">10</value></security_tokens><password>-PASSWORD-</password></associated_login></new_user></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        $new_object = simplexml_load_string($result);
+        $people = $new_object->people;
+        $new_password = $people->new_user->associated_login->password;
+        $result = clean_last_access_xml($result, $new_password);
+        $expected_result = preg_replace('|\<password\>.*?\<\/password\>|', '<password>'.$new_password.'</password>', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
