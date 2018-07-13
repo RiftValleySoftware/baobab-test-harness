@@ -7,6 +7,8 @@
             var g_server_uri = 'http://localhost/baobab-test-harness/php/baobab-server.php';
             var g_server_secret = 'Supercalifragilisticexpialidocious';
             var g_api_key = '';
+            var g_login_id ='MDAdmin';
+            var g_password = 'CoreysGoryStory';
             
             function AjaxRequest (  url,        ///< The URI to be called
                                     callback,   ///< The success callback
@@ -68,11 +70,13 @@
                 
                 if ('' != g_api_key) {
                     req.open ( method, url, true );
-                    var header_content = btoa(unescape(encodeURIComponent(g_server_secret + ':' + g_api_key)));
-                    req.setRequestHeader("Authorization", "Basic " + header_content);
+                    req.setRequestHeader("Authorization", "Basic " + btoa(unescape(encodeURIComponent(g_server_secret + ':' + g_api_key))));
                 } else {
                     method = "GET"
-                    response = req.open ( method, url, true );
+                    url = g_server_uri + '/login?login_id=' + encodeURIComponent(g_login_id) + '&password=' + encodeURIComponent(g_password);
+                    extra_data = callback;
+                    callback = auth_callback;
+                    req.open ( method, url, true );
                 };
                 
                 if ( method == "POST" ) {
@@ -91,21 +95,51 @@
     
                 return req;
             };
+            
+            function perform_log_in(    in_login_id,
+                                        in_password,
+                                        in_redirect_uri
+                                    ) {
+                AjaxRequest(g_server_uri + '/login?login_id=' + in_login_id + '&password=' + in_password, auth_callback, 'GET', in_redirect_uri);
+            };
+            
+            function call_server (  in_uri
+                                ) {
+                AjaxRequest(in_uri, normal_callback, 'GET');
+            };
+            
+            function logout() {
+                AjaxRequest(g_server_uri + '/logout', logout_callback, 'GET');
+            };
+            
+            function normal_callback(   in_request,
+                                        in_extra_data
+                                    ) {
+                alert(in_request.responseText);
+            };
+            
+            function logout_callback(   in_request,
+                                        in_extra_data
+                                    ) {
+                g_api_key = '';
+                alert('LOGGED OUT');
+            };
+            
+            function auth_callback(     in_request,
+                                        in_redirect_uri
+                                    ) {
+                if (in_request.responseText) {
+                    g_api_key = in_request.responseText;
+                    AjaxRequest(in_redirect_uri, normal_callback, 'GET');
+                } else {
+                    alert('ERROR!');
+                };
+            };
         </script>
     </head>
     <body>
         <script type="text/javascript">
-            function display_callback (in_request, in_extra_data) {
-                alert(in_request.responseText);
-            };
-            
-            function auth_callback (in_request, in_extra_data) {
-                g_api_key = in_request.responseText;
-                url = g_server_uri + '/json/people/people/my_info/?login_user';
-                AjaxRequest(url, display_callback, 'GET');
-            };
-            
-            AjaxRequest(g_server_uri + '/login?login_id=MDAdmin&password=CoreysGoryStory', auth_callback, 'GET');
+            call_server(g_server_uri + '/people/people/my_info?login_user', auth_callback, 'GET');
         </script>
     </body>
 </html>
