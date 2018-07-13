@@ -12,7 +12,6 @@
             
             function AjaxRequest (  url,            ///< The URI to be called
                                     callback,       ///< The success callback
-                                    error_callback, ///< The fail callback
                                     method,         ///< The method ('GET', 'PUT', or 'POST')
                                     extra_data      ///< If supplied, extra data to be delivered to the callback.
                                     ) {
@@ -72,7 +71,6 @@
                 var req = createXMLHTTPObject();
                 
                 req.finalCallback = callback;
-                req.errorCallback = error_callback;
                 req.open ( method, url, true );
 
                 if ('' != g_api_key) {
@@ -96,15 +94,20 @@
                 
                 req.onreadystatechange = function ( ) {
                     if ( req.readyState != 4 ) return;
+                    
                     if( req.status >= 400 ) {
-                        req.errorCallback ( req, req.extra_data );
-                        req = null;
+                        error_callback ( req, req.extra_data );
                     } else {
                         if( req.status == 200 ) {
                             req.finalCallback ( req, req.extra_data );
-                            req = null;
+                        } else {
+                            if( req.status == 205 ) {
+                                logout_callback ( req );
+                            };
                         };
                     };
+                 
+                    req = null;
                 };
                 
                 req.send ( sVars );
@@ -114,11 +117,11 @@
             
             function call_server (  in_uri
                                 ) {
-                AjaxRequest(in_uri, normal_callback, error_callback, 'GET');
+                AjaxRequest(in_uri, normal_callback, 'GET');
             };
             
             function logout() {
-                AjaxRequest(g_server_uri + '/logout', logout_callback, error_callback, 'GET');
+                AjaxRequest(g_server_uri + '/logout', logout_callback, 'GET');
             };
             
             function normal_callback(   in_request,
@@ -133,11 +136,9 @@
                 alert('ERROR: ' + in_request.status);
             };
             
-            function logout_callback(   in_request,
-                                        in_extra_data
+            function logout_callback(   in_request
                                     ) {
                 g_api_key = '';
-                alert('LOGGED OUT');
             };
             
             function auth_callback(     in_request,
@@ -145,7 +146,7 @@
                                     ) {
                 if (in_request.responseText) {
                     g_api_key = in_request.responseText;
-                    AjaxRequest(in_extra_data[0], in_extra_data[1], error_callback, 'GET');
+                    AjaxRequest(in_extra_data[0], in_extra_data[1], 'GET');
                 } else {
                     alert('ERROR!');
                 };
@@ -154,7 +155,7 @@
     </head>
     <body>
         <script type="text/javascript">
-            call_server(g_server_uri + '/json/people/people/my_info?login_user', auth_callback, error_callback, 'GET');
+            call_server(g_server_uri + '/json/people/people/my_info?login_user', auth_callback, 'GET');
         </script>
     </body>
 </html>
