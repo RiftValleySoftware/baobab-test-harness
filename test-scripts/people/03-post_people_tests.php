@@ -232,7 +232,7 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     $title = 'People Test 42D: Try Again, but this time, supply an empty login string. We should get another 400.';
     $method = 'POST';
-    $uri = __SERVER_URI__.'/json/people/logins/?login_string=';
+    $uri = __SERVER_URI__.'/json/people/logins/?login_id=';
     $data = NULL;
     $expected_result_code = 400;
     $expected_result = '';
@@ -251,7 +251,7 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     $title = 'People Test 42E: Try again. This time, supply a login string, but the string should be the same as an existing login. We expect a 200, but an empty response.';
     $method = 'POST';
-    $uri = __SERVER_URI__.'/json/people/logins/?login_string=MDAdmin';
+    $uri = __SERVER_URI__.'/json/people/logins/?login_id=MDAdmin';
     $data = NULL;
     $expected_result_code = 200;
     $expected_result = '{"people":{"logins":[]}}';
@@ -270,7 +270,7 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     $title = 'People Test 42F: One more time. This time, supply a login string, but the string should be the same as an existing login (that we can\'t see). We expect a 200, but an empty response.';
     $method = 'POST';
-    $uri = __SERVER_URI__.'/json/people/logins/?login_string=Dilbert';
+    $uri = __SERVER_URI__.'/json/people/logins/?login_id=Dilbert';
     $data = NULL;
     $expected_result_code = 200;
     $expected_result = '{"people":{"logins":[]}}';
@@ -289,7 +289,7 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     $title = 'People Test 42G: OK, OK. Now we supply a valid, unique login. This time, it will work. The password will be "normalized" for comparison, but in reality, we got an auto-generated one.';
     $method = 'POST';
-    $uri = __SERVER_URI__.'/json/people/logins/?login_string=DickFromTheInternet';
+    $uri = __SERVER_URI__.'/json/people/logins/?login_id=DickFromTheInternet';
     $data = NULL;
     $expected_result_code = 200;
     $expected_result = '{"people":{"logins":{"new_login":{"id":20,"name":"DickFromTheInternet","lang":"en","login_id":"DickFromTheInternet","read_token":20,"write_token":20,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":false,"is_main_admin":false,"security_tokens":[],"password":"-PASSWORD-"}}}}';
@@ -380,7 +380,7 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     $title = 'People Test 43D: Try Again, but this time, supply an empty login string. We should get another 400.';
     $method = 'POST';
-    $uri = __SERVER_URI__.'/xml/people/logins/?login_string=';
+    $uri = __SERVER_URI__.'/xml/people/logins/?login_id=';
     $data = NULL;
     $expected_result_code = 400;
     $expected_result = '';
@@ -399,7 +399,7 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     $title = 'People Test 43E: Try again. This time, supply a login string, but the string should be the same as an existing login. We expect a 200, but an empty response.';
     $method = 'POST';
-    $uri = __SERVER_URI__.'/xml/people/logins/?login_string=MDAdmin';
+    $uri = __SERVER_URI__.'/xml/people/logins/?login_id=MDAdmin';
     $data = NULL;
     $expected_result_code = 200;
     $expected_result = get_xml_header('people').'</people>';
@@ -418,7 +418,7 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     $title = 'People Test 43F: One more time. This time, supply a login string, but the string should be the same as an existing login (that we can\'t see). We expect a 200, but an empty response.';
     $method = 'POST';
-    $uri = __SERVER_URI__.'/xml/people/logins/?login_string=Dilbert';
+    $uri = __SERVER_URI__.'/xml/people/logins/?login_id=Dilbert';
     $data = NULL;
     $expected_result_code = 200;
     $expected_result = get_xml_header('people').'</people>';
@@ -437,7 +437,7 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     $title = 'People Test 43G: OK, OK. Now we supply a valid, unique login. This time, it will work. The password will be "normalized" for comparison, but in reality, we got an auto-generated one.';
     $method = 'POST';
-    $uri = __SERVER_URI__.'/xml/people/logins/?login_string=DickFromTheInternet';
+    $uri = __SERVER_URI__.'/xml/people/logins/?login_id=DickFromTheInternet';
     $data = NULL;
     $expected_result_code = 200;
     $expected_result = get_xml_header('people').'<logins><new_login><id>20</id><name>DickFromTheInternet</name><lang>en</lang><login_id>DickFromTheInternet</login_id><read_token>20</read_token><write_token>20</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><password>-PASSWORD-</password></new_login></logins></people>';
@@ -814,35 +814,12 @@ function basalt_test_0048($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 48B: Try A POST for a standalone Login, Using a Query Argument (Manager Login).';
+    $title = 'People Test 48B: Try A POST for a standalone Login, Using the alternate "login_string" Query Argument (Manager Login).';
     $method = 'POST';
-    $uri = __SERVER_URI__.'/json/people/logins/?login_id=RichardFromTheWeb';
+    $uri = __SERVER_URI__.'/json/people/logins/?login_string=RichardFromTheWeb';
     $data = NULL;
     $expected_result_code = 200;
     $expected_result = '{"people":{"logins":{"new_login":{"id":21,"name":"RichardFromTheWeb","lang":"en","login_id":"RichardFromTheWeb","read_token":21,"write_token":21,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":false,"is_main_admin":false,"security_tokens":[],"password":"-PASSWORD-"}}}}';
-    $result_code = '';
-    
-    test_header($title, $method, $uri, $expected_result_code);
-    
-    $st1 = microtime(true);
-    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
-    
-    if ($result_code != $expected_result_code) {
-        test_result_bad($result_code, $result, $st1, $expected_result);
-    } else {
-        $logins = json_decode($result)->people->logins;
-        $new_password = $logins->new_login->password;
-        $result = clean_last_access_json($result, $new_password);
-        $expected_result = preg_replace('|"password":".*?"|', '"password":"'.$new_password.'"', $expected_result);
-        test_result_good($result_code, $result, $st1, $expected_result);
-    }
-    
-    $title = 'People Test 48C: Try A POST for a standalone Login, Using a Query Argument of "login_string" (Manager Login).';
-    $method = 'POST';
-    $uri = __SERVER_URI__.'/json/people/logins/?login_string=RichFromHTTP';
-    $data = NULL;
-    $expected_result_code = 200;
-    $expected_result = '{"people":{"logins":{"new_login":{"id":22,"name":"RichFromHTTP","lang":"en","login_id":"RichFromHTTP","read_token":22,"write_token":22,"last_access":"1970-01-02 00:00:00","writeable":true,"is_manager":false,"is_main_admin":false,"security_tokens":[],"password":"-PASSWORD-"}}}}';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);
@@ -894,35 +871,12 @@ function basalt_test_0049($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 49B: Try A POST for a standalone Login, Using a Query Argument (Manager Login).';
+    $title = 'People Test 49B: Try A POST for a standalone Login, Using the alternate "login_string" Query Argument (Manager Login).';
     $method = 'POST';
-    $uri = __SERVER_URI__.'/xml/people/logins/?login_id=RichardFromTheWeb';
+    $uri = __SERVER_URI__.'/xml/people/logins/?login_string=RichardFromTheWeb';
     $data = NULL;
     $expected_result_code = 200;
     $expected_result = get_xml_header('people').'<logins><new_login><id>21</id><name>RichardFromTheWeb</name><lang>en</lang><login_id>RichardFromTheWeb</login_id><read_token>21</read_token><write_token>21</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><password>y92EG50i^O</password></new_login></logins></people>';
-    $result_code = '';
-    
-    test_header($title, $method, $uri, $expected_result_code);
-    
-    $st1 = microtime(true);
-    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
-    
-    if ($result_code != $expected_result_code) {
-        test_result_bad($result_code, $result, $st1, $expected_result);
-    } else {
-        $logins = simplexml_load_string($result)->logins;
-        $new_password = $logins->new_login->password;
-        $result = clean_last_access_xml($result, $new_password);
-        $expected_result = preg_replace('|\<password\>.*?\<\/password\>|', '<password>'.$new_password.'</password>', $expected_result);
-        test_result_good($result_code, $result, $st1, $expected_result);
-    }
-    
-    $title = 'People Test 49C: Try A POST for a standalone Login, Using a Query Argument of "login_string" (Manager Login).';
-    $method = 'POST';
-    $uri = __SERVER_URI__.'/xml/people/logins/?login_string=RichFromHTTP';
-    $data = NULL;
-    $expected_result_code = 200;
-    $expected_result = get_xml_header('people').'<logins><new_login><id>22</id><name>RichFromHTTP</name><lang>en</lang><login_id>RichFromHTTP</login_id><read_token>22</read_token><write_token>22</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><password>=$O#U5KZR8</password></new_login></logins></people>';
     $result_code = '';
     
     test_header($title, $method, $uri, $expected_result_code);

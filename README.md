@@ -11,7 +11,7 @@ Part of the Rift Valley Platform
 
 THE BAOBAB REST API
 ===================
-The BAOBAB server is designed to be used as a low-level application server; part of a larger solution that includes client-focused SDKs. Access by client applications is to be done via the SDKs, meaning that the BAOBAB REST API is an internal Greate Rift Valley interface.
+The BAOBAB server is designed to be used as a low-level application server; part of a larger solution that includes client-focused SDKs. Access by client applications is to be done via the SDKs, meaning that the BAOBAB REST API is an internal Great Rift Valley interface.
 
 The client SDKs will use this REST API to interact with the BAOBAB Server.
 
@@ -39,13 +39,22 @@ Authentication is accomplished by a 2-key system:
     This key is timed, and may also be tied to the user's IP address. The timeout is set by the server administrator (default is 60 minutes for a regular login, and 10 minutes for a "main admin" login).
     API Key timeouts are "hard." They will not be reset or "touched" by interactions. It is up to the user process to track the time. If an API Key times out while a server process is under way, the process will conclude as normal, but subsequent calls will fail until the login has been renewed (and a new API Key is supplied).
 
-When connecting to the BAOBAB server as an authorized user, you must include the Server Secret and the API Key in the [Basic Authentication HTTP Header](https://en.wikipedia.org/wiki/Basic_access_authentication), like so (example is PHP cURL):
+When connecting to the BAOBAB server as an authorized user, you must include the Server Secret and the API Key in the [Basic Authentication HTTP Header](https://en.wikipedia.org/wiki/Basic_access_authentication), like so:
+
+In PHP (cURL):
 
     // Authentication. We provide the Server Secret and the API key here.
-    if (isset($server_secret) && isset($api_key)) {
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, "$g_server_secret:$api_key");
+    if (isset($g_server_secret) && isset($g_api_key)) {
+        curl_setopt($curl_resource_handle, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl_resource_handle, CURLOPT_USERPWD, "$g_server_secret:$g_api_key");
     }
+
+Or in JavaScript (AJAX):
+
+    // Authentication. We provide the Server Secret and the API key here.
+    if (isset(g_server_secret) && isset(g_api_key)) {
+        xml_http_request_object.setRequestHeader('Authorization', 'Basic ' + btoa(unescape(encodeURIComponent(g_server_secret + ':' + g_api_key))));
+    };
 
 The Server Secret is placed in the "login ID" place, and the API Key is placed in the "password" place.
 
@@ -65,13 +74,15 @@ BAOBAB uses "security tokens," which are simple integers. These are generated an
 
 Tokens can be applied to any resource on the server. There are no "levels" to tokens. The same token can be used to secure nuclear launch codes, or your porn stash (**PROTIP:** Don't do that).
 
-Manager Users are given a "pool" of tokens that they can give to users they create. No user can have any tokens that the Manager does not have. Manager users can create new tokens, which are added to their pool, or another manager with a larger pool can give tokens to users (Managers or otherwise).
-
 Any resource can have a single token applied as a read permission, and a single token applied as a write permission. When a user accesses a resource, the tokens "owned" by that user (including the user's own resource ID) are checked against the resource read and/or write tokens. If they do not match, the resource is "invisible" to the user.
 
 It is possible for users to have read rights to resources, but not write/modification rights. If a user has write/modification permission, they also have read permission for that resource.
 
 Tokens are super-simple. They have no accompanying metadata (like names). The SDKs and client applications should be responsible for applying organizational characteristics to security tokens, and for providing a cognitive model of the token system to users and administrators.
+
+Manager Users are given a "pool" of tokens that they can give to users they create. No user can have any tokens that the Manager does not have. Manager users can create new tokens, which are added to their pool, or another manager with a larger pool can give tokens to users (Managers or otherwise), and they have write permissions for the login (not user record) for that user.
+
+Users cannot set their own security tokens. A manager must set the security tokens for any user (Manager or Standard User).
 
 USERS
 -----
@@ -83,7 +94,7 @@ There are only three levels of user:
     
 - **Manager User**
 
-    This is a standard user that also has the authority to create other users and new security tokens.
+    This is a standard user that also has the authority to create other users, modify user security tokens, and create new security tokens.
     
 - **Main Admin ("God") User**
 
@@ -158,7 +169,7 @@ Every resource in the BAOBAB server, regardless of its type, can have a `"lang"`
 
 RESPONSE HEADERS
 ================
-Unsuccessful attemts at operations may result in response headers of 400 (error), 401, 403 (Forbidden), or even 500.
+Unsuccessful attempts at operations may result in response headers of 400 (error), 401, 403 (Forbidden), or even 500.
 
 In most cases, you will also receive some text that may help to explain the cause. For reasons of security, this may be limited (A good security practice is to keep people guessing as to what, exactly, happened).
 
