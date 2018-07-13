@@ -142,6 +142,8 @@ You log out by calling the logout call, like so:
 
 This should be accompanied by the authorization header. The requirement for SSL is the one for regular interactions (independent of login). Once this has been successfully called, the API Key is no longer valid, and can be disposed of.
 
+**NOTE:** Logout does not return 200 as an HTTP Status. Instead, it returns 205 (RESET CONTENT). This indicates that the recipient has a different server context, and should reset their content.
+
 DATA FORMATS
 ============
 BAOBAB will respond with four different formats:
@@ -170,6 +172,8 @@ Every resource in the BAOBAB server, regardless of its type, can have a `"lang"`
 RESPONSE HEADERS
 ================
 Unsuccessful attempts at operations may result in response headers of 400 (error), 401, 403 (Forbidden), or even 500.
+
+Successful operations will return 200 (205, in the case of a successful logout).
 
 In most cases, you will also receive some text that may help to explain the cause. For reasons of security, this may be limited (A good security practice is to keep people guessing as to what, exactly, happened).
 
