@@ -900,4 +900,38 @@ function basalt_test_0050($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
 }
+
+// --------------------
+
+function basalt_test_define_0051() {
+    basalt_run_single_direct_test(51, 'Create A User Login Object Pair, With Location Information (XML)', '', 'people_tests');
+}
+
+function basalt_test_0051($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'People Test 51A: Try A POST for a standalone Login, Using the Resource Path (Manager Login).';
+    $method = 'POST';
+    $uri = __SERVER_URI__.'/xml/people/people/?login_id=ComradeAngryOrange&longitude=-77.0365&latitude=38.8977';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MainAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><new_user><id>1752</id><name>ComradeAngryOrange</name><lang>en</lang><coords>38.897700,-77.036500</coords><read_token>1</read_token><write_token>20</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>38.8977</latitude><longitude>-77.0365</longitude><associated_login><id>20</id><name>ComradeAngryOrange</name><lang>en</lang><login_id>ComradeAngryOrange</login_id><read_token>20</read_token><write_token>20</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1752</user_object_id><security_tokens><value sequence_index="0">20</value></security_tokens><password>-PASSWORD-</password></associated_login></new_user></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        $logins = simplexml_load_string($result)->people;
+        $new_password = $logins->new_user->associated_login->password;
+        $result = clean_last_access_xml($result, $new_password);
+        $expected_result = preg_replace('|\<password\>.*?\<\/password\>|', '<password>'.$new_password.'</password>', $expected_result);
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
 ?>
