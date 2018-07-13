@@ -166,7 +166,27 @@ BAOBAB will respond with four different formats:
 - XSD (XML SCHEMA)
 
     Each plugin can be queried for its XML data schema. The schema will be comprehensive, describing all possible responses from the plugin. XSD responses are always "publicly-accessible." There are no restrictions on reading them. They are read-only resources.
-    
+
+LOCATION, LOCATION, LOCATION
+============================
+Despite the generic nature of the data contained within the BAOBAB dataset, special consideration is given to allowing all data to have a geographic location set (as a longitude/latitude -in degrees- value).
+
+This means that you can use the \ref rest-plugin-baseline plugin to do "format-agnostic" searches, based on a location and radius, and find all available resources -of any type, within the search radius.
+
+RADIUS SEARCH
+-------------
+You can search for all resources, using a radius search. This is when you supply a longitude and latitude, along with a radius (not diameter); describing a circle around the long/lat. This can be sent to BAOBAB as a search criteria, and any resources that have a position set that fall within that radius will be returned. Resources that do not have an assigned long/lat will not be included in the results.
+
+LOCATION OBFUSCATION
+--------------------
+It is also possible to [obfuscate](https://en.wikipedia.org/wiki/Location_obfuscation) each location by a given distance, in Kilometers. If this is done, then the precise location will not be returned when the record is queried. Instead, a randomized long/lat will be returned. If the resource's actual location falls within the search radius, then it will be returned, but the long/lat will be different, and could actually be outside the requested radius.
+
+This is a common practice for security, allowing a degree of privacy or security to people or institutions (think battered women's shelters, which often have confidential locations).
+
+AGGREGATORS
+===========
+Every resource is a "collection." That means that you can associate other resources with it, so you can have logical connections between resources.
+
 LOCALIZATION FLAGS
 ==================
 Every resource in the BAOBAB server, regardless of its type, can have a `"lang"` data member. This is a simple [ISO 639-1 or ISO 639-2](http://www.loc.gov/standards/iso639-2/php/code_list.php) code. It is up to the client endpoint to provide localizations, but the resources can be flagged with localization hints.

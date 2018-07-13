@@ -157,7 +157,7 @@ function timing_report($in_start, $in_text = 'execute this query') {
 }
 
 function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_result) {
-    echo('<div class="indent_1 test_report bad_report"><h3 style="color:red">Did Not Receive Expected Result Code: '.intval($in_result_code).'</h3>');
+    echo('<div class="indent_1 test_report bad_report"><h3 style="color:red">Did Not Receive Expected Result Code. Got '.intval($in_result_code).', Instead.</h3>');
     if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
         echo('<div class="indent_1" style="color:green"><strong>Received Expected Result</strong><div>');
         if ($in_result) {
