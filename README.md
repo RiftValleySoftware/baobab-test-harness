@@ -74,7 +74,7 @@ BAOBAB uses "security tokens," which are simple integers. These are generated an
 
 Tokens can be applied to any resource on the server. There are no "levels" to tokens. The same token can be used to secure nuclear launch codes, or your porn stash (**PROTIP:** Don't do that).
 
-Any resource can have a single token applied as a read permission, and a single token applied as a write permission. When a user accesses a resource, the tokens "owned" by that user (including the user's own resource ID) are checked against the resource read and/or write tokens. If they do not match, the resource is "invisible" to the user.
+Any resource can have a single token applied as a read permission, and a single token applied as a write permission. When a user accesses a resource, the tokens "owned" by that user (including the user's own resource ID) are checked against the resource read and/or write tokens. If they do not match, the resource is either "read-only," or "invisible" to the user.
 
 It is possible for users to have read rights to resources, but not write/modification rights. If a user has write/modification permission, they also have read permission for that resource.
 
