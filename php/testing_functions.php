@@ -250,7 +250,7 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                 echo('</div>');
             echo('</div>');
         }
-    } elseif ($in_expected_result || $in_result && ($in_expected_result != $in_result)) {
+    } elseif ($in_expected_result || ($in_result && ($in_expected_result != $in_result))) {
         echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong></div>');
         if ($in_result) {
             if (preg_match('|^\<\?xml|', $in_result)) {

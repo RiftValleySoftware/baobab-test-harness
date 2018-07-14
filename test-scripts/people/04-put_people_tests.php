@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(52, 'PUT METHOD PEOPLE TESTS', '');
+baobab_run_tests(55, 'PUT METHOD PEOPLE TESTS', '');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
@@ -589,5 +589,539 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key1, $result_code);
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key3, $result_code);
+}
+
+function basalt_test_define_0054() {
+    basalt_run_single_direct_test(54, 'Use the "God" Admin to Change A Login ID (JSON).', '', 'people_tests');
+}
+
+function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    echo('<h3>People Test 54A: This One Is Complicated: We log in three users, then change the Login ID of one, and make sure it gets logged out.</h3>');
+    $api_key1 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key2 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DCAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key3 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DEAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+
+    $title = '-> Verify that the Maryland Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1725,"name":"MDAdmin","lang":"en","coords":"39.285800,-76.613100","read_token":0,"write_token":7,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":39.2858,"longitude":-76.6131,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":7}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key1, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the DC Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1727,"name":"DCAdmin","lang":"en","coords":"38.889300,-77.050200","read_token":0,"write_token":9,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":38.8893,"longitude":-77.0502,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":9}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key2, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Delaware Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1729,"name":"DEAdmin","lang":"en","coords":"39.739100,-75.539800","read_token":0,"write_token":11,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":39.7391,"longitude":-75.5398,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":11}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key3, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = 'Try to Change the Login String ID of A User to An Existing Login (Logged In As "God"). This should fail with a 400, and everyone stays logged in.';
+    $method = 'PUT';
+    $uri = __SERVER_URI__.'/json/people/logins/7?login_string=VAAdmin';
+    $data = NULL;
+    $expected_result_code = 400;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Maryland Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1725,"name":"MDAdmin","lang":"en","coords":"39.285800,-76.613100","read_token":0,"write_token":7,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":39.2858,"longitude":-76.6131,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":7}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key1, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the DC Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1727,"name":"DCAdmin","lang":"en","coords":"38.889300,-77.050200","read_token":0,"write_token":9,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":38.8893,"longitude":-77.0502,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":9}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key2, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Delaware Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1729,"name":"DEAdmin","lang":"en","coords":"39.739100,-75.539800","read_token":0,"write_token":11,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":39.7391,"longitude":-75.5398,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":11}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key3, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = 'Try to Change the Login String ID of the MDAdmin User to A Unique One (Logged In As "God"). This should force the "MDAdmin" login out.';
+    $method = 'PUT';
+    $uri = __SERVER_URI__.'/json/people/logins/MDAdmin?login_string=EhmDeeAdmin';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":{"changed_logins":[{"before":{"id":7,"name":"Maryland Login","lang":"en","login_id":"MDAdmin","read_token":7,"write_token":7,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1725,"is_manager":false,"is_main_admin":false,"security_tokens":[7],"current_api_key":true,"api_key":"'.$api_key1.'","api_key_age_in_seconds":1},"after":{"id":7,"name":"Maryland Login","lang":"en","login_id":"EhmDeeAdmin","read_token":7,"write_token":7,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1725,"is_manager":false,"is_main_admin":false,"security_tokens":[7]}}]}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Maryland Admin is No Longer Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 401;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key1, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the DC Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1727,"name":"DCAdmin","lang":"en","coords":"38.889300,-77.050200","read_token":0,"write_token":9,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":38.8893,"longitude":-77.0502,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":9}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key2, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Delaware Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1729,"name":"DEAdmin","lang":"en","coords":"39.739100,-75.539800","read_token":0,"write_token":11,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":39.7391,"longitude":-75.5398,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":11}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key3, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key2, $result_code);
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key3, $result_code);
+
+    $title = 'People Test 54B: Try logging in MDAdmin, Using the Old Credentials.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory';
+    $api_key = '';
+    $data = NULL;
+    $expected_result_code = 403;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = 'People Test 54C: Try logging in EhmDeeAdmin, Using the New Credentials.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/login?login_id=EhmDeeAdmin&password=CoreysGoryStory';
+    $api_key = '';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $result);
+    } else {
+        test_result_good($result_code, $result, $st1, $result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+function basalt_test_define_0055() {
+    basalt_run_single_direct_test(55, 'Use the "God" Admin to Change A Login ID (XML).', '', 'people_tests');
+}
+
+function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    echo('<h3>People Test 55A: This One Is Complicated: We log in three users, then change the Login ID of one, and make sure it gets logged out.</h3>');
+    $api_key1 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key2 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DCAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key3 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DEAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+
+    $title = '-> Verify that the Maryland Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1725</id><name>MDAdmin</name><lang>en</lang><coords>39.285800,-76.613100</coords><write_token>7</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>39.2858</latitude><longitude>-76.6131</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>7</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key1, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the DC Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1727</id><name>DCAdmin</name><lang>en</lang><coords>38.889300,-77.050200</coords><write_token>9</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>38.8893</latitude><longitude>-77.0502</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>9</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key2, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Delaware Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1729</id><name>DEAdmin</name><lang>en</lang><coords>39.739100,-75.539800</coords><write_token>11</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>39.7391</latitude><longitude>-75.5398</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>11</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key3, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = 'Try to Change the Login String ID of A User to An Existing Login (Logged In As "God"). This should fail with a 400, and everyone stays logged in.';
+    $method = 'PUT';
+    $uri = __SERVER_URI__.'/xml/people/logins/7?login_string=VAAdmin';
+    $data = NULL;
+    $expected_result_code = 400;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Maryland Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1725</id><name>MDAdmin</name><lang>en</lang><coords>39.285800,-76.613100</coords><write_token>7</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>39.2858</latitude><longitude>-76.6131</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>7</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key1, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the DC Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1727</id><name>DCAdmin</name><lang>en</lang><coords>38.889300,-77.050200</coords><write_token>9</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>38.8893</latitude><longitude>-77.0502</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>9</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key2, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Delaware Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1729</id><name>DEAdmin</name><lang>en</lang><coords>39.739100,-75.539800</coords><write_token>11</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>39.7391</latitude><longitude>-75.5398</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>11</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key3, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = 'Try to Change the Login String ID of the MDAdmin User to A Unique One (Logged In As "God"). This should force the "MDAdmin" login out.';
+    $method = 'PUT';
+    $uri = __SERVER_URI__.'/xml/people/logins/MDAdmin?login_string=EhmDeeAdmin';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><changed_logins><value sequence_index="0"><before><id>7</id><name>Maryland Login</name><lang>en</lang><login_id>MDAdmin</login_id><read_token>7</read_token><write_token>7</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1725</user_object_id><security_tokens><value sequence_index="0">7</value></security_tokens><current_api_key>1</current_api_key><api_key>'.$api_key1.'</api_key><api_key_age_in_seconds>1</api_key_age_in_seconds></before><after><id>7</id><name>Maryland Login</name><lang>en</lang><login_id>EhmDeeAdmin</login_id><read_token>7</read_token><write_token>7</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1725</user_object_id><security_tokens><value sequence_index="0">7</value></security_tokens></after></value></changed_logins></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Maryland Admin is No Longer Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 401;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key1, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the DC Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1727</id><name>DCAdmin</name><lang>en</lang><coords>38.889300,-77.050200</coords><write_token>9</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>38.8893</latitude><longitude>-77.0502</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>9</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key2, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Delaware Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1729</id><name>DEAdmin</name><lang>en</lang><coords>39.739100,-75.539800</coords><write_token>11</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>39.7391</latitude><longitude>-75.5398</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>11</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key3, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key2, $result_code);
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key3, $result_code);
+
+    $title = 'People Test 55B: Try logging in MDAdmin, Using the Old Credentials.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory';
+    $api_key = '';
+    $data = NULL;
+    $expected_result_code = 403;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = 'People Test 54C: Try logging in EhmDeeAdmin, Using the New Credentials.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/login?login_id=EhmDeeAdmin&password=CoreysGoryStory';
+    $api_key = '';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $result);
+    } else {
+        test_result_good($result_code, $result, $st1, $result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
 }
 ?>
