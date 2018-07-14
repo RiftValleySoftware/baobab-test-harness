@@ -76,6 +76,10 @@ Tokens can be applied to any resource on the server. There are no "levels" to to
 
 Any resource can have a single token applied as a read permission, and a single token applied as a write permission. When a user accesses a resource, the tokens "owned" by that user (including the user's own resource ID) are checked against the resource read and/or write tokens. If they do not match, the resource is either "read-only," or "invisible" to the user.
 
+Tokens work by "obscurity." If a user doeas not have a token, then they should not ever even know the token exists (although tokens, being sequential IDs, can be guessed).
+
+When a Manager creates a new user, that user's ID becomes another token, and is added to the Manager's "pool."
+
 It is possible for users to have read rights to resources, but not write/modification rights. If a user has write/modification permission, they also have read permission for that resource.
 
 Tokens are super-simple. They have no accompanying metadata (like names). The SDKs and client applications should be responsible for applying organizational characteristics to security tokens, and for providing a cognitive model of the token system to users and administrators.
