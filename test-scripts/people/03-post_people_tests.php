@@ -164,7 +164,7 @@ function basalt_test_0041($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0042() {
-    basalt_run_single_direct_test(42, 'Create a Simple, Unadorned Login (JSON)', 'NOTE: Although the password is shown as \'-PASSWORD-\', what is actually returned is a randomly-generated password.', 'people_tests');
+    basalt_run_single_direct_test(42, 'Create a Simple, Unadorned Login (JSON)', '', 'people_tests');
 }
 
 function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -287,7 +287,7 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 42G: OK, OK. Now we supply a valid, unique login. This time, it will work. The password will be "normalized" for comparison, but in reality, we got an auto-generated one.';
+    $title = 'People Test 42G: OK, OK. Now we supply a valid, unique login. This time, it will work.';
     $method = 'POST';
     $uri = __SERVER_URI__.'/json/people/logins/?login_id=DickFromTheInternet';
     $data = NULL;
@@ -298,11 +298,15 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     test_header($title, $method, $uri, $expected_result_code);
     
     $st1 = microtime(true);
-    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
     } else {
+        $people = json_decode($result)->people->logins;
+        $new_password = $people->new_login->password;
+        $result = clean_last_access_json($result, $new_password);
+        $expected_result = preg_replace('|"password":".*?"|', '"password":"'.$new_password.'"', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
@@ -435,7 +439,7 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 43G: OK, OK. Now we supply a valid, unique login. This time, it will work. The password will be "normalized" for comparison, but in reality, we got an auto-generated one.';
+    $title = 'People Test 43G: OK, OK. Now we supply a valid, unique login. This time, it will work.';
     $method = 'POST';
     $uri = __SERVER_URI__.'/xml/people/logins/?login_id=DickFromTheInternet';
     $data = NULL;
@@ -446,11 +450,15 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     test_header($title, $method, $uri, $expected_result_code);
     
     $st1 = microtime(true);
-    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
     } else {
+        $people = simplexml_load_string($result)->logins;
+        $new_password = $people->new_login->password;
+        $result = clean_last_access_xml($result, $new_password);
+        $expected_result = preg_replace('|\<password\>.*?\<\/password\>|', '<password>'.$new_password.'</password>', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
@@ -460,7 +468,7 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0044() {
-    basalt_run_single_direct_test(44, 'Create a Simple, Unadorned User (JSON), with An Associated Login.', 'NOTE: Although the password is shown as \'-PASSWORD-\', what is actually returned is a randomly-generated password.', 'people_tests');
+    basalt_run_single_direct_test(44, 'Create a Simple, Unadorned User (JSON), with An Associated Login.', '', 'people_tests');
 }
 
 function basalt_test_0044($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -514,11 +522,15 @@ function basalt_test_0044($in_login = NULL, $in_hashed_password = NULL, $in_pass
     test_header($title, $method, $uri, $expected_result_code);
     
     $st1 = microtime(true);
-    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
     } else {
+        $people = json_decode($result)->people->people;
+        $new_password = $people->new_user->associated_login->password;
+        $result = clean_last_access_json($result, $new_password);
+        $expected_result = preg_replace('|"password":".*?"|', '"password":"'.$new_password.'"', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
@@ -533,11 +545,15 @@ function basalt_test_0044($in_login = NULL, $in_hashed_password = NULL, $in_pass
     test_header($title, $method, $uri, $expected_result_code);
     
     $st1 = microtime(true);
-    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
     } else {
+        $people = json_decode($result)->people->people;
+        $new_password = $people->new_user->associated_login->password;
+        $result = clean_last_access_json($result, $new_password);
+        $expected_result = preg_replace('|"password":".*?"|', '"password":"'.$new_password.'"', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
@@ -547,7 +563,7 @@ function basalt_test_0044($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0045() {
-    basalt_run_single_direct_test(45, 'Create a Simple, Unadorned User (XML), with An Associated Login.', 'NOTE: Although the password is shown as \'-PASSWORD-\', what is actually returned is a randomly-generated password.', 'people_tests');
+    basalt_run_single_direct_test(45, 'Create a Simple, Unadorned User (XML), with An Associated Login.', '', 'people_tests');
 }
 
 function basalt_test_0045($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -693,6 +709,25 @@ function basalt_test_0046($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
+    $title = 'People Test 46C: Check My Info (Manager Login). Make Sure the new tokens were added to our pool (20 and 21).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/logins/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":{"my_info":{"id":12,"name":"Main Admin Login","lang":"en","login_id":"MainAdmin","read_token":12,"write_token":12,"last_access":"1970-01-02 00:00:00","writeable":true,"current_login":true,"user_object_id":1730,"is_manager":true,"is_main_admin":false,"security_tokens":[12,7,8,9,10,11,20,21],"current_api_key":true}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
 }
 
@@ -747,6 +782,25 @@ function basalt_test_0047($in_login = NULL, $in_hashed_password = NULL, $in_pass
         $new_password = $people->new_user->associated_login->password;
         $result = clean_last_access_xml($result, $new_password);
         $expected_result = preg_replace('|\<password\>.*?\<\/password\>|', '<password>'.$new_password.'</password>', $expected_result);
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'People Test 47C: Check My Info (Manager Login). Make Sure the new tokens were added to our pool (20 and 21).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/logins/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><my_info><id>12</id><name>Main Admin Login</name><lang>en</lang><login_id>MainAdmin</login_id><read_token>12</read_token><write_token>12</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><current_login>1</current_login><user_object_id>1730</user_object_id><is_manager>1</is_manager><security_tokens><value sequence_index="0">12</value><value sequence_index="1">7</value><value sequence_index="2">8</value><value sequence_index="3">9</value><value sequence_index="4">10</value><value sequence_index="5">11</value><value sequence_index="6">20</value><value sequence_index="7">21</value></security_tokens><current_api_key>1</current_api_key></my_info></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
