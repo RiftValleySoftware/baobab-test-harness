@@ -76,7 +76,7 @@ Tokens can be applied to any resource on the server. There are no "levels" to to
 
 Any resource can have a single token applied as a read permission, and a single token applied as a write permission. When a user accesses a resource, the tokens "owned" by that user (including the user's own resource ID) are checked against the resource read and/or write tokens. If they do not match, the resource is either "read-only," or "invisible" to the user.
 
-Tokens work by "obscurity." If a user doeas not have a token, then they should not ever even know the token exists (although tokens, being sequential IDs, can be guessed).
+Tokens work by "obscurity." If a user does not have a token, then they should not ever even know the token exists (although tokens, being sequential IDs, can be guessed).
 
 When a Manager creates a new user, that user's ID becomes another token, and is added to the Manager's "pool."
 
