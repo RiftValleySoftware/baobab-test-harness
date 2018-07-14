@@ -20,7 +20,7 @@ baobab_run_tests(52, 'PUT METHOD PEOPLE TESTS', '');
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
 function basalt_test_define_0052() {
-    basalt_run_single_direct_test(52, 'Make A Simple Name Change, Testing Each Type of Login (JSON).', 'We try changing the name of resources, with differing access levels.', 'people_tests');
+    basalt_run_single_direct_test(52, 'Make A Couple of Simple Changes, Testing Each Type of Login (JSON).', 'We try changing the name of resources, with differing access levels.', 'people_tests');
 }
 
 function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -102,7 +102,7 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 52E: Try to Change Our Own Password Via \'my_info\'. This should fail, but \'gently,\' as this is a user operation, and there is no password.';
+    $title = 'People Test 52E: Try to Change Our Own Password Via \'my_info\'. This should fail, but \'gently,\' as we tried doing this to the user resource, which has no password. No changes were made.';
     $method = 'PUT';
     $uri = __SERVER_URI__.'/json/people/people/my_info?password=NewPassword';
     $data = NULL;
@@ -121,7 +121,7 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 52F: Try to Change Our Own Password Via the login \'my_info\'. This should work. Note that the API key is now invalid, so if we try a \'my_info\' after this, it should fail, as we are no longer logged in.';
+    $title = 'People Test 52F: Try to Change Our Own Password Via the login \'my_info\'. This should work. Note that the API key in the "after" object is now invalid, so if we try a \'my_info\' after this, it should fail, as we are no longer logged in.';
     $method = 'PUT';
     $uri = __SERVER_URI__.'/json/people/logins/my_info?password=NewPassword';
     $data = NULL;
@@ -158,12 +158,156 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
     }
+    
+    echo('<h3>People Test 52G: This One Is Complicated: We log in three users, then change the password of one, and make sure it gets logged out.</h3>');
+    $api_key1 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key2 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DCAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key3 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DEAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+
+    $title = '-> Verify that the Maryland Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1725,"name":"MDAdmin","lang":"en","coords":"39.285800,-76.613100","read_token":0,"write_token":7,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":39.2858,"longitude":-76.6131,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":7}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key1, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the DC Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1727,"name":"DCAdmin","lang":"en","coords":"38.889300,-77.050200","read_token":0,"write_token":9,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":38.8893,"longitude":-77.0502,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":9}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key2, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Delaware Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1729,"name":"DEAdmin","lang":"en","coords":"39.739100,-75.539800","read_token":0,"write_token":11,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":39.7391,"longitude":-75.5398,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":11}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key3, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'We are also logged in as the "God" Admin, and will use that to change the password for the DC Admin';
+    $method = 'PUT';
+    $uri = __SERVER_URI__.'/json/people/logins/9?password=ThisIsANewPassword';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":{"changed_logins":[{"before":{"id":9,"name":"Washington DC Login","lang":"en","login_id":"DCAdmin","read_token":9,"write_token":9,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1727,"is_manager":false,"is_main_admin":false,"security_tokens":[9],"current_api_key":true,"api_key":"'.$api_key2.'","api_key_age_in_seconds":1},"after":{"id":9,"name":"Washington DC Login","lang":"en","login_id":"DCAdmin","read_token":9,"write_token":9,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1727,"is_manager":false,"is_main_admin":false,"security_tokens":[9],"password":"ThisIsANewPassword"}}]}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code), 'ThisIsANewPassword');
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    echo('<h3>Note that the API Key is now gone. Let\'s try the \'my_info\' tests again, and we expect a 401 on the DC one:</h3>');
+
+    $title = '-> Verify that the Maryland Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1725,"name":"MDAdmin","lang":"en","coords":"39.285800,-76.613100","read_token":0,"write_token":7,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":39.2858,"longitude":-76.6131,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":7}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key1, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the DC Admin is No Longer Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 401;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key2, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Delaware Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"people":{"my_info":{"id":1729,"name":"DEAdmin","lang":"en","coords":"39.739100,-75.539800","read_token":0,"write_token":11,"last_access":"1970-01-02 00:00:00","writeable":true,"latitude":39.7391,"longitude":-75.5398,"middle_name":"TAG-2-TEST-PEOPLE","is_manager":false,"is_main_admin":false,"associated_login_id":11}}}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key3, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key1, $result_code);
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key3, $result_code);
 }
 
 // --------------------
 
 function basalt_test_define_0053() {
-    basalt_run_single_direct_test(53, 'Make A Simple Name Change, Testing Each Type of Login (XML).', 'We try changing the name of resources, with differing access levels.', 'people_tests');
+    basalt_run_single_direct_test(53, 'Make A Couple of Simple Changes, Testing Each Type of Login (XML).', 'We try changing the name of resources, with differing access levels.', 'people_tests');
 }
 
 function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -245,7 +389,7 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 53E: Try to Change Our Own Password Via \'my_info\'. This should fail, but \'gently,\' as this is a user operation, and there is no password.';
+    $title = 'People Test 53E: Try to Change Our Own Password Via \'my_info\'. This should fail, but \'gently,\' as we tried doing this to the user resource, which has no password. No changes were made.';
     $method = 'PUT';
     $uri = __SERVER_URI__.'/xml/people/people/my_info?password=NewPassword';
     $data = NULL;
@@ -264,7 +408,7 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
         test_result_good($result_code, $result, $st1, $expected_result);
     }
     
-    $title = 'People Test 53F: Try to Change Our Own Password Via the login \'my_info\'. This should work. Note that the API key is now invalid, so if we try a \'my_info\' after this, it should fail, as we are no longer logged in.';
+    $title = 'People Test 53F: Try to Change Our Own Password Via the login \'my_info\'. This should work. Note that the API key in the "after" object is now invalid, so if we try a \'my_info\' after this, it should fail, as we are no longer logged in.';
     $method = 'PUT';
     $uri = __SERVER_URI__.'/xml/people/logins/my_info?password=NewPassword';
     $data = NULL;
@@ -301,5 +445,149 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
     }
+    
+    echo('<h3>People Test 53G: This One Is Complicated: We log in three users, then change the password of one, and make sure it gets logged out.</h3>');
+    $api_key1 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key2 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DCAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key3 = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DEAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+
+    $title = '-> Verify that the Maryland Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1725</id><name>MDAdmin</name><lang>en</lang><coords>39.285800,-76.613100</coords><write_token>7</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>39.2858</latitude><longitude>-76.6131</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>7</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key1, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the DC Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1727</id><name>DCAdmin</name><lang>en</lang><coords>38.889300,-77.050200</coords><write_token>9</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>38.8893</latitude><longitude>-77.0502</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>9</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key2, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Delaware Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1729</id><name>DEAdmin</name><lang>en</lang><coords>39.739100,-75.539800</coords><write_token>11</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>39.7391</latitude><longitude>-75.5398</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>11</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key3, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    $title = 'We are also logged in as the "God" Admin, and will use that to change the password for the DC Admin';
+    $method = 'PUT';
+    $uri = __SERVER_URI__.'/xml/people/logins/DCAdmin?password=ThisIsANewPassword';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><changed_logins><value sequence_index="0"><before><id>9</id><name>Washington DC Login</name><lang>en</lang><login_id>DCAdmin</login_id><read_token>9</read_token><write_token>9</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1727</user_object_id><security_tokens><value sequence_index="0">9</value></security_tokens><current_api_key>1</current_api_key><api_key>'.$api_key2.'</api_key><api_key_age_in_seconds>1</api_key_age_in_seconds></before><after><id>9</id><name>Washington DC Login</name><lang>en</lang><login_id>DCAdmin</login_id><read_token>9</read_token><write_token>9</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1727</user_object_id><security_tokens><value sequence_index="0">9</value></security_tokens><password>ThisIsANewPassword</password></after></value></changed_logins></logins></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code), 'ThisIsANewPassword');
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    echo('<h3>Note that the API Key is now gone. Let\'s try the \'my_info\' tests again, and we expect a 401 on the DC one:</h3>');
+
+    $title = '-> Verify that the Maryland Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1725</id><name>MDAdmin</name><lang>en</lang><coords>39.285800,-76.613100</coords><write_token>7</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>39.2858</latitude><longitude>-76.6131</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>7</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key1, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the DC Admin is No Longer Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 401;
+    $expected_result = '';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key2, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+
+    $title = '-> Verify that the Delaware Admin is Properly Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/people/people/my_info';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<people><my_info><id>1729</id><name>DEAdmin</name><lang>en</lang><coords>39.739100,-75.539800</coords><write_token>11</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><latitude>39.7391</latitude><longitude>-75.5398</longitude><middle_name>TAG-2-TEST-PEOPLE</middle_name><associated_login_id>11</associated_login_id></my_info></people></people>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key3, $result_code);
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key1, $result_code);
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key3, $result_code);
 }
 ?>
