@@ -21,7 +21,7 @@ require_once(dirname(dirname(__FILE__)).'/basalt/config/t_basalt_config.interfac
 require_once(dirname(dirname(__FILE__)).'/php/login_validation.php');
 require_once(dirname(dirname(__FILE__)).'/php/co_logging.class.php');
 
-define('_MAIN_DB_TYPE_', 'mysql');
+define('_MAIN_DB_TYPE_', 'pgsql');
 
 define('_SECURITY_DB_TYPE_', 'pgsql');
 

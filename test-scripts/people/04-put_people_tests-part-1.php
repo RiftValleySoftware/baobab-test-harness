@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(54, 'PUT METHOD PEOPLE TESTS (PART 1)', '');
+baobab_run_tests(52, 'PUT METHOD PEOPLE TESTS (PART 1)', '');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
@@ -1134,7 +1134,7 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0056() {
-//     basalt_run_single_direct_test(56, 'Try to Change Our Own Login ID, and Try to Change Another User\'s. Also Change Another User\'s Password as a Manager (JSON).', '', 'people_tests');
+    basalt_run_single_direct_test(56, 'Try to Change Our Own Login ID, and Try to Change Another User\'s. Also Change Another User\'s Password as a Manager (JSON).', '', 'people_tests');
 }
 
 function basalt_test_0056($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -1244,7 +1244,7 @@ function basalt_test_0056($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0057() {
-//     basalt_run_single_direct_test(57, 'Try to Change Our Own Login ID, and Try to Change Another User\'s. Also Change Another User\'s Password as a Manager (XML).', '', 'people_tests');
+    basalt_run_single_direct_test(57, 'Try to Change Our Own Login ID, and Try to Change Another User\'s. Also Change Another User\'s Password as a Manager (XML).', '', 'people_tests');
 }
 
 function basalt_test_0057($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
