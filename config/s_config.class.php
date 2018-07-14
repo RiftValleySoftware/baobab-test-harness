@@ -23,7 +23,7 @@ require_once(dirname(dirname(__FILE__)).'/php/co_logging.class.php');
 
 define('_MAIN_DB_TYPE_', 'mysql');
 
-define('_SECURITY_DB_TYPE_', 'mysql');
+define('_SECURITY_DB_TYPE_', 'pgsql');
 
 class CO_Config {
     use tCO_Basalt_Config; // These are the built-in config methods.
