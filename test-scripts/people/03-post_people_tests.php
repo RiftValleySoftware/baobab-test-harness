@@ -316,7 +316,7 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0043() {
-    basalt_run_single_direct_test(43, 'Create a Simple, Unadorned Login (XML)', 'NOTE: Although the password is shown as \'-PASSWORD-\', what is actually returned is a randomly-generated password.', 'people_tests');
+    basalt_run_single_direct_test(43, 'Create a Simple, Unadorned Login (XML)', '', 'people_tests');
 }
 
 function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {

@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(60, 'PUT METHOD PEOPLE TESTS (PART 2)', '');
+baobab_run_tests(58, 'PUT METHOD PEOPLE TESTS (PART 2)', '');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
@@ -376,7 +376,7 @@ function basalt_test_0059($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0060() {
-    basalt_run_single_direct_test(60, 'TEST IMAGE/PAYLOAD ATTACHMENTS.', '', 'people_2_tests');
+    basalt_run_single_direct_test(60, 'TEST IMAGE/PAYLOAD ATTACHMENTS (JSON).', '', 'people_2_tests');
 }
 
 function basalt_test_0060($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -396,6 +396,218 @@ function basalt_test_0060($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
         $st1 = microtime(true);
         $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+        if ($result_code != $expected_result_code) {
+            test_result_bad($result_code, $result, $st1, $expected_result);
+        } else {
+            test_result_good($result_code, $result, $st1, $expected_result);
+        }
+        
+        call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+        
+        $title = 'Test 60B: Check the Virginia Admin';
+        $result_code = '';
+        $method = 'GET';
+        $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=VAAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+        $uri = __SERVER_URI__.'/json/people/people/my_info';
+        $data = NULL;
+        $expected_result_code = 200;
+        $expected_result = file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-1726.json');
+    
+        test_header($title, $method, $uri, $expected_result_code);
+    
+        $st1 = microtime(true);
+        $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+        if ($result_code != $expected_result_code) {
+            test_result_bad($result_code, $result, $st1, $expected_result);
+        } else {
+            test_result_good($result_code, $result, $st1, $expected_result);
+        }
+        
+        call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+        
+        $title = 'Test 60C: Check the DC Admin';
+        $result_code = '';
+        $method = 'GET';
+        $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DCAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+        $uri = __SERVER_URI__.'/json/people/people/my_info';
+        $data = NULL;
+        $expected_result_code = 200;
+        $expected_result = file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-1727.json');
+    
+        test_header($title, $method, $uri, $expected_result_code);
+    
+        $st1 = microtime(true);
+        $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+        if ($result_code != $expected_result_code) {
+            test_result_bad($result_code, $result, $st1, $expected_result);
+        } else {
+            test_result_good($result_code, $result, $st1, $expected_result);
+        }
+        
+        call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+        
+        $title = 'Test 60D: Check the West Virginia Admin';
+        $result_code = '';
+        $method = 'GET';
+        $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=WVAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+        $uri = __SERVER_URI__.'/json/people/people/my_info';
+        $data = NULL;
+        $expected_result_code = 200;
+        $expected_result = file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-1728.json');
+    
+        test_header($title, $method, $uri, $expected_result_code);
+    
+        $st1 = microtime(true);
+        $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+        if ($result_code != $expected_result_code) {
+            test_result_bad($result_code, $result, $st1, $expected_result);
+        } else {
+            test_result_good($result_code, $result, $st1, $expected_result);
+        }
+        
+        call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+        
+        $title = 'Test 60E: Check the Delaware Admin';
+        $result_code = '';
+        $method = 'GET';
+        $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DEAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+        $uri = __SERVER_URI__.'/json/people/people/my_info';
+        $data = NULL;
+        $expected_result_code = 200;
+        $expected_result = file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-1729.json');
+    
+        test_header($title, $method, $uri, $expected_result_code);
+    
+        $st1 = microtime(true);
+        $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+        if ($result_code != $expected_result_code) {
+            test_result_bad($result_code, $result, $st1, $expected_result);
+        } else {
+            test_result_good($result_code, $result, $st1, $expected_result);
+        }
+        
+        call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    } else {
+        echo('<h3 style="color:red">TEST FAILED!</h3>');
+    }
+}
+
+// --------------------
+
+function basalt_test_define_0061() {
+    basalt_run_single_direct_test(61, 'TEST IMAGE/PAYLOAD ATTACHMENTS (XML).', '', 'people_2_tests');
+}
+
+function basalt_test_0061($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    echo('<h3>People Test 61: Load Image Data to Each of the DC Area Admin Accounts</h3>');
+    
+    if (load_people_photos()) {
+        $title = 'Test 61A: Check the Maryland Admin';
+        $result_code = '';
+        $method = 'GET';
+        $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+        $uri = __SERVER_URI__.'/xml/people/people/my_info';
+        $data = NULL;
+        $expected_result_code = 200;
+        $expected_result = get_xml_header('people').file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-1725.xml');
+    
+        test_header($title, $method, $uri, $expected_result_code);
+    
+        $st1 = microtime(true);
+        $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+        if ($result_code != $expected_result_code) {
+            test_result_bad($result_code, $result, $st1, $expected_result);
+        } else {
+            test_result_good($result_code, $result, $st1, $expected_result);
+        }
+        
+        call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+        
+        $title = 'Test 61B: Check the Virginia Admin';
+        $result_code = '';
+        $method = 'GET';
+        $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=VAAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+        $uri = __SERVER_URI__.'/xml/people/people/my_info';
+        $data = NULL;
+        $expected_result_code = 200;
+        $expected_result =  get_xml_header('people').file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-1726.xml');
+    
+        test_header($title, $method, $uri, $expected_result_code);
+    
+        $st1 = microtime(true);
+        $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+        if ($result_code != $expected_result_code) {
+            test_result_bad($result_code, $result, $st1, $expected_result);
+        } else {
+            test_result_good($result_code, $result, $st1, $expected_result);
+        }
+        
+        call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+        
+        $title = 'Test 61C: Check the DC Admin';
+        $result_code = '';
+        $method = 'GET';
+        $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DCAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+        $uri = __SERVER_URI__.'/xml/people/people/my_info';
+        $data = NULL;
+        $expected_result_code = 200;
+        $expected_result =  get_xml_header('people').file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-1727.xml');
+    
+        test_header($title, $method, $uri, $expected_result_code);
+    
+        $st1 = microtime(true);
+        $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+        if ($result_code != $expected_result_code) {
+            test_result_bad($result_code, $result, $st1, $expected_result);
+        } else {
+            test_result_good($result_code, $result, $st1, $expected_result);
+        }
+        
+        call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+        
+        $title = 'Test 61D: Check the West Virginia Admin';
+        $result_code = '';
+        $method = 'GET';
+        $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=WVAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+        $uri = __SERVER_URI__.'/xml/people/people/my_info';
+        $data = NULL;
+        $expected_result_code = 200;
+        $expected_result =  get_xml_header('people').file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-1728.xml');
+    
+        test_header($title, $method, $uri, $expected_result_code);
+    
+        $st1 = microtime(true);
+        $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+        if ($result_code != $expected_result_code) {
+            test_result_bad($result_code, $result, $st1, $expected_result);
+        } else {
+            test_result_good($result_code, $result, $st1, $expected_result);
+        }
+        
+        call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+        
+        $title = 'Test 61E: Check the Delaware Admin';
+        $result_code = '';
+        $method = 'GET';
+        $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=DEAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+        $uri = __SERVER_URI__.'/xml/people/people/my_info';
+        $data = NULL;
+        $expected_result_code = 200;
+        $expected_result =  get_xml_header('people').file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-1729.xml');
+    
+        test_header($title, $method, $uri, $expected_result_code);
+    
+        $st1 = microtime(true);
+        $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
     
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
