@@ -68,15 +68,6 @@ function call_REST_API( $method,                /**< REQUIRED:  This is the meth
             $file = fopen($temp_file_name, 'rb');
         }
     }
-    
-    // These are report displays.
-    if (isset($api_key) && $api_key && ($display_log)) {
-        echo('<p style="vertical-align:middle;font-style:italic">API KEY: <big><code>'.$api_key.'</code></big></p>');
-    }
-    
-    if ($display_log) {
-        echo('<p style="vertical-align:middle;font-style:italic">'.$method.' URI: <big><code>'.$url.'</code></big></p>');
-    }
 
     $curl = curl_init();                    // Initialize the cURL handle.
     curl_setopt($curl, CURLOPT_URL, $url);  // This is the URL we are calling.
