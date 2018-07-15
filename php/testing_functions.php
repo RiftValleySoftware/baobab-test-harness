@@ -25,6 +25,62 @@ if (!class_exists('CO_Config')) {
 
 require_once(dirname(__FILE__).'/callREST.php');
 
+function load_places_photos() {
+    return load_photos(dirname(dirname(__FILE__)).'/places-photos', 'places');
+}
+
+function load_people_photos() {
+    return load_photos(dirname(dirname(__FILE__)).'/people-photos', 'people/people');
+}
+
+function load_photos($in_dirname, $in_uri_loc) {
+    $ret = true;
+    
+    $process_files = [];
+    
+    $iterator = new DirectoryIterator($in_dirname);
+    
+    foreach ($iterator as $fileinfo) {
+        if (('.' === substr($fileinfo->getBasename(), 0, 1))) {
+            continue;
+        } elseif ('jpg' === $fileinfo->getExtension()) {
+            $place_index = intval(substr($fileinfo->getBasename(), -8, 4));
+            $process_files[] = ['location' => $fileinfo->getPathname(), 'index' => $place_index];
+        }
+    }
+    
+    if (count($process_files)) {
+        $result_code = '';
+        $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=admin&password='.CO_Config::god_mode_password(), NULL, NULL, $result_code);
+        $method = 'PUT';
+        $uri = __SERVER_URI__.'/json/'.$in_uri_loc.'/';
+        $image_type = 'image/jpeg';
+        
+        foreach ($process_files as $image_file) {
+            $image_data = file_get_contents($image_file['location']);
+            $data = ['data' => $image_data, 'type' => $image_type];
+            $result = call_REST_API($method, $uri.$image_file['index'], $data, $api_key, $result_code);
+
+            if (200 != $result_code) {
+                echo('<h3 style="color:red">ERROR! Cannot set Image '.$image_file['location'].'!</h3>');
+                $ret = false;
+                break;
+            } else {
+                $temp_file_name = substr($image_file['location'], 0, -4).'-base64.txt';
+    
+                $file = fopen($temp_file_name, 'w');
+                $file_data = base64_encode($image_data);
+                fwrite($file, $file_data, strlen($file_data));
+                fclose($file);
+            }
+        }
+        
+        call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+    }
+    
+    return $ret;
+}
+
 function clean_last_access_json($in_json, $in_replacement_password = '-PASSWORD-') {
     $in_result = preg_replace('|"last_access":"\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d"|', '"last_access":"1970-01-02 00:00:00"', $in_json);
     return preg_replace('|"password":".*?"|', '"password":"'.$in_replacement_password.'"', $in_result);
@@ -247,6 +303,15 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                     echo('<div class="container"><pre>');
                         echo(prettify_json($in_result));
                     echo('</pre></div>');
+                    $matches = [];
+                    
+                    if (preg_match('|"payload":"([^"]+?)"|', $in_result, $matches)) {
+                        $payload = stripslashes($matches[1]);
+                        if (preg_match('|"payload_type":"([^"]+?)"|', stripslashes($in_result), $matches)) {
+                            $type = $matches[1];
+                            echo('<div class="image_display_div"><img src="data:'.$type.','.$payload.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                        }
+                    }
                 echo('</div>');
             echo('</div>');
         }
@@ -258,9 +323,34 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                     echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                     echo('<div class="inner_container">');
                         echo('<div class="container"><div><pre>');
-                            echo(prettify_xml($in_result));
-                        echo('</pre></div>');
-                        echo('<div><strong>EXPECTED:</strong><pre>'.prettify_xml($in_expected_result).'</pre></div>');
+                            echo('<div><pre>');
+                                echo('<pre>');
+                                    echo(prettify_xml($in_result));
+                                    echo('</pre>');
+                                    $matches = [];
+                        
+                                    if (preg_match('|"payload":"([^"]+?)"|', $in_result, $matches)) {
+                                        $payload = stripslashes($matches[1]);
+                                        if (preg_match('|"payload_type":"([^"]+?)"|', stripslashes($in_result), $matches)) {
+                                            $type = $matches[1];
+                                            echo('<div class="image_display_div"><img src="data:'.$type.','.$payload.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                                        }
+                                    }
+                                echo('</div>');
+                            echo('</div>');
+                            echo('<div>');
+                                echo('<strong>EXPECTED:</strong>');
+                                echo('<pre>'.prettify_xml($in_expected_result).'</pre>');
+                                $matches = [];
+                    
+                                if (preg_match('|"payload":"([^"]+?)"|', $in_expected_result, $matches)) {
+                                    $payload = stripslashes($matches[1]);
+                                    if (preg_match('|"payload_type":"([^"]+?)"|', stripslashes($in_expected_result), $matches)) {
+                                        $type = $matches[1];
+                                        echo('<div class="image_display_div"><img src="data:'.$type.','.$payload.'" title="Expected Image Payload" alt="Expected Image Payload" style="max-width:100%" /></div>');
+                                    }
+                                }
+                            echo('</div>');
                         echo('</div>');
                     echo('</div>');
                 echo('</div>');
@@ -271,7 +361,18 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                         echo('<div class="container"><div><pre>');
                             echo(prettify_json($in_result));
                         echo('</pre></div>');
-                        echo('<div><strong>EXPECTED:</strong><pre>'.prettify_json($in_expected_result).'</pre></div>');
+                        echo('<div>');
+                            echo('<strong>EXPECTED:</strong>');
+                            echo('<pre>'.prettify_xml($in_expected_result).'</pre>');
+                            $matches = [];
+                
+                            if (preg_match('|"payload":"([^"]+?)"|', $in_expected_result, $matches)) {
+                                $payload = stripslashes($matches[1]);
+                                if (preg_match('|"payload_type":"([^"]+?)"|', stripslashes($in_expected_result), $matches)) {
+                                    $type = $matches[1];
+                                    echo('<div class="image_display_div"><img src="data:'.$type.','.$payload.'" title="Expected Image Payload" alt="Expected Image Payload" style="max-width:100%" /></div>');
+                                }
+                            }
                         echo('</div>');
                     echo('</div>');
                 echo('</div>');

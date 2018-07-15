@@ -48,25 +48,20 @@ function call_REST_API( $method,                /**< REQUIRED:  This is the meth
     
     // If data is provided by the caller, we read it into a temporary location, and Base64-encode it.
     if ($data_input) {
-        $payload_data = str_split($data_input['data'], 4096);
+        $file_data = base64_encode($data_input['data']);
         
-        if (isset($payload_data) && is_array($payload_data) && count($payload_data)) {
-            $temp_file_name = tempnam(sys_get_temp_dir(), 'RVP');
-        
-            $file = fopen($temp_file_name, 'w');
-        
-            foreach ($payload_data as $chunk) {
-                $file_data = base64_encode($chunk);
-                fwrite($file, $file_data, strlen($file_data));
-            }
-        
-            fclose($file);
-        
-            $content_type = $data_input['type'].':base64';
-            $file_size = filesize($temp_file_name);
-        
-            $file = fopen($temp_file_name, 'rb');
-        }
+        $temp_file_name = tempnam(sys_get_temp_dir(), 'RVP');
+    
+        $file = fopen($temp_file_name, 'w');
+    
+        fwrite($file, $file_data, strlen($file_data));
+    
+        fclose($file);
+    
+        $content_type = $data_input['type'].':base64';
+        $file_size = filesize($temp_file_name);
+    
+        $file = fopen($temp_file_name, 'rb');
     }
 
     $curl = curl_init();                    // Initialize the cURL handle.
