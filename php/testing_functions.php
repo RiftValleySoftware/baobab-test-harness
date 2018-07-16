@@ -275,26 +275,64 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
     echo('</div>');
 }
 
+function extract_payload($in_data) {
+    $ret = NULL;
+    $matches = [];
+                        
+    if (preg_match('|^\<\?xml|', $in_data)) {
+        if (preg_match_all('|<payload>(.+?)</payload>|', $in_data, $matches, PREG_SET_ORDER)) {
+            $payload1 = stripslashes($matches[0][1]);
+            $payload2 = isset($matches[1]) ? stripslashes($matches[1][1]) : NULL;
+            if (preg_match_all('|<payload_type>(.+?)</payload_type>|', stripslashes($in_data), $matches, PREG_SET_ORDER)) {
+                $type1 = $matches[0][1];
+                $type2 = isset($matches[1]) ? $matches[1][1] : NULL;
+                
+                echo('<div class="payload_display">');
+                    echo('<h3>PAYLOAD:</h3>');
+                    if ($type2) {
+                        echo('<h4>BEFORE:</h4>');
+                    }
+                    echo('<div class="image_display_div"><img src="data:'.$type1.','.$payload1.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                    if ($type2) {
+                        echo('<h4>AFTER:</h4>');
+                        echo('<div class="image_display_div"><img src="data:'.$type2.','.$payload2.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                    }
+                echo("</div>");
+            }
+        }
+    } else {
+        if (preg_match_all('|"payload":"([^"]+?)"|', $in_data, $matches, PREG_SET_ORDER)) {
+            $payload1 = stripslashes($matches[0][1]);
+            $payload2 = isset($matches[1]) ? stripslashes($matches[1][1]) : NULL;
+            if (preg_match_all('|"payload_type":"([^"]+?)"|', stripslashes($in_data), $matches, PREG_SET_ORDER)) {
+                $type1 = $matches[0][1];
+                $type2 = isset($matches[1]) ? $matches[1][1] : NULL;
+                
+                echo('<div class="payload_display">');
+                    echo('<h3>PAYLOAD:</h3>');
+                    if ($type2) {
+                        echo('<h4>BEFORE:</h4>');
+                    }
+                    echo('<div class="image_display_div"><img src="data:'.$type1.','.$payload1.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                    if ($type2) {
+                        echo('<h4>AFTER:</h4>');
+                        echo('<div class="image_display_div"><img src="data:'.$type2.','.$payload2.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                    }
+                echo("</div>");
+            }
+        }
+    }
+
+    return $ret;
+}
+
 function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_result) {
     $id = uniqid('test-result-');
     echo('<div class="indent_1 test_report good_report"><h3 style="color:green">Received Expected Result Code: '.intval($in_result_code).'</h3>');
     if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
         echo('<div class="indent_1" style="color:green"><p>Received Expected Result</p></div>');
         $matches = [];
-        if (preg_match('|\<xs\:schema|', $in_result) && preg_match('|\/xsd\/([^\"]+?)"|', $in_result, $matches)) {
-            $plugin_name = trim($matches[1]);
-            if ($plugin_name) {
-                validate_xml($in_result, $plugin_name);
-            }
-            echo('<div id="'.$id.'" class="inner_closed">');
-                echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
-                echo('<div class="inner_container">');
-                    echo('<div class="container"><pre>');
-                        echo(prettify_xml($in_result));
-                    echo('</pre></div>');
-                echo('</div>');
-            echo('</div>');
-        } elseif (preg_match('|^\<\?xml|', $in_result)) {
+        if (preg_match('|^\<\?xml|', $in_result)) {
             echo('<div id="'.$id.'" class="inner_closed">');
                 echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                 echo('<div class="inner_container">');
@@ -302,15 +340,7 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                         echo('<pre>');
                             echo(prettify_xml($in_result));
                         echo('</pre>');
-                        $matches = [];
-                        
-                        if (preg_match('|\<payload\>(.+?)\<\/payload\>|', $in_result, $matches)) {
-                            $payload = stripslashes($matches[1]);
-                            if (preg_match('|\<payload_type\>(.+?)\<\/payload_type\>|', stripslashes($in_result), $matches)) {
-                                $type = $matches[1];
-                                echo('<div class="image_display_div"><img src="data:'.$type.','.$payload.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
-                            }
-                        }
+                        extract_payload($in_result);
                     echo('</div>');
                 echo('</div>');
             echo('</div>');
@@ -321,48 +351,41 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                     echo('<div class="container"><pre>');
                         echo(prettify_json($in_result));
                     echo('</pre></div>');
-                    $matches = [];
-                    
-                    if (preg_match('|"payload":"([^"]+?)"|', $in_result, $matches)) {
-                        $payload = stripslashes($matches[1]);
-                        if (preg_match('|"payload_type":"([^"]+?)"|', stripslashes($in_result), $matches)) {
-                            $type = $matches[1];
-                            echo('<div class="image_display_div"><img src="data:'.$type.','.$payload.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
-                        }
-                    }
+                        extract_payload($in_result);
                 echo('</div>');
             echo('</div>');
         }
     } elseif ($in_expected_result || ($in_result && ($in_expected_result != $in_result))) {
         echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong></div>');
         if ($in_result) {
-            if (preg_match('|^\<\?xml|', $in_result)) {
+            if (preg_match_all('|^\<\?xml|', $in_result)) {
                 echo('<div id="'.$id.'" class="inner_closed">');
                     echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                     echo('<div class="inner_container">');
                         echo('<div class="container">');
                             echo('<div>');
                                 echo('<pre>'.prettify_xml($in_result).'</pre>');
-                                $matches = [];
-                
-                                if (preg_match('|<payload>(.+?)</payload>|', $in_result, $matches)) {
-                                    $payload = stripslashes($matches[1]);
-                                    if (preg_match('|<payload_type>(.+?)</payload_type>|', stripslashes($in_result), $matches)) {
-                                        $type = $matches[1];
-                                        echo('<div class="image_display_div"><img src="data:'.$type.','.$payload.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
-                                    }
-                                }
+                                extract_payload($in_result);
                             echo('</div>');
                             echo('<div>');
                                 echo('<strong>EXPECTED:</strong>');
                                 echo('<pre>'.prettify_xml($in_expected_result).'</pre>');
                                 $matches = [];
                 
-                                if (preg_match('|<payload>(.+?)</payload>|', $in_result, $matches)) {
-                                    $payload = stripslashes($matches[1]);
-                                    if (preg_match('|<payload_type>(.+?)</payload_type>|', stripslashes($in_result), $matches)) {
-                                        $type = $matches[1];
-                                        echo('<div class="image_display_div"><img src="data:'.$type.','.$payload.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                                if (preg_match_all('|<payload>(.+?)</payload>|', $in_result, $matches)) {
+                                    $payload1 = stripslashes($matches[1]);
+                                    $payload2 = isset($matches[2]) ? stripslashes($matches[2]) : NULL;
+                                    if (preg_match_all('|<payload_type>(.+?)</payload_type>|', stripslashes($in_result), $matches)) {
+                                        $type1 = $matches[1];
+                                        $type2 = isset($matches[2]) ? $matches[2] : NULL;
+                                        if ($type2) {
+                                            echo('<h4>BEFORE:</h4>');
+                                        }
+                                        echo('<div class="image_display_div"><img src="data:'.$type1.','.$payload1.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                                        if ($type2) {
+                                            echo('<h4>AFTER:</h4>');
+                                            echo('<div class="image_display_div"><img src="data:'.$type2.','.$payload2.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                                        }
                                     }
                                 }
                             echo('</div>');
@@ -373,21 +396,18 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                 echo('<div id="'.$id.'" class="inner_closed">');
                     echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                     echo('<div class="inner_container">');
-                        echo('<div class="container"><div><pre>');
-                            echo(prettify_json($in_result));
-                        echo('</pre></div>');
-                        echo('<div>');
-                            echo('<strong>EXPECTED:</strong>');
-                            echo('<pre>'.prettify_xml($in_expected_result).'</pre>');
-                            $matches = [];
-            
-                            if (preg_match('|<payload>(.+?)</payload>|', $in_result, $matches)) {
-                                $payload = stripslashes($matches[1]);
-                                if (preg_match('|<payload_type>(.+?)</payload_type>|', stripslashes($in_result), $matches)) {
-                                    $type = $matches[1];
-                                    echo('<div class="image_display_div"><img src="data:'.$type.','.$payload.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
-                                }
-                            }
+                        echo('<div class="container">');
+                            echo('<div>');
+                                echo('<pre>');
+                                    echo(prettify_json($in_result));
+                                echo('</pre>');
+                                extract_payload($in_result);
+                            echo('</div>');
+                            echo('<div>');
+                                echo('<strong>EXPECTED:</strong>');
+                                echo('<pre>'.prettify_json($in_expected_result).'</pre>');
+                                extract_payload($in_result);
+                            echo('</div>');
                         echo('</div>');
                     echo('</div>');
                 echo('</div>');
