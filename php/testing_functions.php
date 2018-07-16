@@ -25,6 +25,25 @@ if (!class_exists('CO_Config')) {
 
 require_once(dirname(__FILE__).'/callREST.php');
 
+function start_log() {
+    $logfile = dirname(dirname(__FILE__)).'/test_report.txt';
+    
+    if (file_exists($logfile)) {
+        unlink($logfile);
+    }
+}
+
+function log_entry($in_pass_fail, $in_test_number, $in_test_text) {
+    $logfile = dirname(dirname(__FILE__)).'/test_report.txt';
+    $logfile_handle = fopen($logfile, 'a');
+    
+    if ($logfile_handle) {
+        $log_line = ($in_pass_fail ? 'PASS' : "\n***\nFAIL").','.intval($in_test_number).','.'"'.str_replace('"', '\\"', $in_test_text).'"'."\n".($in_pass_fail ? '' : "\n***\n");
+        fwrite($logfile_handle, $log_line);
+        fclose($logfile_handle);
+    }
+}
+
 function load_places_photos() {
     $ret = NULL;
     $st1 = microtime(true);
@@ -199,13 +218,17 @@ function validate_xml($in_xml, $in_plugin_name) {
     $domxml->formatOutput = true;
     $domxml->loadXML($in_xml);
     
+    $ret = true;
     echo('<div class="indent_1">');
     if ($domxml->schemaValidateSource($schema)) {
         echo('<h4 style="color:green">XML Is Valid!</h4>');
     } else {
         echo('<h4 style="color:red">XML Is Not Valid!</h4>');
+        $ret = false;
     }
     echo('</div>');
+    
+    return $ret;
 }
 
 function test_header($in_title, $in_method, $in_uri, $in_result_code) {
@@ -217,6 +240,14 @@ function test_header($in_title, $in_method, $in_uri, $in_result_code) {
 
 function timing_report($in_start, $in_text = 'execute this query') {
     $fetchTime = sprintf('%01.4f', microtime(true) - $in_start);
+    $logfile = dirname(dirname(__FILE__)).'/test_report.txt';
+    $logfile_handle = fopen($logfile, 'a');
+    
+    if ($logfile_handle) {
+        $log_line = "\tTIME: $fetchTime Seconds to $in_text.\n";
+        fwrite($logfile_handle, $log_line);
+        fclose($logfile_handle);
+    }
     echo("<div class=\"indent_1 timing_report\">It took $fetchTime seconds to $in_text.</div>");
 }
 
@@ -246,6 +277,7 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
             }
         }
     } elseif ($in_expected_result) {
+        log_entry(false, 0, 'BAD Match');
         echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong></div>');
         if ($in_result) {
             if (preg_match('|^\<\?xml|', $in_result)) {
@@ -348,14 +380,17 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
             echo('<div id="'.$id.'" class="inner_closed">');
                 echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                 echo('<div class="inner_container">');
-                    echo('<div class="container"><pre>');
-                        echo(prettify_json($in_result));
-                    echo('</pre></div>');
+                    echo('<div class="container">');
+                        echo('<pre>');
+                            echo(prettify_json($in_result));
+                        echo('</pre>');
                         extract_payload($in_result);
+                    echo('</div>');
                 echo('</div>');
             echo('</div>');
         }
     } elseif ($in_expected_result || ($in_result && ($in_expected_result != $in_result))) {
+        log_entry(false, 0, 'BAD Match');
         echo('<div class="indent_1" style="color:red"><strong>Did Not Receive Expected Result!</strong></div>');
         if ($in_result) {
             if (preg_match_all('|^\<\?xml|', $in_result)) {
@@ -364,30 +399,17 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                     echo('<div class="inner_container">');
                         echo('<div class="container">');
                             echo('<div>');
-                                echo('<pre>'.prettify_xml($in_result).'</pre>');
+                                echo('<pre>');
+                                    echo(prettify_xml($in_result));
+                                echo('</pre>');
                                 extract_payload($in_result);
                             echo('</div>');
                             echo('<div>');
                                 echo('<strong>EXPECTED:</strong>');
-                                echo('<pre>'.prettify_xml($in_expected_result).'</pre>');
-                                $matches = [];
-                
-                                if (preg_match_all('|<payload>(.+?)</payload>|', $in_result, $matches)) {
-                                    $payload1 = stripslashes($matches[1]);
-                                    $payload2 = isset($matches[2]) ? stripslashes($matches[2]) : NULL;
-                                    if (preg_match_all('|<payload_type>(.+?)</payload_type>|', stripslashes($in_result), $matches)) {
-                                        $type1 = $matches[1];
-                                        $type2 = isset($matches[2]) ? $matches[2] : NULL;
-                                        if ($type2) {
-                                            echo('<h4>BEFORE:</h4>');
-                                        }
-                                        echo('<div class="image_display_div"><img src="data:'.$type1.','.$payload1.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
-                                        if ($type2) {
-                                            echo('<h4>AFTER:</h4>');
-                                            echo('<div class="image_display_div"><img src="data:'.$type2.','.$payload2.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
-                                        }
-                                    }
-                                }
+                                echo('<pre>');
+                                    echo(prettify_xml($in_expected_result));
+                                echo('</pre>');
+                                extract_payload($in_expected_result);
                             echo('</div>');
                         echo('</div>');
                     echo('</div>');
@@ -405,8 +427,10 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                             echo('</div>');
                             echo('<div>');
                                 echo('<strong>EXPECTED:</strong>');
-                                echo('<pre>'.prettify_json($in_expected_result).'</pre>');
-                                extract_payload($in_result);
+                                echo('<pre>');
+                                    echo(prettify_json($in_expected_result));
+                                echo('</pre>');
+                                extract_payload($in_expected_result);
                             echo('</div>');
                         echo('</div>');
                     echo('</div>');

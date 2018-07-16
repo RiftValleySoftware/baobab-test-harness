@@ -40,8 +40,10 @@ function basalt_test_0001($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 1, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 1, $title);
     }
     
     $title = 'Baseline Test 1B: Test With A Plugin Specifier ("baseline")';
@@ -60,8 +62,10 @@ function basalt_test_0001($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 1, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 1, $title);
     }
 }
 
@@ -88,8 +92,10 @@ function basalt_test_0002($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 2, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 2, $title);
     }
     
     $title = 'Baseline Test 2B: Test With A Plugin Specifier ("baseline")';
@@ -108,8 +114,10 @@ function basalt_test_0002($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 2, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 2, $title);
     }
 }
 
@@ -136,8 +144,10 @@ function basalt_test_0003($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 3, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 3, $title);
     }
     
     echo('<h3>Baseline Test 3B: Get the XSD Plugin Schemas</h3><div class="indent_1">');
@@ -158,8 +168,10 @@ function basalt_test_0003($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 3, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 3, $title);
         
         $plugin_list = json_decode($result)->baseline->plugins;
         
@@ -182,12 +194,13 @@ function basalt_test_0003($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
             if ($result_code != $expected_result_code) {
                 test_result_bad($result_code, $result, $st1, $expected_result);
+                log_entry(false, 3, $title);
             } else {
                 test_result_good($result_code, $result, $st1, $expected_result);
+                log_entry(true, 3, $title);
             }
         }
     }
     echo('</div>');
 }
-
 ?>

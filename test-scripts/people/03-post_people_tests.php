@@ -40,8 +40,10 @@ function basalt_test_0040($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 40, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 40, $title);
     }
     
     $title = 'People Test 40B: Try A POST (Normal User Login)';
@@ -60,8 +62,10 @@ function basalt_test_0040($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 40, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 40, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -82,8 +86,10 @@ function basalt_test_0040($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 40, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 40, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -112,8 +118,10 @@ function basalt_test_0041($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 41, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 41, $title);
     }
     
     $title = 'People Test 41B: Try A POST (Normal User Login)';
@@ -132,8 +140,10 @@ function basalt_test_0041($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 41, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 41, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -154,8 +164,10 @@ function basalt_test_0041($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 41, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 41, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -184,8 +196,10 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 42, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 42, $title);
     }
     
     $title = 'People Test 42B: Try A POST (Normal User Login)';
@@ -204,8 +218,10 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 42, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 42, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -226,8 +242,10 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 42, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 42, $title);
     }
     
     $title = 'People Test 42D: Try Again, but this time, supply an empty login string. We should get another 400.';
@@ -245,8 +263,10 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 42, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 42, $title);
     }
     
     $title = 'People Test 42E: Try again. This time, supply a login string, but the string should be the same as an existing login. We expect a 200, but an empty response.';
@@ -264,8 +284,10 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 42, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 42, $title);
     }
     
     $title = 'People Test 42F: One more time. This time, supply a login string, but the string should be the same as an existing login (that we can\'t see). We expect a 200, but an empty response.';
@@ -283,8 +305,10 @@ function basalt_test_0042($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 42, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 42, $title);
     }
     
     $title = 'People Test 42G: OK, OK. Now we supply a valid, unique login. This time, it will work.';
@@ -336,8 +360,10 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 43, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 43, $title);
     }
     
     $title = 'People Test 43B: Try A POST (Normal User Login)';
@@ -356,8 +382,10 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 43, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 43, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -378,8 +406,10 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 43, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 43, $title);
     }
     
     $title = 'People Test 43D: Try Again, but this time, supply an empty login string. We should get another 400.';
@@ -397,8 +427,10 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 43, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 43, $title);
     }
     
     $title = 'People Test 43E: Try again. This time, supply a login string, but the string should be the same as an existing login. We expect a 200, but an empty response.';
@@ -416,8 +448,10 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 43, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 43, $title);
     }
     
     $title = 'People Test 43F: One more time. This time, supply a login string, but the string should be the same as an existing login (that we can\'t see). We expect a 200, but an empty response.';
@@ -435,8 +469,10 @@ function basalt_test_0043($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 43, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 43, $title);
     }
     
     $title = 'People Test 43G: OK, OK. Now we supply a valid, unique login. This time, it will work.';
@@ -488,8 +524,10 @@ function basalt_test_0044($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 44, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 44, $title);
     }
     
     $title = 'People Test 44B: Try Again. However, we try using an existing login that we can\'t see. We expect a 400.';
@@ -507,8 +545,10 @@ function basalt_test_0044($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 44, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 44, $title);
     }
     
     $title = 'People Test 44C: Try Again, with a unique login.';
@@ -583,8 +623,10 @@ function basalt_test_0045($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 45, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 45, $title);
     }
     
     $title = 'People Test 45B: Try Again. However, we try using an existing login that we can\'t see. We expect a 400.';
@@ -602,8 +644,10 @@ function basalt_test_0045($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 45, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 45, $title);
     }
     
     $title = 'People Test 45C: Try Again, with a unique login.';
@@ -724,8 +768,10 @@ function basalt_test_0046($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 46, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 46, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -800,8 +846,10 @@ function basalt_test_0047($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 47, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 47, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -830,12 +878,14 @@ function basalt_test_0048($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 48, $title);
     } else {
         $logins = json_decode($result)->people->logins;
         $new_password = $logins->new_login->password;
         $result = clean_last_access_json($result, $new_password);
         $expected_result = preg_replace('|"password":".*?"|', '"password":"'.$new_password.'"', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 48, $title);
     }
     
     $title = 'People Test 48B: Try A POST for a standalone Login, Using the alternate "login_string" Query Argument (Manager Login).';
@@ -853,12 +903,14 @@ function basalt_test_0048($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 48, $title);
     } else {
         $logins = json_decode($result)->people->logins;
         $new_password = $logins->new_login->password;
         $result = clean_last_access_json($result, $new_password);
         $expected_result = preg_replace('|"password":".*?"|', '"password":"'.$new_password.'"', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 48, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -887,12 +939,14 @@ function basalt_test_0049($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 49, $title);
     } else {
         $logins = simplexml_load_string($result)->logins;
         $new_password = $logins->new_login->password;
         $result = clean_last_access_xml($result, $new_password);
         $expected_result = preg_replace('|\<password\>.*?\<\/password\>|', '<password>'.$new_password.'</password>', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 49, $title);
     }
     
     $title = 'People Test 49B: Try A POST for a standalone Login, Using the alternate "login_string" Query Argument (Manager Login).';
@@ -910,12 +964,14 @@ function basalt_test_0049($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 49, $title);
     } else {
         $logins = simplexml_load_string($result)->logins;
         $new_password = $logins->new_login->password;
         $result = clean_last_access_xml($result, $new_password);
         $expected_result = preg_replace('|\<password\>.*?\<\/password\>|', '<password>'.$new_password.'</password>', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 49, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -944,12 +1000,14 @@ function basalt_test_0050($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 50, $title);
     } else {
         $logins = json_decode($result)->people->people;
         $new_password = $logins->new_user->associated_login->password;
         $result = clean_last_access_json($result, $new_password);
         $expected_result = preg_replace('|"password":".*?"|', '"password":"'.$new_password.'"', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 50, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -978,12 +1036,14 @@ function basalt_test_0051($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 51, $title);
     } else {
         $logins = simplexml_load_string($result)->people;
         $new_password = $logins->new_user->associated_login->password;
         $result = clean_last_access_xml($result, $new_password);
         $expected_result = preg_replace('|\<password\>.*?\<\/password\>|', '<password>'.$new_password.'</password>', $expected_result);
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 51, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);

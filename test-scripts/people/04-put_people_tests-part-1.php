@@ -40,8 +40,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
     
     $title = 'People Test 52B: Try to Change the Name of A User After Logging In As Another User (Expect a 403).';
@@ -60,8 +62,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
     
     $title = 'People Test 52C: Try to Change Our Own Name Via \'my_info\'. This should Work.';
@@ -79,8 +83,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
     
     $title = 'People Test 52D: Try to Change Our Own Name Via ID. This should Work.';
@@ -98,8 +104,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
     
     $title = 'People Test 52E: Try to Change Our Own Password Via \'my_info\'. This should fail, but \'gently,\' as we tried doing this to the user resource, which has no password. No changes were made.';
@@ -117,8 +125,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
     
     $title = 'People Test 52F: Try to Change Our Own Password Via the login \'my_info\'. This should work. Note that the API key in the "after" object is now invalid, so if we try a \'my_info\' after this, it should fail, as we are no longer logged in.';
@@ -136,8 +146,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
     
     $title = 'People Test 52G: Try a \'my_info\'. This should fail with a 401.';
@@ -155,8 +167,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
     
     echo('<h3>People Test 52G: This One Is Complicated: We log in three users, then change the password of one, and make sure it gets logged out.</h3>');
@@ -180,8 +194,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
 
     $title = '-> Verify that the DC Admin is Properly Logged In.';
@@ -199,8 +215,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
 
     $title = '-> Verify that the Delaware Admin is Properly Logged In.';
@@ -218,8 +236,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
     
     $title = 'We are also logged in as the "God" Admin, and will use that to change the password for the DC Admin';
@@ -237,8 +257,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
     echo('<h3>Note that the API Key is now gone. Let\'s try the \'my_info\' tests again, and we expect a 401 on the DC one:</h3>');
 
@@ -257,8 +279,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
 
     $title = '-> Verify that the DC Admin is No Longer Logged In.';
@@ -276,8 +300,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
 
     $title = '-> Verify that the Delaware Admin is Properly Logged In.';
@@ -295,8 +321,10 @@ function basalt_test_0052($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 52, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 52, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -327,8 +355,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
     
     $title = 'People Test 53B: Try to Change the Name of A User After Logging In As Another User (Expect a 403).';
@@ -347,8 +377,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
     
     $title = 'People Test 53C: Try to Change Our Own Name Via \'my_info\'. This should Work.';
@@ -366,8 +398,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
     
     $title = 'People Test 53D: Try to Change Our Own Name Via ID. This should Work.';
@@ -385,8 +419,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
     
     $title = 'People Test 53E: Try to Change Our Own Password Via \'my_info\'. This should fail, but \'gently,\' as we tried doing this to the user resource, which has no password. No changes were made.';
@@ -404,8 +440,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
     
     $title = 'People Test 53F: Try to Change Our Own Password Via the login \'my_info\'. This should work. Note that the API key in the "after" object is now invalid, so if we try a \'my_info\' after this, it should fail, as we are no longer logged in.';
@@ -423,8 +461,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
     
     $title = 'People Test 53G: Try a \'my_info\'. This should fail with a 401.';
@@ -442,8 +482,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
     
     echo('<h3>People Test 53G: This One Is Complicated: We log in three users, then change the password of one, and make sure it gets logged out.</h3>');
@@ -467,8 +509,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
 
     $title = '-> Verify that the DC Admin is Properly Logged In.';
@@ -486,8 +530,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
 
     $title = '-> Verify that the Delaware Admin is Properly Logged In.';
@@ -505,8 +551,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
     
     $title = 'We are also logged in as the "God" Admin, and will use that to change the password for the DC Admin';
@@ -524,8 +572,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
     echo('<h3>Note that the API Key is now gone. Let\'s try the \'my_info\' tests again, and we expect a 401 on the DC one:</h3>');
 
@@ -544,8 +594,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
 
     $title = '-> Verify that the DC Admin is No Longer Logged In.';
@@ -563,8 +615,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
 
     $title = '-> Verify that the Delaware Admin is Properly Logged In.';
@@ -582,8 +636,10 @@ function basalt_test_0053($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 53, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 53, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -620,8 +676,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = '-> Verify that the DC Admin is Properly Logged In.';
@@ -639,8 +697,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = '-> Verify that the Delaware Admin is Properly Logged In.';
@@ -658,8 +718,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = 'Try to Change the Login String ID of A User to An Existing Login (Logged In As "God"). This should fail with a 400, and everyone stays logged in.';
@@ -677,8 +739,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = '-> Verify that the Maryland Admin is Properly Logged In.';
@@ -696,8 +760,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = '-> Verify that the DC Admin is Properly Logged In.';
@@ -715,8 +781,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = '-> Verify that the Delaware Admin is Properly Logged In.';
@@ -734,8 +802,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = 'Try to Change the Login String ID of the MDAdmin User to A Unique One (Logged In As "God"). This should force the "MDAdmin" login out.';
@@ -753,8 +823,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = '-> Verify that the Maryland Admin is No Longer Logged In.';
@@ -772,8 +844,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = '-> Verify that the DC Admin is Properly Logged In.';
@@ -791,8 +865,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = '-> Verify that the Delaware Admin is Properly Logged In.';
@@ -810,8 +886,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -834,8 +912,10 @@ function basalt_test_0054($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 54, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 54, $title);
     }
 
     $title = 'People Test 54C: Try logging in EhmDeeAdmin, Using the New Credentials.';
@@ -890,8 +970,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = '-> Verify that the DC Admin is Properly Logged In.';
@@ -909,8 +991,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = '-> Verify that the Delaware Admin is Properly Logged In.';
@@ -928,8 +1012,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = 'Try to Change the Login String ID of A User to An Existing Login (Logged In As "God"). This should fail with a 400, and everyone stays logged in.';
@@ -947,8 +1033,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = '-> Verify that the Maryland Admin is Properly Logged In.';
@@ -966,8 +1054,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = '-> Verify that the DC Admin is Properly Logged In.';
@@ -985,8 +1075,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = '-> Verify that the Delaware Admin is Properly Logged In.';
@@ -1004,8 +1096,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = 'Try to Change the Login String ID of the MDAdmin User to A Unique One (Logged In As "God"). This should force the "MDAdmin" login out.';
@@ -1023,8 +1117,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = '-> Verify that the Maryland Admin is No Longer Logged In.';
@@ -1042,8 +1138,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = '-> Verify that the DC Admin is Properly Logged In.';
@@ -1061,8 +1159,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = '-> Verify that the Delaware Admin is Properly Logged In.';
@@ -1080,8 +1180,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1104,8 +1206,10 @@ function basalt_test_0055($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 55, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 55, $title);
     }
 
     $title = 'People Test 54C: Try logging in EhmDeeAdmin, Using the New Credentials.';
@@ -1158,8 +1262,10 @@ function basalt_test_0056($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 56, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 56, $title);
     }
 
     $title = '-> Verify that the Maryland Admin is Properly Logged In.';
@@ -1177,8 +1283,10 @@ function basalt_test_0056($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 56, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 56, $title);
     }
     
     $title = 'First, we try to change the Maryland Admin\'s Login String ID. This should fail (we\'re not God), do so \'gently,\' as the login ID change is simply ignored.';
@@ -1196,8 +1304,10 @@ function basalt_test_0056($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 56, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 56, $title);
     }
     
     $title = 'Next, we change the Maryland Admin\'s password. This should succeed, and it should also log out the Maryland Admin.';
@@ -1215,8 +1325,10 @@ function basalt_test_0056($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 56, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 56, $title);
     }
 
     $title = '-> Verify that the Maryland Admin is No Longer Logged In.';
@@ -1234,8 +1346,10 @@ function basalt_test_0056($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 56, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 56, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1268,8 +1382,10 @@ function basalt_test_0057($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 57, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 57, $title);
     }
 
     $title = '-> Verify that the Maryland Admin is Properly Logged In.';
@@ -1287,8 +1403,10 @@ function basalt_test_0057($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 57, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 57, $title);
     }
     
     $title = 'First, we try to change the Maryland Admin\'s Login String ID. This should fail (we\'re not God), do so \'gently,\' as the login ID change is simply ignored.';
@@ -1306,8 +1424,10 @@ function basalt_test_0057($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 57, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 57, $title);
     }
     
     $title = 'Next, we change the Maryland Admin\'s password. This should succeed, and it should also log out the Maryland Admin.';
@@ -1325,8 +1445,10 @@ function basalt_test_0057($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 57, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 57, $title);
     }
 
     $title = '-> Verify that the Maryland Admin is No Longer Logged In.';
@@ -1344,8 +1466,10 @@ function basalt_test_0057($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 57, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 57, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);

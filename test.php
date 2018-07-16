@@ -45,6 +45,7 @@
         $test_name_array = "Array('')";
     }
     
+    start_log();
 ?><!DOCTYPE html>
 <html lang="en">
     <head>

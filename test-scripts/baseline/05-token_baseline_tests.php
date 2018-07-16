@@ -43,8 +43,10 @@ function basalt_test_0016($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 16, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 16, $title);
     }
     
     $title = 'Baseline Test 16B: Log in as "MDAdmin," and see what tokens we have.';
@@ -70,8 +72,10 @@ function basalt_test_0016($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 16, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 16, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -100,8 +104,10 @@ function basalt_test_0016($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 16, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 16, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -130,8 +136,10 @@ function basalt_test_0016($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 16, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 16, $title);
         }
     
         $title = 'Baseline Test 16E: Log in as "God," and get the serverinfo.';
@@ -165,8 +173,10 @@ function basalt_test_0016($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 16, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 16, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -185,8 +195,10 @@ function basalt_test_0016($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 16, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 16, $title);
         }
     
         $title = 'Baseline Test 16G: Try serverinfo with regular login.';
@@ -204,8 +216,10 @@ function basalt_test_0016($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 16, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 16, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -225,8 +239,10 @@ function basalt_test_0016($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 16, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 16, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -256,8 +272,10 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 17, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 17, $title);
     }
     
     $title = 'Baseline Test 17B: Log in as "MDAdmin," and see what tokens we have.';
@@ -283,8 +301,10 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 17, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 17, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -313,8 +333,10 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 17, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 17, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -343,8 +365,10 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 17, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 17, $title);
         }
     
         $title = 'Baseline Test 17E: Log in as "God," and get the serverinfo.';
@@ -395,8 +419,10 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 17, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 17, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -415,8 +441,10 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 17, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 17, $title);
         }
     
         $title = 'Baseline Test 17G: Try serverinfo with regular login.';
@@ -434,8 +462,10 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 17, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 17, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -455,8 +485,10 @@ function basalt_test_0017($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 17, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 17, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -486,8 +518,10 @@ function basalt_test_0018($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 18, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 18, $title);
     }
     
     $title = 'Baseline Test 18B: Log in as "MDAdmin," and try to create a token. We expect to get bounced with a 403.';
@@ -513,8 +547,10 @@ function basalt_test_0018($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 18, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 18, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -543,8 +579,10 @@ function basalt_test_0018($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 18, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 18, $title);
         }
     
         $method = 'POST';
@@ -559,8 +597,10 @@ function basalt_test_0018($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 18, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 18, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -589,8 +629,10 @@ function basalt_test_0018($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 18, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 18, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -620,8 +662,10 @@ function basalt_test_0019($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 19, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 19, $title);
     }
     
     $title = 'Baseline Test 19B: Log in as "MDAdmin," and try to create a token. We expect to get bounced with a 403.';
@@ -647,8 +691,10 @@ function basalt_test_0019($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 19, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 19, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -677,8 +723,10 @@ function basalt_test_0019($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 19, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 19, $title);
         }
     
         $method = 'POST';
@@ -691,8 +739,10 @@ function basalt_test_0019($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 19, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 19, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -721,8 +771,10 @@ function basalt_test_0019($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
         if ($result_code != $expected_result_code) {
             test_result_bad($result_code, $result, $st1, $expected_result);
+            log_entry(false, 19, $title);
         } else {
             test_result_good($result_code, $result, $st1, $expected_result);
+            log_entry(true, 19, $title);
         }
     
         call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);

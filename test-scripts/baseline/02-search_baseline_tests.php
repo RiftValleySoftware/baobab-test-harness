@@ -40,8 +40,10 @@ function basalt_test_0004($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 4, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 4, $title);
     }
     
     $title = 'Baseline Test 5B: Test With A Fairly Vague Name (Large Response)';
@@ -60,8 +62,10 @@ function basalt_test_0004($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 4, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 4, $title);
     }
 }
 
@@ -88,8 +92,10 @@ function basalt_test_0005($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 5, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 5, $title);
     }
     
     $title = 'Baseline Test 5B: Test With A Fairly Vague Name (Large Response)';
@@ -108,8 +114,10 @@ function basalt_test_0005($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 5, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 5, $title);
     }
 }
 ?>

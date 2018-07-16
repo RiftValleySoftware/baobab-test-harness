@@ -40,8 +40,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     $title = 'People Test 26B: Access A Single User (with an associated login) by ID (Logged In as a Normal User)';
@@ -60,8 +62,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -82,8 +86,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -104,8 +110,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -126,8 +134,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     $title = 'People Test 26F: Access A Single User (with an associated login) by ID, with details (Logged In as a Normal User)';
@@ -146,8 +156,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -168,8 +180,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -190,8 +204,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -212,8 +228,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     $title = 'People Test 26J: Access A Single User (with an associated login) by ID, with details and associated login (Logged In as a Normal User)';
@@ -232,8 +250,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -254,8 +274,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -276,8 +298,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -298,8 +322,10 @@ function basalt_test_0026($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 26, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 26, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -328,8 +354,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     $title = 'People Test 27B: Access A Single User (with an associated login) by ID (Logged In as a Normal User)';
@@ -348,8 +376,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -370,8 +400,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -392,8 +424,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -414,8 +448,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     $title = 'People Test 27F: Access A Single User (with an associated login) by ID, with details (Logged In as a Normal User)';
@@ -434,8 +470,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -456,8 +494,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -478,8 +518,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -500,8 +542,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     $title = 'People Test 27J: Access A Single User (with an associated login) by ID, with details and associated login (Logged In as a Normal User)';
@@ -520,8 +564,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -542,8 +588,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -564,8 +612,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -586,8 +636,10 @@ function basalt_test_0027($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 27, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 27, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -616,8 +668,10 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 28, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 28, $title);
     }
     
     $title = 'People Test 28B: Access A Single User (with an associated login) by String ID (Not Logged In)';
@@ -636,8 +690,10 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 28, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 28, $title);
     }
     
     $title = 'People Test 28C: Access A Single User (with an associated login) by Numerical ID (Logged In as a Normal User that Cannot See the Login)';
@@ -656,8 +712,10 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 28, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 28, $title);
     }
     
     $title = 'People Test 28D: Access A Single User (with an associated login) by String ID (Logged In as a Normal User that Cannot See the Login)';
@@ -676,8 +734,10 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 28, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 28, $title);
     }
     
     $title = 'People Test 28E: Access A Single User (with an associated login) by Numerical ID (Logged In as a Manager that Cannot See the Login)';
@@ -696,8 +756,10 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 28, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 28, $title);
     }
     
     $title = 'People Test 28F: Access A Single User (with an associated login) by String ID (Logged In as a Manager that Cannot See the Login)';
@@ -716,8 +778,10 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 28, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 28, $title);
     }
     
     $title = 'People Test 28G: Access A Single User (with an associated login) by Numerical ID (Logged In as a Manager that Can See the Login)';
@@ -736,8 +800,10 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 28, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 28, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -758,8 +824,10 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 28, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 28, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -780,8 +848,10 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 28, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 28, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -802,8 +872,10 @@ function basalt_test_0028($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 28, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 28, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -832,8 +904,10 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 29, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 29, $title);
     }
     
     $title = 'People Test 29B: Access A Single User (with an associated login) by String ID (Not Logged In)';
@@ -852,8 +926,10 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 29, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 29, $title);
     }
     
     $title = 'People Test 29C: Access A Single User (with an associated login) by Numerical ID (Logged In as a Normal User that Cannot See the Login)';
@@ -872,8 +948,10 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 29, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 29, $title);
     }
     
     $title = 'People Test 29D: Access A Single User (with an associated login) by String ID (Logged In as a Normal User that Cannot See the Login)';
@@ -892,8 +970,10 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 29, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 29, $title);
     }
     
     $title = 'People Test 29E: Access A Single User (with an associated login) by Numerical ID (Logged In as a Manager that Cannot See the Login)';
@@ -912,8 +992,10 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 29, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 29, $title);
     }
     
     $title = 'People Test 29F: Access A Single User (with an associated login) by String ID (Logged In as a Manager that Cannot See the Login)';
@@ -932,8 +1014,10 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 29, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 29, $title);
     }
     
     $title = 'People Test 29G: Access A Single User (with an associated login) by Numerical ID (Logged In as a Manager that Can See the Login)';
@@ -952,8 +1036,10 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 29, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 29, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -974,8 +1060,10 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 29, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 29, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -996,8 +1084,10 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 29, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 29, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1018,8 +1108,10 @@ function basalt_test_0029($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 29, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 29, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1048,8 +1140,10 @@ function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 30, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 30, $title);
     }
     
     $title = 'People Test 30B: Access All Available Logins (Regular User Login)';
@@ -1068,8 +1162,10 @@ function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 30, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 30, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1090,8 +1186,10 @@ function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 30, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 30, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1112,8 +1210,10 @@ function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 30, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 30, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1134,8 +1234,10 @@ function basalt_test_0030($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 30, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 30, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1164,8 +1266,10 @@ function basalt_test_0031($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 31, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 31, $title);
     }
     
     $title = 'People Test 31B: Access All Available Logins (Regular User Login)';
@@ -1184,8 +1288,10 @@ function basalt_test_0031($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 31, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 31, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1206,8 +1312,10 @@ function basalt_test_0031($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 31, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 31, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1228,8 +1336,10 @@ function basalt_test_0031($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 31, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 31, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1250,8 +1360,10 @@ function basalt_test_0031($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 31, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 31, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1280,8 +1392,10 @@ function basalt_test_0032($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 32, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 32, $title);
     }
     
     $title = 'People Test 32B: Access A Login (Logged in as a Manager). Now, we try with the login ID (not the user ID).';
@@ -1299,8 +1413,10 @@ function basalt_test_0032($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 32, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 32, $title);
     }
 
     
@@ -1319,8 +1435,10 @@ function basalt_test_0032($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 32, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 32, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1341,8 +1459,10 @@ function basalt_test_0032($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 32, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 32, $title);
     }
 
     $title = 'People Test 32E: Access A Login (Logged in as a PHB Manager). But we will be able to see one of our employees\' logins.';
@@ -1360,8 +1480,10 @@ function basalt_test_0032($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 32, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 32, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1390,8 +1512,10 @@ function basalt_test_0033($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 33, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 33, $title);
     }
     
     $title = 'People Test 33B: Access A Login (Logged in as a Manager). Now, we try with the login ID (not the user ID).';
@@ -1409,8 +1533,10 @@ function basalt_test_0033($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 33, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 33, $title);
     }
 
     
@@ -1429,8 +1555,10 @@ function basalt_test_0033($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 33, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 33, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1451,8 +1579,10 @@ function basalt_test_0033($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 33, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 33, $title);
     }
 
     $title = 'People Test 33E: Access A Login (Logged in as a PHB Manager). But we will be able to see one of our employees\' logins.';
@@ -1470,8 +1600,10 @@ function basalt_test_0033($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 33, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 33, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1500,8 +1632,10 @@ function basalt_test_0034($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 34, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 34, $title);
     }
     
     $title = 'People Test 34B: Access a bunch of individually-selected users (Not Logged In), but this time, we ask for details.';
@@ -1520,8 +1654,10 @@ function basalt_test_0034($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 34, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 34, $title);
     }
 
     $title = 'People Test 34C: Access a bunch of individually-selected users by their login IDs (Not Logged In). We should get nothing.';
@@ -1540,8 +1676,10 @@ function basalt_test_0034($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 34, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 34, $title);
     }
 
     $title = 'People Test 34D: Access a bunch of individually-selected users by their login IDs (Logged In as a Regular User). We should get nothing.';
@@ -1560,8 +1698,10 @@ function basalt_test_0034($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 34, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 34, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1582,8 +1722,10 @@ function basalt_test_0034($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 34, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 34, $title);
     }
 
     $title = 'People Test 34F: Do it again, but this time, with login string IDs.';
@@ -1601,8 +1743,10 @@ function basalt_test_0034($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 34, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 34, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1623,8 +1767,10 @@ function basalt_test_0034($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 34, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 34, $title);
     }
 
     $title = 'People Test 34H: Do it again, but this time, with login string IDs.';
@@ -1642,8 +1788,10 @@ function basalt_test_0034($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 34, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 34, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1664,8 +1812,10 @@ function basalt_test_0034($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 34, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 34, $title);
     }
 
     $title = 'People Test 34J: Do it again, but this time, with login string IDs.';
@@ -1683,8 +1833,10 @@ function basalt_test_0034($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 34, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 34, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1713,8 +1865,10 @@ function basalt_test_0035($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 35, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 35, $title);
     }
     
     $title = 'People Test 35B: Access a bunch of individually-selected users (Not Logged In), but this time, we ask for details.';
@@ -1733,8 +1887,10 @@ function basalt_test_0035($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 35, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 35, $title);
     }
 
     $title = 'People Test 35C: Access a bunch of individually-selected users by their login IDs (Not Logged In). We should get nothing.';
@@ -1753,8 +1909,10 @@ function basalt_test_0035($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 35, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 35, $title);
     }
 
     $title = 'People Test 35D: Access a bunch of individually-selected users by their login IDs (Logged In as a Regular User). We should get nothing.';
@@ -1773,8 +1931,10 @@ function basalt_test_0035($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 35, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 35, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1795,8 +1955,10 @@ function basalt_test_0035($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 35, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 35, $title);
     }
 
     $title = 'People Test 35F: Do it again, but this time, with login string IDs.';
@@ -1814,8 +1976,10 @@ function basalt_test_0035($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 35, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 35, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1836,8 +2000,10 @@ function basalt_test_0035($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 35, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 35, $title);
     }
 
     $title = 'People Test 35H: Do it again, but this time, with login string IDs.';
@@ -1855,8 +2021,10 @@ function basalt_test_0035($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 35, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 35, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1877,8 +2045,10 @@ function basalt_test_0035($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 35, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 35, $title);
     }
 
     $title = 'People Test 35J: Do it again, but this time, with login string IDs.';
@@ -1896,8 +2066,10 @@ function basalt_test_0035($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 35, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 35, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1926,8 +2098,10 @@ function basalt_test_0036($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 36, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 36, $title);
     }
     
     $title = 'People Test 36B: Access a bunch of individually-selected logins (Logged in as MDAdmin). We should get a single login (ours), as that is the only one we\'re cleared to see.';
@@ -1946,8 +2120,10 @@ function basalt_test_0036($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 36, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 36, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1968,8 +2144,10 @@ function basalt_test_0036($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 36, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 36, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -1990,8 +2168,10 @@ function basalt_test_0036($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 36, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 36, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2012,8 +2192,10 @@ function basalt_test_0036($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 36, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 36, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2034,8 +2216,10 @@ function basalt_test_0036($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 36, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 36, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2064,8 +2248,10 @@ function basalt_test_0037($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 37, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 37, $title);
     }
     
     $title = 'People Test 37B: Access a bunch of individually-selected logins (Logged in as MDAdmin). We should get a single login (ours), as that is the only one we\'re cleared to see.';
@@ -2084,8 +2270,10 @@ function basalt_test_0037($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 37, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 37, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2106,8 +2294,10 @@ function basalt_test_0037($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 37, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 37, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2128,8 +2318,10 @@ function basalt_test_0037($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 37, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 37, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2150,8 +2342,10 @@ function basalt_test_0037($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 37, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 37, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2172,8 +2366,10 @@ function basalt_test_0037($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 37, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 37, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2202,8 +2398,10 @@ function basalt_test_0038($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 38, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 38, $title);
     }
     
     $title = 'People Test 38B: Access a bunch of individually-selected logins (Logged in as MDAdmin). We should get a single login (ours), as that is the only one we\'re cleared to see.';
@@ -2222,8 +2420,10 @@ function basalt_test_0038($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 38, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 38, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2244,8 +2444,10 @@ function basalt_test_0038($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 38, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 38, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2266,8 +2468,10 @@ function basalt_test_0038($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 38, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 38, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2288,8 +2492,10 @@ function basalt_test_0038($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 38, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 38, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2310,8 +2516,10 @@ function basalt_test_0038($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 38, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 38, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2340,8 +2548,10 @@ function basalt_test_0039($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 39, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 39, $title);
     }
     
     $title = 'People Test 39B: Access a bunch of individually-selected logins (Logged in as MDAdmin). We should get a single login (ours), as that is the only one we\'re cleared to see.';
@@ -2360,8 +2570,10 @@ function basalt_test_0039($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 39, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 39, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2382,8 +2594,10 @@ function basalt_test_0039($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 39, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 39, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2404,8 +2618,10 @@ function basalt_test_0039($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 39, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 39, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2426,8 +2642,10 @@ function basalt_test_0039($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 39, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 39, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
@@ -2448,8 +2666,10 @@ function basalt_test_0039($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 39, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 39, $title);
     }
     
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);

@@ -40,8 +40,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6B: Test With A Fairly Vague Tag 0 (Large Response)';
@@ -60,8 +62,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6C: Test With A Fairly Specific Tag 1 (Small Response)';
@@ -80,8 +84,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6D: Test With A Fairly Vague Tag 1 (Large Response)';
@@ -100,8 +106,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6E: Test With A Fairly Specific Tag 2 (Small Response)';
@@ -120,8 +128,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6F: Test With A Fairly Vague Tag 2 (Larger Response)';
@@ -140,8 +150,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6G: Test With A Fairly Specific Tag 3 (Small Response)';
@@ -160,8 +172,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6H: Test With A Fairly Specific Tag 3, but A Common Tag (Large Response)';
@@ -180,8 +194,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6I: Test With A Fairly Vague Tag 3 (Large Response)';
@@ -200,8 +216,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6J: Test With A Fairly Specific Tag 4 (Small Response)';
@@ -220,8 +238,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6K: Test With Another Fairly Specific Tag 4 (Medium Response)';
@@ -240,8 +260,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6L: Test With A Fairly Vague Tag 4 (Large Response)';
@@ -260,8 +282,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6M: Test With A Fairly Specific Tag 5 (Medium Response)';
@@ -280,8 +304,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6N: Test With A Fairly Vague Tag 5 (Large Response)';
@@ -300,8 +326,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6O: Test With A Fairly Specific Tag 6 (Small Response)';
@@ -320,8 +348,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6P: Test With An Empty Tag 6 (Medium Response)';
@@ -340,8 +370,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6Q: Test With A vague Tag 6 (Small Response)';
@@ -360,8 +392,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6R: Test With A Fairly Specific Tag 7 (Large Response)';
@@ -380,8 +414,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6S: Test With An Empty Tag 7 (Small Response)';
@@ -400,8 +436,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6T: Test With A Fairly Specific Tag 8 (Medium Response)';
@@ -420,8 +458,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6U: Test With A Fairly Vague Tag 8 (Medium Response)';
@@ -440,8 +480,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6V: Test With A Blank Tag 8 (Small Response)';
@@ -460,8 +502,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6W: Test With A Fairly Specific Tag 9 (Small Response)';
@@ -480,8 +524,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6X: Test With A Fairly Vague Tag 9 (Small Response)';
@@ -500,8 +546,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
     
     $title = 'Baseline Test 6Y: Test With An Empty Tag 9 (Large Response)';
@@ -520,8 +568,10 @@ function basalt_test_0006($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 6, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 6, $title);
     }
 }
 
@@ -548,8 +598,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
         
     $title = 'Baseline Test 7B: Test With A Fairly Vague Tag 0 (Large Response)';
@@ -568,8 +620,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7C: Test With A Fairly Specific Tag 1 (Small Response)';
@@ -588,8 +642,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7D: Test With A Fairly Vague Tag 1 (Large Response)';
@@ -608,8 +664,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7E: Test With A Fairly Specific Tag 2 (Small Response)';
@@ -628,8 +686,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7F: Test With A Fairly Vague Tag 2 (Larger Response)';
@@ -648,8 +708,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7G: Test With A Fairly Specific Tag 3 (Small Response)';
@@ -668,8 +730,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7H: Test With A Fairly Specific Tag 3, but A Common Tag (Large Response)';
@@ -688,8 +752,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7I: Test With A Fairly Vague Tag 3 (Large Response)';
@@ -708,8 +774,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7J: Test With A Fairly Specific Tag 4 (Small Response)';
@@ -728,8 +796,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7K: Test With Another Fairly Specific Tag 4 (Medium Response)';
@@ -748,8 +818,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
 
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7L: Test With A Fairly Vague Tag 4 (Large Response)';
@@ -768,8 +840,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7M: Test With A Fairly Specific Tag 5 (Medium Response)';
@@ -788,8 +862,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7N: Test With A Fairly Vague Tag 5 (Large Response)';
@@ -808,8 +884,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7O: Test With A Fairly Specific Tag 6 (Small Response)';
@@ -828,8 +906,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7P: Test With An Empty Tag 6 (Medium Response)';
@@ -848,8 +928,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7Q: Test With A vague Tag 6 (Small Response)';
@@ -868,8 +950,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7R: Test With A Fairly Specific Tag 7 (Large Response)';
@@ -888,8 +972,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7S: Test With An Empty Tag 7 (Small Response)';
@@ -908,8 +994,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7T: Test With A Fairly Specific Tag 8 (Medium Response)';
@@ -928,8 +1016,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7U: Test With A Fairly Vague Tag 8 (Medium Response)';
@@ -948,8 +1038,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7V: Test With A Blank Tag 8 (Small Response)';
@@ -968,8 +1060,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7W: Test With A Fairly Specific Tag 9 (Small Response)';
@@ -988,8 +1082,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7X: Test With A Fairly Vague Tag 9 (Small Response)';
@@ -1008,8 +1104,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
     
     $title = 'Baseline Test 7Y: Test With An Empty Tag 9 (Large Response)';
@@ -1028,8 +1126,10 @@ function basalt_test_0007($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 7, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 7, $title);
     }
 }
 
@@ -1056,8 +1156,10 @@ function basalt_test_0008($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 8, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 8, $title);
     }
     
     $title = 'Baseline Test 8B: See what the Tag 5 search for "WV" gives us: (Medium Response)';
@@ -1076,8 +1178,10 @@ function basalt_test_0008($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 8, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 8, $title);
     }
     
     $title = 'Baseline Test 8C: See what the Tag 0 search for "Grace%" and the Tag 5 search for "WV" gives us: (Small Response)';
@@ -1096,8 +1200,10 @@ function basalt_test_0008($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 8, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 8, $title);
     }
 }
 
@@ -1124,8 +1230,10 @@ function basalt_test_0009($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 9, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 9, $title);
     }
     
     $title = 'Baseline Test 9B: See what the Tag 5 search for "WV" gives us: (Medium Response)';
@@ -1144,8 +1252,10 @@ function basalt_test_0009($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 9, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 9, $title);
     }
     
     $title = 'Baseline Test 9C: See what the Tag 0 search for "Grace%" and the Tag 5 search for "WV" gives us: (Small Response)';
@@ -1164,8 +1274,10 @@ function basalt_test_0009($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 9, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 9, $title);
     }
 }
 ?>
