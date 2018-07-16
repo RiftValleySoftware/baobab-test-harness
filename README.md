@@ -52,7 +52,7 @@ In PHP (cURL):
 Or in JavaScript (AJAX):
 
     // Authentication. We provide the Server Secret and the API key here.
-    if (isset(g_server_secret) && isset(g_api_key)) {
+    if (g_server_secret && g_api_key) {
         xml_http_request_object.setRequestHeader('Authorization', 'Basic ' + btoa(unescape(encodeURIComponent(g_server_secret + ':' + g_api_key))));
     };
 
