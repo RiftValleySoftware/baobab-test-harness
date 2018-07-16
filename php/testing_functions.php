@@ -38,7 +38,7 @@ function log_entry($in_pass_fail, $in_test_number, $in_test_text) {
     $logfile_handle = fopen($logfile, 'a');
     
     if ($logfile_handle) {
-        $log_line = ($in_pass_fail ? 'PASS' : "\n***\nFAIL").','.intval($in_test_number).','.'"'.str_replace('"', '\\"', $in_test_text).'"'."\n".($in_pass_fail ? '' : "\n***\n");
+        $log_line = ($in_pass_fail ? 'PASS' : "\n********\n* FAIL *").','.intval($in_test_number).','.'"'.str_replace('"', '\\"', $in_test_text).'"'."\n".($in_pass_fail ? '' : "********\n");
         fwrite($logfile_handle, $log_line);
         fclose($logfile_handle);
     }

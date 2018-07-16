@@ -40,10 +40,10 @@ function basalt_test_0020($in_login = NULL, $in_hashed_password = NULL, $in_pass
     
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
-        log_entry(false, 21, $title);
+        log_entry(false, 20, $title);
     } else {
         test_result_good($result_code, $result, $st1, $expected_result);
-        log_entry(true, 21, $title);
+        log_entry(true, 20, $title);
     }
     
     $title = 'People Test 20B: Command Dump (Logged In As A User)';
