@@ -129,6 +129,10 @@
                 font-size: large;
             }
             
+            h2.header a {
+                display: block;
+            }
+            
             div.closed,
             div.open {
                 margin-top:0.5em;
@@ -162,6 +166,7 @@
             }
             
             div.inner_open h3.inner_header a,
+            div.open div.inner_open h3.inner_header.sub_test_header a,
             div.open .inner_open .indent_1 .inner_open h3.inner_header a,
             div.open h2 a {
                 border-top-left-radius:0.25em;
@@ -169,6 +174,12 @@
                 border-bottom-left-radius:0em;
                 border-bottom-right-radius:0em;
                 margin-bottom: 0.25em;
+            }
+            
+            div.open .inner_open .indent_1 .inner_open h3.inner_header,
+            div.open div.inner_open h3.inner_header.sub_test_header {
+                margin-right: -1px;
+                margin-left: -1px;
             }
             
             div.open .inner_open .indent_1 .inner_closed h3.inner_header a,
@@ -188,7 +199,7 @@
             
             div.inner_open {
                 border:1px dashed #009;
-                border-top:1px solid white;
+                border-top:none;
                 border-radius:0.25em;
                 padding: 0.25em;
             }
@@ -217,7 +228,8 @@
                 margin-top:1em;
             }
             
-            div.collection_wrapper {
+            div.open {
+                background-color: #ffd;
             }
             
             div#tests-wrapped-up {

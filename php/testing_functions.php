@@ -263,22 +263,28 @@ function get_xsd($in_plugin_name, $in_dirname = NULL) {
     return $ret;
 }
 
-function validate_xml($in_xml, $in_plugin_name) {
-    $schema = get_xsd($in_plugin_name, ('baseline' == $in_plugin_name) ? 'main' : NULL);
-    $domxml = new DOMDocument('1.0');
-    $domxml->preserveWhiteSpace = false;
-    $domxml->formatOutput = true;
-    $domxml->loadXML($in_xml);
+function validate_xml($in_xml) {
+    $matches = [];
+    $ret = false;
+    $result = preg_match('|\/xsd\/([^"]+?)"|', $in_xml, $matches);
+    if ($result) {
+        $plugin_name = $matches[1];
+        $schema = get_xsd($plugin_name, ('baseline' == $plugin_name) ? 'main' : NULL);
+        $domxml = new DOMDocument('1.0');
+        $domxml->preserveWhiteSpace = false;
+        $domxml->formatOutput = true;
+        $domxml->loadXML($in_xml);
     
-    $ret = true;
-    echo('<div class="indent_1">');
-    if ($domxml->schemaValidateSource($schema)) {
-        echo('<h4 style="color:green">XML Is Valid!</h4>');
-    } else {
-        echo('<h4 style="color:red">XML Is Not Valid!</h4>');
-        $ret = false;
+        echo('<div class="indent_1">');
+        if ($domxml->schemaValidateSource($schema)) {
+            $ret = true;
+            echo('<h4 style="color:green">XML Is Valid!</h4>');
+        } else {
+            echo('<h4 style="color:red">XML Is Not Valid!</h4>');
+            log_entry(false, 0, 'XML VALIDATION FAIL for plugin: '.$plugin_name);
+        }
+        echo('</div>');
     }
-    echo('</div>');
     
     return $ret;
 }
@@ -419,6 +425,7 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
         echo('<div class="indent_1" style="color:green"><p>Received Expected Result</p></div>');
         $matches = [];
         if (preg_match('|^\<\?xml|', $in_result)) {
+            validate_xml($in_result);
             echo('<div id="'.$id.'" class="inner_closed">');
                 echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                 echo('<div class="inner_container">');
