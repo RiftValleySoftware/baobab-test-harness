@@ -796,4 +796,254 @@ function basalt_test_0063($in_login = NULL, $in_hashed_password = NULL, $in_pass
         
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
 }
+
+// --------------------
+
+function basalt_test_define_0064() {
+    basalt_run_single_direct_test(64, 'Apply Common Changes to Multiple Users (JSON).', '', 'people_2_tests');
+}
+
+function basalt_test_0064($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Test 64A: Add an image to multiple users. The first two users will be ignored, as the manager does not have rights to them.';
+    $result_code = '';
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=PHB&password=CoreysGoryStory', NULL, NULL, $result_code);
+    
+    $method = 'PUT';
+
+    $uri = __SERVER_URI__.'/json/people/people/1725,1726,1745,1746,1747,1748,1749';
+    $data = ['data' => file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-64A.png'), 'type' => 'image/png'];
+    $expected_result_code = 200;
+    $expected_result = file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-64A.json');
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 64, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result, false);
+        log_entry(true, 64, $title);
+    }
+
+    $title = 'Test 64B: Remove the image from multiple users, selected by login ID. The first two users will be ignored, as the manager does not have rights to them.';
+    $uri = __SERVER_URI__.'/json/people/people/login_ids/MDAdmin,VAAdmin,Dilbert,Wally,Ted,Alice,Tina?remove_payload';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-64B.json');
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 64, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result, false);
+        log_entry(true, 64, $title);
+    }
+
+    $title = 'Test 64C: Add the image back, but this time, just do a blanket add to all users. This will add the image to one extra user (ourselves).';
+    $uri = __SERVER_URI__.'/json/people/people/';
+    $data = ['data' => file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-64A.png'), 'type' => 'image/png'];
+    $expected_result_code = 200;
+    $expected_result = file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-64C.json');
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 64, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result, false);
+        log_entry(true, 64, $title);
+    }
+        
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0065() {
+    basalt_run_single_direct_test(65, 'Apply Common Changes to Multiple Users (XML).', '', 'people_2_tests');
+}
+
+function basalt_test_0065($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Test 65A: Add an image to multiple users. The first two users will be ignored, as the manager does not have rights to them.';
+    $result_code = '';
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=PHB&password=CoreysGoryStory', NULL, NULL, $result_code);
+    
+    $method = 'PUT';
+
+    $uri = __SERVER_URI__.'/xml/people/people/1725,1726,1745,1746,1747,1748,1749';
+    $data = ['data' => file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-64A.png'), 'type' => 'image/png'];
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-65A.xml');
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 65, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result, false);
+        log_entry(true, 65, $title);
+    }
+
+    $title = 'Test 65B: Remove the image from multiple users, selected by login ID. The first two users will be ignored, as the manager does not have rights to them.';
+    $uri = __SERVER_URI__.'/xml/people/people/login_ids/MDAdmin,VAAdmin,Dilbert,Wally,Ted,Alice,Tina?remove_payload';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-65B.xml');
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 65, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result, false);
+        log_entry(true, 65, $title);
+    }
+
+    $title = 'Test 65C: Add the image back, but this time, just do a blanket add to all users. This will add the image to one extra user (ourselves).';
+    $uri = __SERVER_URI__.'/xml/people/people/';
+    $data = ['data' => file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-64A.png'), 'type' => 'image/png'];
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').file_get_contents(dirname(__FILE__).'/05-put_people_tests-part-2-65C.xml');
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 65, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result, false);
+        log_entry(true, 65, $title);
+    }
+        
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0066() {
+    basalt_run_single_direct_test(66, 'Apply Common Changes to Multiple Logins (JSON).', '', 'people_2_tests');
+}
+
+function basalt_test_0066($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Test 66A: Change the name for multiple selected logins. The first two logins will be ignored, as the manager does not have rights to them.';
+    $result_code = '';
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=PHB&password=CoreysGoryStory', NULL, NULL, $result_code);
+    
+    $method = 'PUT';
+
+    $uri = __SERVER_URI__.'/json/people/logins/7,8,13,14,15,16,17?name=This+Is+A+Common+Name';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":{"changed_logins":[{"before":{"id":13,"name":"Dilbert Login","lang":"en","login_id":"Dilbert","read_token":13,"write_token":13,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1745,"is_manager":false,"is_main_admin":false,"security_tokens":[13]},"after":{"id":13,"name":"This Is A Common Name","lang":"en","login_id":"Dilbert","read_token":13,"write_token":13,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1745,"is_manager":false,"is_main_admin":false,"security_tokens":[13]}},{"before":{"id":14,"name":"Wally Login","lang":"en","login_id":"Wally","read_token":14,"write_token":14,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1746,"is_manager":false,"is_main_admin":false,"security_tokens":[14]},"after":{"id":14,"name":"This Is A Common Name","lang":"en","login_id":"Wally","read_token":14,"write_token":14,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1746,"is_manager":false,"is_main_admin":false,"security_tokens":[14]}},{"before":{"id":15,"name":"Ted Login","lang":"en","login_id":"Ted","read_token":15,"write_token":15,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1747,"is_manager":false,"is_main_admin":false,"security_tokens":[15]},"after":{"id":15,"name":"This Is A Common Name","lang":"en","login_id":"Ted","read_token":15,"write_token":15,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1747,"is_manager":false,"is_main_admin":false,"security_tokens":[15]}},{"before":{"id":16,"name":"Alice Login","lang":"en","login_id":"Alice","read_token":16,"write_token":16,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1748,"is_manager":false,"is_main_admin":false,"security_tokens":[16]},"after":{"id":16,"name":"This Is A Common Name","lang":"en","login_id":"Alice","read_token":16,"write_token":16,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1748,"is_manager":false,"is_main_admin":false,"security_tokens":[16]}},{"before":{"id":17,"name":"Tina Login","lang":"en","login_id":"Tina","read_token":17,"write_token":17,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1749,"is_manager":false,"is_main_admin":false,"security_tokens":[17]},"after":{"id":17,"name":"This Is A Common Name","lang":"en","login_id":"Tina","read_token":17,"write_token":17,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1749,"is_manager":false,"is_main_admin":false,"security_tokens":[17]}}]}}}';
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 66, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 66, $title);
+    }
+
+    $title = 'Test 66B: Change the name and the read and write tokens for multiple logins (open selection). This will add our own login to the set.';
+    $uri = __SERVER_URI__.'/json/people/logins/?name=This+Is+Another+Name&read_token=1&write_token=18';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"people":{"logins":{"changed_logins":[{"before":{"id":13,"name":"This Is A Common Name","lang":"en","login_id":"Dilbert","read_token":13,"write_token":13,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1745,"is_manager":false,"is_main_admin":false,"security_tokens":[13]},"after":{"id":13,"name":"This Is Another Name","lang":"en","login_id":"Dilbert","read_token":1,"write_token":18,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1745,"is_manager":false,"is_main_admin":false,"security_tokens":[13]}},{"before":{"id":14,"name":"This Is A Common Name","lang":"en","login_id":"Wally","read_token":14,"write_token":14,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1746,"is_manager":false,"is_main_admin":false,"security_tokens":[14]},"after":{"id":14,"name":"This Is Another Name","lang":"en","login_id":"Wally","read_token":1,"write_token":18,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1746,"is_manager":false,"is_main_admin":false,"security_tokens":[14]}},{"before":{"id":15,"name":"This Is A Common Name","lang":"en","login_id":"Ted","read_token":15,"write_token":15,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1747,"is_manager":false,"is_main_admin":false,"security_tokens":[15]},"after":{"id":15,"name":"This Is Another Name","lang":"en","login_id":"Ted","read_token":1,"write_token":18,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1747,"is_manager":false,"is_main_admin":false,"security_tokens":[15]}},{"before":{"id":16,"name":"This Is A Common Name","lang":"en","login_id":"Alice","read_token":16,"write_token":16,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1748,"is_manager":false,"is_main_admin":false,"security_tokens":[16]},"after":{"id":16,"name":"This Is Another Name","lang":"en","login_id":"Alice","read_token":1,"write_token":18,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1748,"is_manager":false,"is_main_admin":false,"security_tokens":[16]}},{"before":{"id":17,"name":"This Is A Common Name","lang":"en","login_id":"Tina","read_token":17,"write_token":17,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1749,"is_manager":false,"is_main_admin":false,"security_tokens":[17]},"after":{"id":17,"name":"This Is Another Name","lang":"en","login_id":"Tina","read_token":1,"write_token":18,"last_access":"1970-01-02 00:00:00","writeable":true,"user_object_id":1749,"is_manager":false,"is_main_admin":false,"security_tokens":[17]}},{"before":{"id":18,"name":"Pointy-Haired Boss login","lang":"en","login_id":"PHB","read_token":18,"write_token":18,"last_access":"1970-01-02 00:00:00","writeable":true,"current_login":true,"user_object_id":1750,"is_manager":true,"is_main_admin":false,"security_tokens":[18,13,14,15,16,17],"current_api_key":true},"after":{"id":18,"name":"This Is Another Name","lang":"en","login_id":"PHB","read_token":1,"write_token":18,"last_access":"1970-01-02 00:00:00","writeable":true,"current_login":true,"user_object_id":1750,"is_manager":true,"is_main_admin":false,"security_tokens":[18,13,14,15,16,17],"current_api_key":true}}]}}}';
+        
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 66, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 66, $title);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
+
+// --------------------
+
+function basalt_test_define_0067() {
+    basalt_run_single_direct_test(67, 'Apply Common Changes to Multiple Logins (XML).', '', 'people_2_tests');
+}
+
+function basalt_test_0067($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Test 67A: Change the name for multiple selected logins. The first two logins will be ignored, as the manager does not have rights to them.';
+    $result_code = '';
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=PHB&password=CoreysGoryStory', NULL, NULL, $result_code);
+    
+    $method = 'PUT';
+
+    $uri = __SERVER_URI__.'/xml/people/logins/7,8,13,14,15,16,17?name=This+Is+A+Common+Name';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><changed_logins><value sequence_index="0"><before><id>13</id><name>Dilbert Login</name><lang>en</lang><login_id>Dilbert</login_id><read_token>13</read_token><write_token>13</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1745</user_object_id><security_tokens><value sequence_index="0">13</value></security_tokens></before><after><id>13</id><name>This Is A Common Name</name><lang>en</lang><login_id>Dilbert</login_id><read_token>13</read_token><write_token>13</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1745</user_object_id><security_tokens><value sequence_index="0">13</value></security_tokens></after></value><value sequence_index="1"><before><id>14</id><name>Wally Login</name><lang>en</lang><login_id>Wally</login_id><read_token>14</read_token><write_token>14</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1746</user_object_id><security_tokens><value sequence_index="0">14</value></security_tokens></before><after><id>14</id><name>This Is A Common Name</name><lang>en</lang><login_id>Wally</login_id><read_token>14</read_token><write_token>14</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1746</user_object_id><security_tokens><value sequence_index="0">14</value></security_tokens></after></value><value sequence_index="2"><before><id>15</id><name>Ted Login</name><lang>en</lang><login_id>Ted</login_id><read_token>15</read_token><write_token>15</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1747</user_object_id><security_tokens><value sequence_index="0">15</value></security_tokens></before><after><id>15</id><name>This Is A Common Name</name><lang>en</lang><login_id>Ted</login_id><read_token>15</read_token><write_token>15</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1747</user_object_id><security_tokens><value sequence_index="0">15</value></security_tokens></after></value><value sequence_index="3"><before><id>16</id><name>Alice Login</name><lang>en</lang><login_id>Alice</login_id><read_token>16</read_token><write_token>16</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1748</user_object_id><security_tokens><value sequence_index="0">16</value></security_tokens></before><after><id>16</id><name>This Is A Common Name</name><lang>en</lang><login_id>Alice</login_id><read_token>16</read_token><write_token>16</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1748</user_object_id><security_tokens><value sequence_index="0">16</value></security_tokens></after></value><value sequence_index="4"><before><id>17</id><name>Tina Login</name><lang>en</lang><login_id>Tina</login_id><read_token>17</read_token><write_token>17</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1749</user_object_id><security_tokens><value sequence_index="0">17</value></security_tokens></before><after><id>17</id><name>This Is A Common Name</name><lang>en</lang><login_id>Tina</login_id><read_token>17</read_token><write_token>17</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1749</user_object_id><security_tokens><value sequence_index="0">17</value></security_tokens></after></value></changed_logins></logins></people>';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 67, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 67, $title);
+    }
+
+    $title = 'Test 67B: Change the name and the read and write tokens for multiple logins (open selection). This will add our own login to the set.';
+    $uri = __SERVER_URI__.'/xml/people/logins/?name=This+Is+Another+Name&read_token=1&write_token=18';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('people').'<logins><changed_logins><value sequence_index="0"><before><id>13</id><name>This Is A Common Name</name><lang>en</lang><login_id>Dilbert</login_id><read_token>13</read_token><write_token>13</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1745</user_object_id><security_tokens><value sequence_index="0">13</value></security_tokens></before><after><id>13</id><name>This Is Another Name</name><lang>en</lang><login_id>Dilbert</login_id><read_token>1</read_token><write_token>18</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1745</user_object_id><security_tokens><value sequence_index="0">13</value></security_tokens></after></value><value sequence_index="1"><before><id>14</id><name>This Is A Common Name</name><lang>en</lang><login_id>Wally</login_id><read_token>14</read_token><write_token>14</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1746</user_object_id><security_tokens><value sequence_index="0">14</value></security_tokens></before><after><id>14</id><name>This Is Another Name</name><lang>en</lang><login_id>Wally</login_id><read_token>1</read_token><write_token>18</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1746</user_object_id><security_tokens><value sequence_index="0">14</value></security_tokens></after></value><value sequence_index="2"><before><id>15</id><name>This Is A Common Name</name><lang>en</lang><login_id>Ted</login_id><read_token>15</read_token><write_token>15</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1747</user_object_id><security_tokens><value sequence_index="0">15</value></security_tokens></before><after><id>15</id><name>This Is Another Name</name><lang>en</lang><login_id>Ted</login_id><read_token>1</read_token><write_token>18</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1747</user_object_id><security_tokens><value sequence_index="0">15</value></security_tokens></after></value><value sequence_index="3"><before><id>16</id><name>This Is A Common Name</name><lang>en</lang><login_id>Alice</login_id><read_token>16</read_token><write_token>16</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1748</user_object_id><security_tokens><value sequence_index="0">16</value></security_tokens></before><after><id>16</id><name>This Is Another Name</name><lang>en</lang><login_id>Alice</login_id><read_token>1</read_token><write_token>18</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1748</user_object_id><security_tokens><value sequence_index="0">16</value></security_tokens></after></value><value sequence_index="4"><before><id>17</id><name>This Is A Common Name</name><lang>en</lang><login_id>Tina</login_id><read_token>17</read_token><write_token>17</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1749</user_object_id><security_tokens><value sequence_index="0">17</value></security_tokens></before><after><id>17</id><name>This Is Another Name</name><lang>en</lang><login_id>Tina</login_id><read_token>1</read_token><write_token>18</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><user_object_id>1749</user_object_id><security_tokens><value sequence_index="0">17</value></security_tokens></after></value><value sequence_index="5"><before><id>18</id><name>Pointy-Haired Boss login</name><lang>en</lang><login_id>PHB</login_id><read_token>18</read_token><write_token>18</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><current_login>1</current_login><user_object_id>1750</user_object_id><is_manager>1</is_manager><security_tokens><value sequence_index="0">18</value><value sequence_index="1">13</value><value sequence_index="2">14</value><value sequence_index="3">15</value><value sequence_index="4">16</value><value sequence_index="5">17</value></security_tokens><current_api_key>1</current_api_key></before><after><id>18</id><name>This Is Another Name</name><lang>en</lang><login_id>PHB</login_id><read_token>1</read_token><write_token>18</write_token><last_access>1970-01-02 00:00:00</last_access><writeable>1</writeable><current_login>1</current_login><user_object_id>1750</user_object_id><is_manager>1</is_manager><security_tokens><value sequence_index="0">18</value><value sequence_index="1">13</value><value sequence_index="2">14</value><value sequence_index="3">15</value><value sequence_index="4">16</value><value sequence_index="5">17</value></security_tokens><current_api_key>1</current_api_key></after></value></changed_logins></logins></people>';
+        
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 67, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 67, $title);
+    }
+    
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
 ?>

@@ -11,6 +11,11 @@
 
     Little Green Viper Software Development: https://littlegreenviper.com
 */
+
+define('_INCLUDE_TIMING_IN_REPORT_', true); // Set to true to include timing info in the test report (breaks CSV).
+
+static $s_start_time;
+
 if (!class_exists('CO_Config')) {
     $config_file_path = dirname(dirname(__FILE__)).'/config/s_config.class.php';
 
@@ -31,14 +36,61 @@ function start_log() {
     if (file_exists($logfile)) {
         unlink($logfile);
     }
+    
+    if (_INCLUDE_TIMING_IN_REPORT_) {
+        $logfile_handle = fopen($logfile, 'a');
+        $date = new DateTime();
+        $log_line = "TEST START: ".$date->format('Y-m-d H:i:s:v')."\n\n";
+        fwrite($logfile_handle, $log_line);
+        fclose($logfile_handle);
+    }
+}
+
+function end_log($in_start_time = 0) {
+    if (_INCLUDE_TIMING_IN_REPORT_) {
+        $logfile = dirname(dirname(__FILE__)).'/test_report.txt';
+        $logfile_handle = fopen($logfile, 'a');
+        $date = new DateTime();
+        $log_line = "\n\nTEST END: ".$date->format('Y-m-d H:i:s:v');
+        if ($in_start_time) {
+            $start = floatval($in_start_time);
+            $end = microtime(true);
+            
+            $time = $end - $start;
+
+            $days = intval($time / 86400);
+            
+            $time -= ($days * 86400);
+            
+            $hours = intval($time / 3600);
+            
+            $time -= ($hours * 86400);
+            
+            $minutes = intval($time / 60);
+            
+            $time -= ($minutes * 60);
+            
+            $log_line .= "\nThe Entire Test Suite Took $hours Hours, $minutes Minutes, and $time Seconds.";
+        }
+        $log_line .= "\n";
+        fwrite($logfile_handle, $log_line);
+        fclose($logfile_handle);
+    }
 }
 
 function log_entry($in_pass_fail, $in_test_number, $in_test_text) {
     $logfile = dirname(dirname(__FILE__)).'/test_report.txt';
     $logfile_handle = fopen($logfile, 'a');
+    $log_line = '';
     
     if ($logfile_handle) {
-        $log_line = ($in_pass_fail ? 'PASS' : "\n********\n* FAIL *").','.intval($in_test_number).','.'"'.str_replace('"', '\\"', $in_test_text).'"'."\n".($in_pass_fail ? '' : "********\n");
+        if (!$in_pass_fail && _INCLUDE_TIMING_IN_REPORT_) {
+            $log_line .= "\n********\n";
+        }
+        $log_line .= ($in_pass_fail ? 'PASS' : '* FAIL *').','.intval($in_test_number).','.'"'.str_replace('"', '\\"', $in_test_text).'"'."\n";
+        if (!$in_pass_fail && _INCLUDE_TIMING_IN_REPORT_) {
+            $log_line .= "********\n";
+        }
         fwrite($logfile_handle, $log_line);
         fclose($logfile_handle);
     }
@@ -240,13 +292,15 @@ function test_header($in_title, $in_method, $in_uri, $in_result_code) {
 
 function timing_report($in_start, $in_text = 'execute this query') {
     $fetchTime = sprintf('%01.4f', microtime(true) - $in_start);
-    $logfile = dirname(dirname(__FILE__)).'/test_report.txt';
-    $logfile_handle = fopen($logfile, 'a');
+    if (_INCLUDE_TIMING_IN_REPORT_) {
+        $logfile = dirname(dirname(__FILE__)).'/test_report.txt';
+        $logfile_handle = fopen($logfile, 'a');
     
-    if ($logfile_handle) {
-        $log_line = "\tTIME: $fetchTime Seconds to $in_text.\n";
-        fwrite($logfile_handle, $log_line);
-        fclose($logfile_handle);
+        if ($logfile_handle) {
+            $log_line = "\tTIME: $fetchTime Seconds to $in_text.\n";
+            fwrite($logfile_handle, $log_line);
+            fclose($logfile_handle);
+        }
     }
     echo("<div class=\"indent_1 timing_report\">It took $fetchTime seconds to $in_text.</div>");
 }
@@ -358,7 +412,7 @@ function extract_payload($in_data) {
     return $ret;
 }
 
-function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_result) {
+function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_result, $show_payload = true) {
     $id = uniqid('test-result-');
     echo('<div class="indent_1 test_report good_report"><h3 style="color:green">Received Expected Result Code: '.intval($in_result_code).'</h3>');
     if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
@@ -372,7 +426,9 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                         echo('<pre>');
                             echo(prettify_xml($in_result));
                         echo('</pre>');
-                        extract_payload($in_result);
+                        if ($show_payload) {
+                            extract_payload($in_result);
+                        }
                     echo('</div>');
                 echo('</div>');
             echo('</div>');
@@ -384,7 +440,9 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                         echo('<pre>');
                             echo(prettify_json($in_result));
                         echo('</pre>');
-                        extract_payload($in_result);
+                        if ($show_payload) {
+                            extract_payload($in_result);
+                        }
                     echo('</div>');
                 echo('</div>');
             echo('</div>');
@@ -402,14 +460,18 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                                 echo('<pre>');
                                     echo(prettify_xml($in_result));
                                 echo('</pre>');
-                                extract_payload($in_result);
+                                if ($show_payload) {
+                                    extract_payload($in_result);
+                                }
                             echo('</div>');
                             echo('<div>');
                                 echo('<strong>EXPECTED:</strong>');
                                 echo('<pre>');
                                     echo(prettify_xml($in_expected_result));
                                 echo('</pre>');
-                                extract_payload($in_expected_result);
+                                if ($show_payload) {
+                                    extract_payload($in_result);
+                                }
                             echo('</div>');
                         echo('</div>');
                     echo('</div>');
@@ -423,14 +485,18 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
                                 echo('<pre>');
                                     echo(prettify_json($in_result));
                                 echo('</pre>');
-                                extract_payload($in_result);
+                                if ($show_payload) {
+                                    extract_payload($in_result);
+                                }
                             echo('</div>');
                             echo('<div>');
                                 echo('<strong>EXPECTED:</strong>');
                                 echo('<pre>');
                                     echo(prettify_json($in_expected_result));
                                 echo('</pre>');
-                                extract_payload($in_expected_result);
+                                if ($show_payload) {
+                                    extract_payload($in_result);
+                                }
                             echo('</div>');
                         echo('</div>');
                     echo('</div>');

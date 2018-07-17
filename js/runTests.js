@@ -49,6 +49,8 @@ function showTests() {
     var tests_displayed = document.getElementById('tests-displayed');
     
     if (tests_displayed) {
+        ajaxLoader.ajaxRequest('php/done_testing.php?start_time='+start_time, dunTestCallback, 'GET');
+
         tests_displayed.innerHTML = pageHTML;
         
         var tests_wrapped_up = document.getElementById('tests-wrapped-up');
@@ -63,6 +65,11 @@ function showTests() {
         };
     };
     
+};
+
+function dunTestCallback (in_response_object) {
+    if (in_response_object.responseText) {
+    };
 };
 
 function runTestCallback (in_response_object) {

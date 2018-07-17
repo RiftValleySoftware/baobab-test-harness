@@ -195,6 +195,8 @@
         <script type="text/javascript" src="js/ajaxLoader.js"></script>
         <script type="text/javascript" src="js/runTests.js"></script>
         <script type="text/javascript">
+            var start_time =  <?php echo microtime(true); ?>;
+            
             function toggle_main_state(in_id) {
                 var item = document.getElementById(in_id);
                 

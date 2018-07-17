@@ -13,6 +13,8 @@
 */
 require_once(dirname(__FILE__).'/testing_functions.php');
 
+set_time_limit(3600);
+
 define('__SERVER_URI__', 'http://localhost/baobab-test-harness/php/baobab-server.php');
 
 // ---------------------------------- TEST DISPATCHER -------------------------------------------
