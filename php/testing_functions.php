@@ -12,7 +12,7 @@
     Little Green Viper Software Development: https://littlegreenviper.com
 */
 
-define('_INCLUDE_TIMING_IN_REPORT_', true); // Set to true to include timing info in the test report (breaks CSV).
+define('_INCLUDE_TIMING_IN_REPORT_', false); // Set to true to include timing info in the test report (breaks CSV).
 
 static $s_start_time;
 
@@ -312,7 +312,7 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
         if ($in_result) {
             if (preg_match('|^\<\?xml|', $in_result)) {
                 echo('<div id="'.$id.'" class="inner_closed">');
-                    echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                    echo('<h3 class="inner_header"><a class="display_a" href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                     echo('<div class="inner_container">');
                         echo('<div class="container"><pre>');
                             echo(prettify_xml($in_result));
@@ -321,7 +321,7 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
                 echo('</div>');
             } else {
                 echo('<div id="'.$id.'" class="inner_closed">');
-                    echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                    echo('<h3 class="inner_header"><a class="display_a" href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                     echo('<div class="inner_container">');
                         echo('<div class="container"><pre>');
                             echo(prettify_json($in_result));
@@ -336,7 +336,7 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
         if ($in_result) {
             if (preg_match('|^\<\?xml|', $in_result)) {
                 echo('<div id="'.$id.'" class="inner_closed">');
-                    echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                    echo('<h3 class="inner_header"><a class="display_a" href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                     echo('<div class="inner_container">');
                         echo('<div class="container"><pre>');
                             echo(prettify_xml($in_result));
@@ -345,7 +345,7 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
                 echo('</div>');
             } else {
                 echo('<div id="'.$id.'" class="inner_closed">');
-                    echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
+                    echo('<h3 class="inner_header"><a class="display_a" href="javascript:toggle_inner_state(\''.$id.'\')">Display Results</a></h3>');
                     echo('<div class="inner_container">');
                         echo('<div class="container"><pre>');
                             echo(prettify_json($in_result));
