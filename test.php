@@ -132,16 +132,31 @@
             div.closed,
             div.open {
                 margin-top:0.5em;
-                border:1px solid #555;
+                border: 1px solid #009;
                 border-radius:0.25em;
                 padding: 0.25em;
-                min-width:30em;
+                min-width:50em;
+                text-align:left;
             }
             
             div.open div.container {
                 margin:auto;
                 display: table;
                 text-align:left;
+            }
+            
+            div.open .inner_open h3.inner_header a,
+            div.open h2 a {
+                color:white;
+                margin-top: -0.25em;
+                margin-right: -0.25em;
+                margin-left: -0.25em;
+                padding: 0.25em;
+                background-color: #009;
+                border-top-left-radius:0.25em;
+                border-top-right-radius:0.25em;
+                display:block;
+                width: 100%;
             }
             
             div.closed div.container {
@@ -155,7 +170,8 @@
             }
             
             div.inner_open {
-                border:1px dashed #555;
+                border:1px dashed #009;
+                border-top:1px solid white;
                 border-radius:0.25em;
                 padding: 0.25em;
             }
@@ -164,8 +180,8 @@
             }
             
             div.inner_open h3.inner_header {
-                display:block;
                 text-align:left;
+                display:block;
             }
             
             div.inner_open div.inner_container {
@@ -182,7 +198,6 @@
                 margin:auto;
                 padding: 0.25em;
                 margin-top:1em;
-                min-width:30em;
             }
             
             div.collection_wrapper {
