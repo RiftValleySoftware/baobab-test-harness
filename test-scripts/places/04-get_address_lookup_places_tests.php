@@ -86,6 +86,8 @@ function basalt_test_0102($in_login = NULL, $in_hashed_password = NULL, $in_pass
     call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
 }
 
+// --------------------
+
 function basalt_test_define_0103() {
     basalt_run_single_direct_test(103, 'Search For Places Using Simple Name (XML)', 'GET Simple Direct Name Search for \'Just For Today.\'', 'places_tests');
 }
