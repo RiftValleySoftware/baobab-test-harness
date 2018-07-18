@@ -15,9 +15,15 @@ The BAOBAB server is designed to be used as a low-level application server; part
 
 The client SDKs will use this REST API to interact with the BAOBAB Server.
 
+EXTENSIBLE
+----------
+The BAOBAB Server specifies an extensible "plugin" architecture that allows development of custom REST "plugins." These are relatively simple PHP code modules that are placed in a certain directory, and can be used to provide interaction and processing of BAOBAB data. The default four plugins are "baseline, people, places and things." These are fairly basic resource-management plugins, and don't do much in the way of actual data processing.
+
+BAOBAB provides a powerful security and data access facility, as well as a framework for HTTP interaction. Plugins can leverage these facilities. They are also "partly sandboxed" by the built-in security structure.
+
 REST-LIKE, NOT REST-FUL
 -----------------------
-Although we will be referring to the BAOBAB API as a "REST" API, it is not actually a true ["RESTful API"](https://restfulapi.net).
+Although we will be referring to the BAOBAB API as a "REST" API; for the standard REST plugins, it is not actually a true ["RESTful API"](https://restfulapi.net) (although it is quite possible to write more plugins that are true REST plugins).
 
 In particular, the GET and DELETE methods will work in a RESTful manner, but the POST and PUT methods will differ. Instead of full XML or JSON resources being transmitted to the server, we will use format-neutral query arguments to affect the operations.
 

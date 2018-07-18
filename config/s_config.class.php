@@ -119,7 +119,7 @@ class CO_Config {
     If enabled, REST users will be able to send in a 'search_address_lookup=' (instead of 'search_longitude=' and 'search_latitude=') query parameter, as well as a 'search_radius=' parameter.
     */
     static $allow_address_lookup = true;    
-    static $allow_general_address_lookup = true;    ///< If true (default is false), then just anyone (login not required) can do an address lookup. If false, then only logged-in users can do an address lookup. Ignored if $allow_address_lookup is false.
+    static $allow_general_address_lookup = false;   ///< If true (default is false), then just anyone (login not required) can do an address lookup. If false, then only logged-in users can do an address lookup. Ignored if $allow_address_lookup is false.
     static $default_region_bias = '';               ///< A default server Region bias.
     
     /***********************/
