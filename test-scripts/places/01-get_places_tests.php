@@ -20,7 +20,7 @@ baobab_run_tests(72, 'BASIC PLACES TESTS', '');
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
 function basalt_test_define_0072() {
-    basalt_run_single_direct_test(72, 'List Places (JSON)', 'GET tests for places.', 'places_tests');
+    basalt_run_single_direct_test(72, 'List Places (JSON)', 'GET tests for places.', 'places_tests_1');
 }
 
 function basalt_test_0072($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -98,7 +98,7 @@ function basalt_test_0072($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0073() {
-    basalt_run_single_direct_test(73, 'List Places (XML)', 'GET tests for places.', 'places_tests');
+    basalt_run_single_direct_test(73, 'List Places (XML)', 'GET tests for places.', 'places_tests_1');
 }
 
 function basalt_test_0073($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -176,7 +176,7 @@ function basalt_test_0073($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0074() {
-    basalt_run_single_direct_test(74, 'List Selected Places (JSON)', 'GET tests for individual places.', 'places_tests');
+    basalt_run_single_direct_test(74, 'List Selected Places (JSON)', 'GET tests for individual places.', 'places_tests_1');
 }
 
 function basalt_test_0074($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
@@ -272,7 +272,7 @@ function basalt_test_0074($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0075() {
-    basalt_run_single_direct_test(75, 'List Selected Places (XML)', 'GET tests for individual places.', 'places_tests');
+    basalt_run_single_direct_test(75, 'List Selected Places (XML)', 'GET tests for individual places.', 'places_tests_1');
 }
 
 function basalt_test_0075($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {

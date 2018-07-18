@@ -504,4 +504,152 @@ function basalt_test_0085($in_login = NULL, $in_hashed_password = NULL, $in_pass
         log_entry(true, 85, $title);
     }
 }
+
+// --------------------
+
+function basalt_test_define_0086() {
+    basalt_run_single_direct_test(86, 'Search For Places Using Extra Information (JSON)', 'GET Simple Direct Extra Info Search', 'places_tests');
+}
+
+function basalt_test_0086($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Places Test 86A: Direct Search for \'TEST_EXTRA_INFO-6\' in Extra Information (Not Logged In). We will get one result.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/places?search_extra_information=TEST_EXTRA_INFO-6';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"places":{"results":[{"id":6,"name":"Search For Serenity","lang":"en","coords":"38.761961,-76.913016","address":"Prince Georges Health Dept (TEST_EXTRA_INFO-6), 9314 Piscataway Rd, Clinton, MD 20735 USA"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 86, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 86, $title);
+    }
+    
+    $title = 'Places Test 86B: Wildcard Search for \'TEST_EXTRA_INFO-%\' in Extra Information (Not Logged In). We will get six results.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/places?search_extra_information=TEST_EXTRA_INFO-%';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = '{"places":{"results":[{"id":2,"name":"New Start","lang":"en","coords":"39.059283,-76.877007","address":"Queens Chapel United Methodist Church (TEST_EXTRA_INFO-2), 7410 Old Muirkirk Road, Beltsville, MD 20705 USA"},{"id":3,"name":"Dealing With Feelings","lang":"en","coords":"38.564376,-76.078324","address":"New Way of Life Club (TEST_EXTRA_INFO-3), 742 Race St., Cambridge, MD 21613 USA"},{"id":4,"name":"Hamilton Noon","lang":"en","coords":"39.350807,-76.562445","address":"Faith Community UMC (TEST_EXTRA_INFO-4), 5315 Harford Rd., Baltimore, MD 21214 USA"},{"id":5,"name":"What We Can Do at Noon Group","lang":"en","coords":"38.357291,-75.600070","address":"Salisbury Substance Abuse Community Center (TEST_EXTRA_INFO-5), 726 South Salisbury Boulevard, Suite E, Salisbury, MD 21801 USA"},{"id":6,"name":"Search For Serenity","lang":"en","coords":"38.761961,-76.913016","address":"Prince Georges Health Dept (TEST_EXTRA_INFO-6), 9314 Piscataway Rd, Clinton, MD 20735 USA"},{"id":7,"name":"Addicts With Feelings","lang":"en","coords":"38.567626,-76.064512","address":"Dri-Doc Recovery Wellness Center (TEST_EXTRA_INFO-7), 206 Ocean Gateway, Cambridge, MD 21613 USA"}]}}';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 86, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 86, $title);
+    }
+    
+    $title = 'Places Test 86C: Search for Records With Blank Extra Information. The first six results will not be included in the response.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/json/places?search_extra_information=';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = file_get_contents(dirname(__FILE__).'/03-get_string_search_places_tests-86C.json');
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_json(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 86, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 86, $title);
+    }
+}
+
+// --------------------
+
+function basalt_test_define_0087() {
+    basalt_run_single_direct_test(87, 'Search For Places Using Extra Information (XML)', 'GET Simple Direct Extra Info Search', 'places_tests');
+}
+
+function basalt_test_0087($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Places Test 87A: Direct Search for \'TEST_EXTRA_INFO-6\' in Extra Information (Not Logged In). We will get one result.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/places?search_extra_information=TEST_EXTRA_INFO-6';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('places').'<results><value sequence_index="0"><id>6</id><name>Search For Serenity</name><lang>en</lang><coords>38.761961,-76.913016</coords><address>Prince Georges Health Dept (TEST_EXTRA_INFO-6), 9314 Piscataway Rd, Clinton, MD 20735 USA</address></value></results></places>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 87, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 87, $title);
+    }
+    
+    $title = 'Places Test 87B: Wildcard Search for \'TEST_EXTRA_INFO-%\' in Extra Information (Not Logged In). We will get six results.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/places?search_extra_information=TEST_EXTRA_INFO-%';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('places').'<results><value sequence_index="0"><id>2</id><name>New Start</name><lang>en</lang><coords>39.059283,-76.877007</coords><address>Queens Chapel United Methodist Church (TEST_EXTRA_INFO-2), 7410 Old Muirkirk Road, Beltsville, MD 20705 USA</address></value><value sequence_index="1"><id>3</id><name>Dealing With Feelings</name><lang>en</lang><coords>38.564376,-76.078324</coords><address>New Way of Life Club (TEST_EXTRA_INFO-3), 742 Race St., Cambridge, MD 21613 USA</address></value><value sequence_index="2"><id>4</id><name>Hamilton Noon</name><lang>en</lang><coords>39.350807,-76.562445</coords><address>Faith Community UMC (TEST_EXTRA_INFO-4), 5315 Harford Rd., Baltimore, MD 21214 USA</address></value><value sequence_index="3"><id>5</id><name>What We Can Do at Noon Group</name><lang>en</lang><coords>38.357291,-75.600070</coords><address>Salisbury Substance Abuse Community Center (TEST_EXTRA_INFO-5), 726 South Salisbury Boulevard, Suite E, Salisbury, MD 21801 USA</address></value><value sequence_index="4"><id>6</id><name>Search For Serenity</name><lang>en</lang><coords>38.761961,-76.913016</coords><address>Prince Georges Health Dept (TEST_EXTRA_INFO-6), 9314 Piscataway Rd, Clinton, MD 20735 USA</address></value><value sequence_index="5"><id>7</id><name>Addicts With Feelings</name><lang>en</lang><coords>38.567626,-76.064512</coords><address>Dri-Doc Recovery Wellness Center (TEST_EXTRA_INFO-7), 206 Ocean Gateway, Cambridge, MD 21613 USA</address></value></results></places>';
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 87, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 87, $title);
+    }
+    
+    $title = 'Places Test 87C: Search for Records With Blank Extra Information. The first six results will not be included in the response.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/places?search_extra_information=';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+        $expected_result = get_xml_header('places').file_get_contents(dirname(__FILE__).'/03-get_string_search_places_tests-87C.xml');
+    $result_code = '';
+    
+    test_header($title, $method, $uri, $expected_result_code);
+    
+    $st1 = microtime(true);
+    $result = clean_last_access_xml(call_REST_API($method, $uri, $data, $api_key, $result_code));
+    
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 87, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 87, $title);
+    }
+}
 ?>
