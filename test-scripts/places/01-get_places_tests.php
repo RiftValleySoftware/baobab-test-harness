@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(72, 'BASIC PLACES TESTS', '');
+baobab_run_tests(72, '72-75: BASIC PLACES TESTS', '');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 

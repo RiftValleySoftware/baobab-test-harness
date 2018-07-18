@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(10, 'LOCATION-CENTERED RESOURCE-NEUTRAL BASELINE SEARCHES', 'We use a radius/long-lat search to find resources with the baseline plugin, which returns them as groups of IDs.');
+baobab_run_tests(10, '10-15: LOCATION-CENTERED RESOURCE-NEUTRAL BASELINE SEARCHES', 'We use a radius/long-lat search to find resources with the baseline plugin, which returns them as groups of IDs.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 

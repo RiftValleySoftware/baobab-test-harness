@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(6, 'RESOURCE-NEUTRAL TAG STRING BASELINE SEARCHES', 'We search for resources with the baseline plugin (GET), which returns them as groups of IDs. We will not log in for any of these tests, so only publicly-visible resources should be returned.');
+baobab_run_tests(6, '6-9: RESOURCE-NEUTRAL TAG STRING BASELINE SEARCHES', 'We search for resources with the baseline plugin (GET), which returns them as groups of IDs. We will not log in for any of these tests, so only publicly-visible resources should be returned.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 

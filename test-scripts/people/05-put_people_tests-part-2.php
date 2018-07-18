@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(58, 'PUT METHOD PEOPLE TESTS (PART 2)', '');
+baobab_run_tests(58, '58-67: PUT METHOD PEOPLE TESTS (PART 2)', '');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 

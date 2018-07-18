@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(76, 'LOCATION/RADIUS SEARCH TESTS', '');
+baobab_run_tests(76, '76-79: LOCATION/RADIUS SEARCH TESTS', '');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 

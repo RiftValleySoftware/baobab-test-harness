@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(68, 'DELETE PEOPLE AND LOGINS TESTS', '');
+baobab_run_tests(68, '68-71: DELETE PEOPLE AND LOGINS TESTS', '');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 

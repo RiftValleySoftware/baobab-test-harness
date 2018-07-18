@@ -18,7 +18,7 @@ require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 define('LGV_BASALT_CATCHER', 1);
 require_once(dirname(dirname(dirname(__FILE__))).'/basalt/main/co_basalt.class.php');
 
-baobab_run_tests(16, 'BASELINE TOKEN MANAGEMENT AND SERVERINFO', 'We test to make sure that we can see whatever tokens we have available, and create new ones, if allowed. We also check the serverinfo.');
+baobab_run_tests(16, '16-19: BASELINE TOKEN MANAGEMENT AND SERVERINFO', 'We test to make sure that we can see whatever tokens we have available, and create new ones, if allowed. We also check the serverinfo.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 

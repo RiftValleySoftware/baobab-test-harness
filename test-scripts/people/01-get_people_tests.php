@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(20, 'BASIC PEOPLE TESTS', 'Access All Available Resources. NOTE: in these tests, we "normalize" all the "last_access" values, so the match works.');
+baobab_run_tests(20, '20-25: BASIC PEOPLE TESTS', 'Access All Available Resources. NOTE: in these tests, we "normalize" all the "last_access" values, so the match works.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 

@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(1, 'GENERIC BASELINE AND SCHEMA', 'Try the basic list plugins command, and access each plugin for its XML schema.');
+baobab_run_tests(1, '1-3: GENERIC BASELINE AND SCHEMA', 'Try the basic list plugins command, and access each plugin for its XML schema.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 

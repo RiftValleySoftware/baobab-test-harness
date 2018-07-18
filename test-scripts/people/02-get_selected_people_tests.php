@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(26, 'BASIC SELECTED PEOPLE TESTS', 'Access Users and Logins Specifically. NOTE: in these tests, we "normalize" all the "last_access" values, so the match works.');
+baobab_run_tests(26, '26-39: BASIC SELECTED PEOPLE TESTS', 'Access Users and Logins Specifically. NOTE: in these tests, we "normalize" all the "last_access" values, so the match works.');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
