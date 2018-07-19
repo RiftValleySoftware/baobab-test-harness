@@ -24,7 +24,7 @@ function basalt_test_define_0104() {
 }
 
 function basalt_test_0104($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
-    $title = 'Places Test 104A: Do Not Log Ina, and Try to Create a Simple, Unadorned Place. We Expect This to Fail With A 403 (Forbidden).';
+    $title = 'Places Test 104A: Do Not Log In, and Try to Create a Simple, Unadorned Place. We Expect This to Fail With A 403 (Forbidden).';
     $method = 'POST';
     $uri = __SERVER_URI__.'/json/places';
     $data = NULL;
@@ -141,7 +141,7 @@ function basalt_test_define_0105() {
 }
 
 function basalt_test_0105($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
-    $title = 'Places Test 105A: Do Not Log Ina, and Try to Create a Simple, Unadorned Place. We Expect This to Fail With A 403 (Forbidden).';
+    $title = 'Places Test 105A: Do Not Log In, and Try to Create a Simple, Unadorned Place. We Expect This to Fail With A 403 (Forbidden).';
     $method = 'POST';
     $uri = __SERVER_URI__.'/xml/places';
     $data = NULL;

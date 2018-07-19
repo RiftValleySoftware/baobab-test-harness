@@ -12,7 +12,7 @@
     Little Green Viper Software Development: https://littlegreenviper.com
 */
 
-define('_INCLUDE_TIMING_IN_REPORT_', false); // Set to true to include timing info in the test report (breaks CSV).
+define('_INCLUDE_TIMING_IN_REPORT_', true); // Set to true to include timing info in the test report (breaks CSV).
 
 static $s_start_time;
 
@@ -113,7 +113,7 @@ function load_people_photos() {
 }
 
 function load_photos($in_dirname, $in_uri_loc) {
-    $ret = true;
+    $ret = [];
     
     $process_files = [];
     
@@ -142,11 +142,11 @@ function load_photos($in_dirname, $in_uri_loc) {
 
             if (200 != $result_code) {
                 echo('<h3 style="color:red">ERROR! Cannot set Image '.$image_file['location'].'!</h3>');
-                $ret = false;
+                $ret = NULL;
                 break;
             } else {
                 $temp_file_name = substr($image_file['location'], 0, -4).'-base64.txt';
-    
+                $ret[] = intval($image_file['index']);
                 $file = fopen($temp_file_name, 'w');
                 $file_data = base64_encode($image_data);
                 fwrite($file, $file_data, strlen($file_data));
@@ -312,6 +312,7 @@ function timing_report($in_start, $in_text = 'execute this query') {
 }
 
 function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_result) {
+    timing_report($in_st_1);
     echo('<div class="indent_1 test_report bad_report"><h3 style="color:red">Did Not Receive Expected Result Code. Got '.intval($in_result_code).', Instead.</h3>');
     if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
         echo('<div class="indent_1" style="color:green"><strong>Received Expected Result</strong><div>');
@@ -361,8 +362,6 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
             }
         }
     }
-    
-    timing_report($in_st_1);
     
     echo('</div>');
 }
@@ -419,6 +418,7 @@ function extract_payload($in_data) {
 }
 
 function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_result, $show_payload = true) {
+    timing_report($in_st_1);
     $id = uniqid('test-result-');
     echo('<div class="indent_1 test_report good_report"><h3 style="color:green">Received Expected Result Code: '.intval($in_result_code).'</h3>');
     if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
@@ -511,8 +511,6 @@ function test_result_good($in_result_code, $in_result, $in_st_1, $in_expected_re
             }
         }
     }
-    
-    timing_report($in_st_1);
     
     echo('</div>');
 }
