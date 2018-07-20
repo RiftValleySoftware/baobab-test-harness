@@ -74,9 +74,7 @@ function displayCallback (in_response_object) {
 };
 
 function dunTestCallback (in_response_object) {
-    if (in_response_object.responseText) {
-        ajaxLoader.ajaxRequest('php/display_results.php', displayCallback, 'GET');
-    };
+    ajaxLoader.ajaxRequest('php/display_results.php', displayCallback, 'GET');
 };
 
 function runTestCallback (in_response_object) {

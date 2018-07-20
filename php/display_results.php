@@ -13,10 +13,10 @@
 */
     $logfile = file_get_contents(dirname(dirname(__FILE__)).'/test_report.txt');
     $we_got_problems = preg_match('|\* FAIL \*|', $logfile);
-    $image = dirname(dirname(__FILE__)).'/images/pass.gif';
+    $image = 'images/pass.gif';
     if ($we_got_problems) { 
-        $image = dirname(dirname(__FILE__)).'/images/fail.gif';
+        $image = 'images/fail.gif';
     }
-    $image_data = base64_encode(file_get_contents($image));
-    echo('<div class="pass_failimage_display_div"><img src="data:image/gif;base64,'.$image_data.'" title="'.($we_got_problems ? 'OMG ONOZ!' : 'WOO-HOO!').'" alt="Test Result Animated GIF" style="width:256px" /></div>');
+
+    echo('<div class="pass_failimage_display_div"><img src="'.$image.'" title="'.($we_got_problems ? 'OMG ONOZ!' : 'WOO-HOO!').'" alt="Test Result Animated GIF" style="width:256px" /></div>');
 ?>
