@@ -368,16 +368,35 @@ function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_res
 
 function extract_payload($in_data) {
     $ret = NULL;
-    $matches = [];
                         
     if (preg_match('|^\<\?xml|', $in_data)) {
-        if (preg_match_all('|<payload>(.+?)</payload>|', $in_data, $matches, PREG_SET_ORDER)) {
-            $payload1 = stripslashes($matches[0][1]);
-            $payload2 = isset($matches[1]) ? stripslashes($matches[1][1]) : NULL;
-            if (preg_match_all('|<payload_type>(.+?)</payload_type>|', stripslashes($in_data), $matches, PREG_SET_ORDER)) {
-                $type1 = $matches[0][1];
-                $type2 = isset($matches[1]) ? $matches[1][1] : NULL;
-                
+        // The reason for this nighmarish bowl of spaghetti, is because preg_match pukes on some base64 image data.
+        $payload1 = NULL;
+        $payload2 = NULL;
+        $matches = explode('<payload>', stripslashes($in_data));
+        if (1 < count($matches)) {
+            $payload1_array = explode('</payload>', $matches[1]);
+            $payload1 = $payload1_array[0];
+        }
+        
+        if (3 < count($matches)) {
+            $payload2_array = explode('</payload>', $matches[3]);
+            $payload2 = $payload2_array[0];
+        }
+        
+        if ($payload1) {
+            $type1 = NULL;
+            $type2 = NULL;
+            $matches = explode('<payload_type>', stripslashes($in_data));
+            if (1 < count($matches)) {
+                $payload1_array = explode('</payload_type>', $matches[1]);
+                $type1 = $payload1_array[0];
+            }
+            if (3 < count($matches)) {
+                $payload2_array = explode('</payload_type>', $matches[3]);
+                $type2 = $payload2_array[0];
+            }
+            if ($type1) {
                 echo('<div class="payload_display">');
                     echo('<h3>PAYLOAD:</h3>');
                     if ($type2) {
@@ -392,13 +411,33 @@ function extract_payload($in_data) {
             }
         }
     } else {
-        if (preg_match_all('|"payload":"([^"]+?)"|', $in_data, $matches, PREG_SET_ORDER)) {
-            $payload1 = stripslashes($matches[0][1]);
-            $payload2 = isset($matches[1]) ? stripslashes($matches[1][1]) : NULL;
-            if (preg_match_all('|"payload_type":"([^"]+?)"|', stripslashes($in_data), $matches, PREG_SET_ORDER)) {
-                $type1 = $matches[0][1];
-                $type2 = isset($matches[1]) ? $matches[1][1] : NULL;
-                
+        // The reason for this nighmarish bowl of spaghetti, is because preg_match pukes on some base64 image data.
+        $payload1 = NULL;
+        $payload2 = NULL;
+        $matches = explode('"payload":"', stripslashes($in_data));
+        if (1 < count($matches)) {
+            $payload1_array = explode('"', $matches[1]);
+            $payload1 = $payload1_array[0];
+        }
+        
+        if (3 < count($matches)) {
+            $payload2_array = explode('"', $matches[3]);
+            $payload2 = $payload2_array[0];
+        }
+        
+        if ($payload1) {
+            $type1 = NULL;
+            $type2 = NULL;
+            $matches = explode('"payload_type":"', stripslashes($in_data));
+            if (1 < count($matches)) {
+                $payload1_array = explode('"', $matches[1]);
+                $type1 = $payload1_array[0];
+            }
+            if (3 < count($matches)) {
+                $payload2_array = explode('"', $matches[3]);
+                $type2 = $payload2_array[0];
+            }
+            if ($type1) {
                 echo('<div class="payload_display">');
                     echo('<h3>PAYLOAD:</h3>');
                     if ($type2) {

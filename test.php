@@ -235,6 +235,17 @@
             div#tests-wrapped-up {
                 margin:auto;
             }
+            
+            div.pass_failimage_display_div {
+                padding:2em;
+                text-align:center;
+            }
+            
+            div.pass_failimage_display_div img {
+                display:block;
+                border-radius:2em;
+                margin:auto;
+            }
         </style>
         <script type="text/javascript" src="js/ajaxLoader.js"></script>
         <script type="text/javascript" src="js/runTests.js"></script>
@@ -291,6 +302,7 @@
             <div id="tests-wrapped-up" style="display:none">
                 <img src="icon.png" style="display:block;margin:auto;width:80px" alt="" />
                 <div id="tests-displayed"></div>
+                <div id="test-results-displayed"></div>
                 <h3 style="margin-top:1em"><a href="./">RETURN TO MAIN ENVIRONMENT SETUP</a></h3>
             </div>
             <script type="text/javascript">

@@ -67,8 +67,15 @@ function showTests() {
     
 };
 
+function displayCallback (in_response_object) {
+    if (in_response_object.responseText) {
+        document.getElementById('test-results-displayed').innerHTML = in_response_object.responseText;
+    };
+};
+
 function dunTestCallback (in_response_object) {
     if (in_response_object.responseText) {
+        ajaxLoader.ajaxRequest('php/display_results.php', displayCallback, 'GET');
     };
 };
 
