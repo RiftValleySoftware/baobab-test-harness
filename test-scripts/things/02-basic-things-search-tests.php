@@ -386,7 +386,7 @@ function basalt_test_0117($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0118() {
-//     basalt_run_single_direct_test(118, 'BASIC LOCATION GET TESTS (JSON)', 'Look for Things by Location.', 'things_tests_2');
+    basalt_run_single_direct_test(118, 'BASIC LOCATION GET TESTS (JSON)', 'Look for Things by Location.', 'things_tests_2');
 }
 
 function basalt_test_0118($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
