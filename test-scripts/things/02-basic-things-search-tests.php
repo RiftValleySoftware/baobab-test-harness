@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(116, '116-119 : BASIC LOCATION SEARCH GET THINGS TESTS', '');
+baobab_run_tests(118, '116-119 : BASIC LOCATION SEARCH GET THINGS TESTS', '');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
@@ -418,7 +418,7 @@ function basalt_test_0118($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = NULL;
     $expected_result_code = 200;
-    $expected_result = '{"things":[{"id":1732,"name":"Worth Enough","lang":"en","coords":"39.746352,-75.551615","distance_in_km":0.84023}]}';
+    $expected_result = '{"things":[{"id":1732,"name":"Worth Enough","lang":"en","coords":"39.746352,-75.551615","distance_in_km":0.84}]}';
     $result_code = '';
 
     test_header($title, $method, $uri, $expected_result_code);
@@ -440,7 +440,7 @@ function basalt_test_0118($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = NULL;
     $expected_result_code = 200;
-    $expected_result = '{"things":[{"id":1737,"name":"Tom And Jerry","lang":"en","coords":"37.510937,-77.595505","distance_in_km":0.00022},{"id":1735,"name":"The Great Shadow","lang":"en","coords":"37.510935,-77.595502","distance_in_km":0.00027},{"id":1739,"name":"Winnie The Pooh","lang":"en","coords":"37.510938,-77.595512","distance_in_km":0.0007}]}';
+    $expected_result = '{"things":[{"id":1737,"name":"Tom And Jerry","lang":"en","coords":"37.510937,-77.595505","distance_in_km":0},{"id":1735,"name":"The Great Shadow","lang":"en","coords":"37.510935,-77.595502","distance_in_km":0},{"id":1739,"name":"Winnie The Pooh","lang":"en","coords":"37.510938,-77.595512","distance_in_km":0.001}]}';
     $result_code = '';
 
     test_header($title, $method, $uri, $expected_result_code);
@@ -492,7 +492,7 @@ function basalt_test_0119($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = NULL;
     $expected_result_code = 200;
-    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords><distance_in_km>0.84023</distance_in_km></value></things>';
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords><distance_in_km>0.84</distance_in_km></value></things>';
     $result_code = '';
 
     test_header($title, $method, $uri, $expected_result_code);
@@ -514,7 +514,7 @@ function basalt_test_0119($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = NULL;
     $expected_result_code = 200;
-    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1737</id><name>Tom And Jerry</name><lang>en</lang><coords>37.510937,-77.595505</coords><distance_in_km>0.00022</distance_in_km></value><value sequence_index="1"><id>1735</id><name>The Great Shadow</name><lang>en</lang><coords>37.510935,-77.595502</coords><distance_in_km>0.00027</distance_in_km></value><value sequence_index="2"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang><coords>37.510938,-77.595512</coords><distance_in_km>0.0007</distance_in_km></value></things>';
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1737</id><name>Tom And Jerry</name><lang>en</lang><coords>37.510937,-77.595505</coords></value><value sequence_index="1"><id>1735</id><name>The Great Shadow</name><lang>en</lang><coords>37.510935,-77.595502</coords></value><value sequence_index="2"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang><coords>37.510938,-77.595512</coords><distance_in_km>0.001</distance_in_km></value></things>';
     $result_code = '';
 
     test_header($title, $method, $uri, $expected_result_code);
