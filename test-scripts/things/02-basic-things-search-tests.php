@@ -213,7 +213,7 @@ function basalt_test_0117($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = NULL;
     $expected_result_code = 200;
-    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1735</id><name>The Great Shadow</name><lang>en</lang><coords>37.510935,-77.595502</coords></value><value sequence_index="3"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="4"><id>1737</id><name>Tom And Jerry</name><lang>en</lang></value><value sequence_index="5"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang></value><value sequence_index="6"><id>1740</id><name>Crickets</name><lang>en</lang></value><value sequence_index="7"><id>1741</id><name>Singing Pete</name><lang>en</lang><coords>38.871900,-77.056300</coords></value><value sequence_index="8"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value><value sequence_index="9"><id>1743</id><name>The Three Musketeers In Dutch</name><lang>en</lang></value></things>';
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1735</id><name>The Great Shadow</name><lang>en</lang><coords>37.510935,-77.595502</coords></value><value sequence_index="3"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="4"><id>1737</id><name>Tom And Jerry</name><lang>en</lang><coords>37.510937,-77.595505</coords></value><value sequence_index="5"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang><coords>37.510938,-77.595512</coords></value><value sequence_index="6"><id>1740</id><name>Crickets</name><lang>en</lang></value><value sequence_index="7"><id>1741</id><name>Singing Pete</name><lang>en</lang><coords>38.871900,-77.056300</coords></value><value sequence_index="8"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value><value sequence_index="9"><id>1743</id><name>The Three Musketeers In Dutch</name><lang>en</lang></value></things>';
     $result_code = '';
 
     test_header($title, $method, $uri, $expected_result_code);
@@ -257,7 +257,7 @@ function basalt_test_0117($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = NULL;
     $expected_result_code = 200;
-    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="3"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang></value><value sequence_index="4"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value></things>';
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="3"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang><coords>37.510938,-77.595512</coords></value><value sequence_index="4"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value></things>';
     $result_code = '';
 
     test_header($title, $method, $uri, $expected_result_code);
@@ -301,7 +301,7 @@ function basalt_test_0117($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $data = NULL;
     $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
     $expected_result_code = 200;
-    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1734</id><name>Top Shot</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="3"><id>1735</id><name>The Great Shadow</name><lang>en</lang><coords>37.510935,-77.595502</coords></value><value sequence_index="4"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="5"><id>1737</id><name>Tom And Jerry</name><lang>en</lang></value><value sequence_index="6"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang></value><value sequence_index="7"><id>1740</id><name>Crickets</name><lang>en</lang></value><value sequence_index="8"><id>1741</id><name>Singing Pete</name><lang>en</lang><coords>38.871900,-77.056300</coords></value><value sequence_index="9"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value><value sequence_index="10"><id>1743</id><name>The Three Musketeers In Dutch</name><lang>en</lang></value><value sequence_index="11"><id>1744</id><name>The Divine Comedy Illustrated.</name><lang>en</lang><coords>38.871900,-77.056300</coords></value></things>';
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1734</id><name>Top Shot</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="3"><id>1735</id><name>The Great Shadow</name><lang>en</lang><coords>37.510935,-77.595502</coords></value><value sequence_index="4"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="5"><id>1737</id><name>Tom And Jerry</name><lang>en</lang><coords>37.510937,-77.595505</coords></value><value sequence_index="6"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang><coords>37.510938,-77.595512</coords></value><value sequence_index="7"><id>1740</id><name>Crickets</name><lang>en</lang></value><value sequence_index="8"><id>1741</id><name>Singing Pete</name><lang>en</lang><coords>38.871900,-77.056300</coords></value><value sequence_index="9"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value><value sequence_index="10"><id>1743</id><name>The Three Musketeers In Dutch</name><lang>en</lang></value><value sequence_index="11"><id>1744</id><name>The Divine Comedy Illustrated.</name><lang>en</lang><coords>38.871900,-77.056300</coords></value></things>';
     $result_code = '';
 
     test_header($title, $method, $uri, $expected_result_code);
@@ -322,7 +322,7 @@ function basalt_test_0117($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $uri = __SERVER_URI__.'/xml/things/?search_tag2=';
     $data = NULL;
     $expected_result_code = 200;
-    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1738</id><name>Brown And Williamson Phone Message</name><lang>en</lang></value></things>';
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1738</id><name>Brown And Williamson Phone Message</name><lang>en</lang><coords>37.510940,-77.595600</coords></value></things>';
     $result_code = '';
 
     test_header($title, $method, $uri, $expected_result_code);
@@ -343,7 +343,7 @@ function basalt_test_0117($in_login = NULL, $in_hashed_password = NULL, $in_pass
     $uri = __SERVER_URI__.'/xml/things/?search_description=image';
     $data = NULL;
     $expected_result_code = 200;
-    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1734</id><name>Top Shot</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="3"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="4"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang></value><value sequence_index="5"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value></things>';
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1734</id><name>Top Shot</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="3"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="4"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang><coords>37.510938,-77.595512</coords></value><value sequence_index="5"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value></things>';
     $result_code = '';
 
     test_header($title, $method, $uri, $expected_result_code);
@@ -386,7 +386,7 @@ function basalt_test_0117($in_login = NULL, $in_hashed_password = NULL, $in_pass
 // --------------------
 
 function basalt_test_define_0118() {
-    basalt_run_single_direct_test(118, 'BASIC LOCATION GET TESTS (JSON)', 'Look for Things by Location.', 'things_tests_2');
+//     basalt_run_single_direct_test(118, 'BASIC LOCATION GET TESTS (JSON)', 'Look for Things by Location.', 'things_tests_2');
 }
 
 function basalt_test_0118($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
