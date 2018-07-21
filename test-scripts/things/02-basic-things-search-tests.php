@@ -201,4 +201,185 @@ function basalt_test_0116($in_login = NULL, $in_hashed_password = NULL, $in_pass
 }
 
 // --------------------
+
+function basalt_test_define_0117() {
+    basalt_run_single_direct_test(117, 'BASIC GET TESTS (XML)', 'We Set Up A Bunch of Tags, Then Use Them to Search for Things.', 'things_tests_2');
+}
+
+function basalt_test_0117($in_login = NULL, $in_hashed_password = NULL, $in_password = NULL) {
+    $title = 'Things Test 117A: Look for the string in Tag 2 (Gets Everything We Can See -Remember We Are Not Logged In)';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/things/?search_tag2=TAG-2-TEST-THINGS';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1735</id><name>The Great Shadow</name><lang>en</lang><coords>37.510935,-77.595502</coords></value><value sequence_index="3"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="4"><id>1737</id><name>Tom And Jerry</name><lang>en</lang></value><value sequence_index="5"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang></value><value sequence_index="6"><id>1740</id><name>Crickets</name><lang>en</lang></value><value sequence_index="7"><id>1741</id><name>Singing Pete</name><lang>en</lang><coords>38.871900,-77.056300</coords></value><value sequence_index="8"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value><value sequence_index="9"><id>1743</id><name>The Three Musketeers In Dutch</name><lang>en</lang></value></things>';
+    $result_code = '';
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 117, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 117, $title);
+    }
+    
+    $title = 'Things Test 117B: Look for empty tag 2 (Should return nothing).';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/things/?search_tag2=';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('things').'</things>';
+    $result_code = '';
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 117, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 117, $title);
+    }
+    
+    $title = 'Things Test 117C: Look for Images in the description.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/things/?search_description=image';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="3"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang></value><value sequence_index="4"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value></things>';
+    $result_code = '';
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 117, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 117, $title);
+    }
+    
+    $title = 'Things Test 117D: Look for Anything In Tag 9.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/things/?search_tag9=%';
+    $data = NULL;
+    $api_key = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1735</id><name>The Great Shadow</name><lang>en</lang><coords>37.510935,-77.595502</coords></value><value sequence_index="1"><id>1743</id><name>The Three Musketeers In Dutch</name><lang>en</lang></value></things>';
+    $result_code = '';
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 117, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 117, $title);
+    }
+    
+    $title = 'Things Test 117E: Do It All Again, But This Time, Logged In.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/things/?search_tag2=TAG-2-TEST-THINGS';
+    $data = NULL;
+    $api_key = call_REST_API('GET', __SERVER_URI__.'/login?login_id=MDAdmin&password=CoreysGoryStory', NULL, NULL, $result_code);
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1734</id><name>Top Shot</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="3"><id>1735</id><name>The Great Shadow</name><lang>en</lang><coords>37.510935,-77.595502</coords></value><value sequence_index="4"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="5"><id>1737</id><name>Tom And Jerry</name><lang>en</lang></value><value sequence_index="6"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang></value><value sequence_index="7"><id>1740</id><name>Crickets</name><lang>en</lang></value><value sequence_index="8"><id>1741</id><name>Singing Pete</name><lang>en</lang><coords>38.871900,-77.056300</coords></value><value sequence_index="9"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value><value sequence_index="10"><id>1743</id><name>The Three Musketeers In Dutch</name><lang>en</lang></value><value sequence_index="11"><id>1744</id><name>The Divine Comedy Illustrated.</name><lang>en</lang><coords>38.871900,-77.056300</coords></value></things>';
+    $result_code = '';
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 117, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 117, $title);
+    }
+    
+    $title = 'Things Test 117F: Look for empty tag 2. This Time, We Get Something.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/things/?search_tag2=';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1738</id><name>Brown And Williamson Phone Message</name><lang>en</lang></value></things>';
+    $result_code = '';
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 117, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 117, $title);
+    }
+    
+    $title = 'Things Test 117G: Look for Images in the description.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/things/?search_description=image';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1732</id><name>Worth Enough</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="1"><id>1733</id><name>Another World</name><lang>en</lang><coords>39.648316,-77.719232</coords></value><value sequence_index="2"><id>1734</id><name>Top Shot</name><lang>en</lang><coords>39.746352,-75.551615</coords></value><value sequence_index="3"><id>1736</id><name>Yosemite</name><lang>en</lang><coords>37.865100,-119.538300</coords></value><value sequence_index="4"><id>1739</id><name>Winnie The Pooh</name><lang>en</lang></value><value sequence_index="5"><id>1742</id><name>Spinning Earth</name><lang>en</lang></value></things>';
+    $result_code = '';
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 117, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 117, $title);
+    }
+    
+    $title = 'Things Test 117H: Look for Anything In Tag 9.';
+    $method = 'GET';
+    $uri = __SERVER_URI__.'/xml/things/?search_tag9=%';
+    $data = NULL;
+    $expected_result_code = 200;
+    $expected_result = get_xml_header('things').'<value sequence_index="0"><id>1735</id><name>The Great Shadow</name><lang>en</lang><coords>37.510935,-77.595502</coords></value><value sequence_index="1"><id>1743</id><name>The Three Musketeers In Dutch</name><lang>en</lang></value><value sequence_index="2"><id>1744</id><name>The Divine Comedy Illustrated.</name><lang>en</lang><coords>38.871900,-77.056300</coords></value></things>';
+    $result_code = '';
+
+    test_header($title, $method, $uri, $expected_result_code);
+
+    $st1 = microtime(true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
+
+    if ($result_code != $expected_result_code) {
+        test_result_bad($result_code, $result, $st1, $expected_result);
+        log_entry(false, 117, $title);
+    } else {
+        test_result_good($result_code, $result, $st1, $expected_result);
+        log_entry(true, 117, $title);
+    }
+
+    call_REST_API('GET', __SERVER_URI__.'/logout', NULL, $api_key, $result_code);
+}
 ?>
