@@ -312,6 +312,7 @@ function timing_report($in_start, $in_text = 'execute this query') {
 function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_result) {
     timing_report($in_st_1);
     echo('<div class="indent_1 test_report bad_report"><h3 style="color:red">Did Not Receive Expected Result Code. Got '.intval($in_result_code).', Instead.</h3>');
+    $id = uniqid();
     if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
         echo('<div class="indent_1" style="color:green"><strong>Received Expected Result</strong><div>');
         if ($in_result) {
@@ -394,16 +395,30 @@ function extract_payload($in_data) {
                 $payload2_array = explode('</payload_type>', $matches[3]);
                 $type2 = $payload2_array[0];
             }
+            
             if ($type1) {
                 echo('<div class="payload_display">');
                     echo('<h3>PAYLOAD:</h3>');
                     if ($type2) {
                         echo('<h4>BEFORE:</h4>');
                     }
-                    echo('<div class="image_display_div"><img src="data:'.$type1.','.$payload1.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
-                    if ($type2) {
-                        echo('<h4>AFTER:</h4>');
-                        echo('<div class="image_display_div"><img src="data:'.$type2.','.$payload2.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                    $types1 = explode ('/', $type1);
+                    if (is_array($types1) && (1 < count($types1))) {
+                        if ('image' == $types1[0]) {
+                            echo('<div class="image_display_div"><img src="data:'.$type1.','.$payload1.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                        } elseif ('text' == $types1[0]) {
+                            echo('<div class="text_display_div">'.htmlspecialchars(base64_decode($payload1)).'</div>');
+                        }
+                        
+                        if ($type2) {
+                            $types2 = explode ('/', $type2);
+                            echo('<h4>AFTER:</h4>');
+                            if ('image' == $types2[0]) {
+                                echo('<div class="image_display_div"><img src="data:'.$type2.','.$payload2.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                            } elseif ('text' == $types2[0]) {
+                                echo('<div class="text_display_div">'.htmlspecialchars(base64_decode($payload2)).'</div>');
+                            }
+                        }
                     }
                 echo("</div>");
             }
@@ -435,16 +450,30 @@ function extract_payload($in_data) {
                 $payload2_array = explode('"', $matches[3]);
                 $type2 = $payload2_array[0];
             }
+            
             if ($type1) {
                 echo('<div class="payload_display">');
                     echo('<h3>PAYLOAD:</h3>');
                     if ($type2) {
                         echo('<h4>BEFORE:</h4>');
                     }
-                    echo('<div class="image_display_div"><img src="data:'.$type1.','.$payload1.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
-                    if ($type2) {
-                        echo('<h4>AFTER:</h4>');
-                        echo('<div class="image_display_div"><img src="data:'.$type2.','.$payload2.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                    $types1 = explode ('/', $type1);
+                    if (is_array($types1) && (1 < count($types1))) {
+                        if ('image' == $types1[0]) {
+                            echo('<div class="image_display_div"><img src="data:'.$type1.','.$payload1.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                        } elseif ('text' == $types1[0]) {
+                            echo('<div class="text_display_div">'.htmlspecialchars(base64_decode($payload1)).'</div>');
+                        }
+                        
+                        if ($type2) {
+                            $types2 = explode ('/', $type2);
+                            echo('<h4>AFTER:</h4>');
+                            if ('image' == $types2[0]) {
+                                echo('<div class="image_display_div"><img src="data:'.$type2.','.$payload2.'" title="Image Payload" alt="Image Payload" style="max-width:100%" /></div>');
+                            } elseif ('text' == $types2[0]) {
+                                echo('<div class="text_display_div">'.htmlspecialchars(base64_decode($payload2)).'</div>');
+                            }
+                        }
                     }
                 echo("</div>");
             }

@@ -41,16 +41,20 @@ function nextTest() {
         if (progress_report) {
             progress_report.innerHTML = '';
         };
-        showTests();
+        ajaxLoader.ajaxRequest('php/done_testing.php?start_time='+start_time, dunTestCallback, 'GET');
     };
 };
 
-function showTests() {
+function displayCallback (in_response_object) {
+    if (in_response_object.responseText) {
+        document.getElementById('test-results-displayed').innerHTML = in_response_object.responseText;
+    };
+};
+
+function dunTestCallback (in_response_object) {
     var tests_displayed = document.getElementById('tests-displayed');
     
     if (tests_displayed) {
-        ajaxLoader.ajaxRequest('php/done_testing.php?start_time='+start_time, dunTestCallback, 'GET');
-
         tests_displayed.innerHTML = pageHTML;
         
         var tests_wrapped_up = document.getElementById('tests-wrapped-up');
@@ -64,16 +68,7 @@ function showTests() {
             tests_wrapped_up.style.display = 'table';
         };
     };
-    
-};
 
-function displayCallback (in_response_object) {
-    if (in_response_object.responseText) {
-        document.getElementById('test-results-displayed').innerHTML = in_response_object.responseText;
-    };
-};
-
-function dunTestCallback (in_response_object) {
     ajaxLoader.ajaxRequest('php/display_results.php', displayCallback, 'GET');
 };
 
