@@ -21,9 +21,9 @@ require_once(dirname(dirname(__FILE__)).'/basalt/config/t_basalt_config.interfac
 require_once(dirname(dirname(__FILE__)).'/php/login_validation.php');
 require_once(dirname(dirname(__FILE__)).'/php/co_logging.class.php');
 
-define('_MAIN_DB_TYPE_', 'pgsql');
+define('_MAIN_DB_TYPE_', 'mysql');
 
-define('_SECURITY_DB_TYPE_', 'pgsql');
+define('_SECURITY_DB_TYPE_', 'mysql');
 
 define('_INCLUDE_TIMING_IN_REPORT_', false); // Set to true to include timing info in the test report (breaks CSV).
 
