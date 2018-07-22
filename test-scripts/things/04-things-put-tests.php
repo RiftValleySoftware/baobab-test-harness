@@ -15,7 +15,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/php/run_baobab_tests.php');
 
-baobab_run_tests(131, '130-: THINGS PUT TESTS', '');
+baobab_run_tests(130, '130-: THINGS PUT TESTS', '');
 
 // -------------------------- DEFINITIONS AND TESTS -----------------------------------
 
