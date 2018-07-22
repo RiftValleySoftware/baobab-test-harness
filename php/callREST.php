@@ -150,8 +150,22 @@ function call_REST_API( $method,                /**< REQUIRED:  This is the meth
         if (isset($httpCode) && $httpCode) {
             echo('<div>HTTP CODE:<code>'.htmlspecialchars($httpCode, true).'</code></div>');
         }
-
-        echo('<div>RESULT:<pre>'.htmlspecialchars(print_r(chunk_split($result, 2048), true)).'</pre></div>');
+        
+        if ((1024 * 1024 * 10) <= strlen($result)) {
+            $integer = 1;
+            $original_file_name = dirname(dirname(__FILE__)).'/text-dump-result';
+            $file_name = $original_file_name.'.txt';
+            while(file_exists($file_name)) {
+                $file_name = $original_file_name.'-'.$integer.'.txt';
+                $integer++;
+            }
+            $file_handle = fopen($file_name, 'w');
+            fwrite($file_handle, $result);
+            fclose($file_handle);
+            echo('<div>RESULT SAVED TO FILE" '.$file_name.'.</div>');
+        } else {
+            echo('<div>RESULT:<pre>'.htmlspecialchars(print_r(chunk_split($result, 2048), true)).'</pre></div>');
+        }
         echo("</div>");
     }
 
