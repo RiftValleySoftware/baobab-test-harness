@@ -36,7 +36,7 @@ function basalt_test_0126($in_login = NULL, $in_hashed_password = NULL, $in_pass
     test_header($title, $method, $uri, $expected_result_code);
 
     $st1 = microtime(true);
-    $result = call_REST_API($method, $uri, $data, $api_key, $result_code, true);
+    $result = call_REST_API($method, $uri, $data, $api_key, $result_code);
 
     if ($result_code != $expected_result_code) {
         test_result_bad($result_code, $result, $st1, $expected_result);
