@@ -12,8 +12,6 @@
     Little Green Viper Software Development: https://littlegreenviper.com
 */
 
-define('_INCLUDE_TIMING_IN_REPORT_', true); // Set to true to include timing info in the test report (breaks CSV).
-
 static $s_start_time;
 
 if (!class_exists('CO_Config')) {
