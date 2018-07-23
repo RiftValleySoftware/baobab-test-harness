@@ -17,6 +17,7 @@
 
     date_default_timezone_set ( 'UTC' );
     global $test_name_array;
+    set_time_limit(3600);
     
     function iterate_directory( $in_dirname
                                 ) {
