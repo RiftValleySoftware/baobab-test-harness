@@ -312,7 +312,7 @@ function timing_report($in_start, $in_text = 'execute this query') {
 function test_result_bad($in_result_code, $in_result, $in_st_1, $in_expected_result) {
     timing_report($in_st_1);
     echo('<div class="indent_1 test_report bad_report"><h3 style="color:red">Did Not Receive Expected Result Code. Got '.intval($in_result_code).', Instead.</h3>');
-    $id = uniqid();
+    $id = uniqid('test-result-');
     if (isset($in_result) && $in_result && $in_expected_result && ($in_expected_result == $in_result)) {
         echo('<div class="indent_1" style="color:green"><strong>Received Expected Result</strong><div>');
         if ($in_result) {
@@ -663,7 +663,7 @@ function prepare_databases($in_file_prefix) {
 
 function display_raw_hierarchy($in_hierarchy_array, $modifier) {
     if (isset($in_hierarchy_array) && is_array($in_hierarchy_array) && count($in_hierarchy_array)) {
-        $new_mod = 'element_'.$in_hierarchy_array['object']->id().'_'.$modifier;
+        $new_mod = uniqid('element_');
         if (isset($in_hierarchy_array['children'])) {
             echo('<div id="collection_wrapper_'.$new_mod.'" class="inner_closed">');
                 echo('<h3 class="inner_header"><a href="javascript:toggle_inner_state(\''.$new_mod.'\')">');
