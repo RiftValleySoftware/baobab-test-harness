@@ -181,6 +181,8 @@ Manager Users are given a "pool" of tokens that they can give to users they crea
 
 Users cannot set their own security tokens. A manager must set the security tokens for any user (Manager or Standard User).
 
+**NOTE:** When a manager deletes a user, the user's token ID remains (is converted to a simple token resource in the Security database). Tokens are "forever." Once created, they cannot be deleted.
+
 USERS
 -----
 There are only three levels of user:
