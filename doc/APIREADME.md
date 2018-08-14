@@ -157,6 +157,10 @@ Additionally, the server administrator has the option to require that all intera
 
 This header should accompany any GET, POST, PUT or DELETE operations that you make.
 
+However, this won't work with FastCGI, so we also have the option to attach them as URI query arguments:
+
+    {GET|PUT|POST|DELETE} http[s]://{SERVER URL}/{RESOURCE PATH}?login_server_secret={SERVER SECRET STRING}&login_api_key={API KEY STRING}
+
 Without authorization, you can only make GET calls. Additionally, you may be restricted from accessing some resources.
 
 SECURITY
