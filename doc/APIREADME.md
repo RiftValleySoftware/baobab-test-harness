@@ -268,6 +268,10 @@ BAOBAB will respond with four different formats:
 
     This is a very straigtforward JSON object model. Both JSON and XML will contain the same information, and will use the same keys.
 
+- CSV
+
+    This is Comma-Separated-Values, and will only be returned in response to a special "God-Mode-Only" command to generate a backup.
+    
 - XSD (XML SCHEMA)
 
     Each plugin can be queried for its XML data schema. The schema will be comprehensive, describing all possible responses from the plugin. XSD responses are always "publicly-accessible." There are no restrictions on reading them. They are read-only resources.
@@ -286,7 +290,7 @@ LOCATION OBFUSCATION
 --------------------
 It is also possible to [obfuscate](https://en.wikipedia.org/wiki/Location_obfuscation) each location by a given distance, in Kilometers. If this is done, then the precise location will not be returned when the record is queried. Instead, a randomized long/lat will be returned. If the resource's actual location falls within the search radius, then it will be returned, but the long/lat will be different, and could actually be outside the requested radius.
 
-This is a common practice for security, allowing a degree of privacy or security to people or institutions (think battered women's shelters, which often have confidential locations).
+This is a common practice for security, allowing a degree of privacy or security to people or institutions (think women's shelters, which often have confidential locations).
 
 AGGREGATORS
 ===========
