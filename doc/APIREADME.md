@@ -308,6 +308,7 @@ Successful operations will return [200 (OK)](https://httpstatuses.com/200), or [
 
 In most cases, you will also receive some text that may help to explain the cause. For reasons of security, this may be limited (A good security practice is to keep people guessing as to what, exactly, happened).
 
+![The Great Rift Valley Software Company](images/RiftValleySimpleCorpLogo.png)
 LICENSE
 =======
 
