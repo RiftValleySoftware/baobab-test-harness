@@ -808,10 +808,8 @@ INPUT                  = ../README.md \
                          ../basalt/plugins/people/co_people_basalt_plugin.class.php \
                          ../basalt/plugins/places/co_places_basalt_plugin.class.php \
                          ../basalt/plugins/things/co_things_basalt_plugin.class.php \
-                         ../basalt/badger_extension_classes \
                          ../basalt/andisol/main \
                          ../basalt/andisol/lang \
-                         ../basalt/andisol/badger_extension_classes \
                          ../basalt/andisol/cobra/badger_extension_classes \
                          ../basalt/andisol/cobra/main \
                          ../basalt/andisol/cobra/lang \
