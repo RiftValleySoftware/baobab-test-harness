@@ -227,27 +227,46 @@ All of these resources can have geographic locations (long/lat), as well as the 
 
 It is possible for a resource to aggregate resources to which the current user has no permissions. In these cases, the aggregated resources will be "invisible" to the user.
 
-LOGGING IN/OUT
-==============
-You cannot provide login credentials to resource access/modification calls. You must first make a simple `"login"` call, get an API Key, and then use that API Key and the Server Secret in the [Basic Authentication HTTP Header](https://en.wikipedia.org/wiki/Basic_access_authentication) in subsequent calls.
-
-The server administrator has the option to require that the initial login call always be SSL (this should always be the case, but it is an option); regardless of whether or not the regular calls are SSL.
-
-You make a login call in this fashion:
-
-    {GET} http[s]://{SERVER URL}/login?login_id=<YOUR LOGIN ID>&password=<YOUR PASSWORD>
+LOGGING IN AND OUT
+==================
+When you call the [REST](https://restfulapi.net) API, you will do so in the standard fashion, where you define the method ([HTTP 1.1 header](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html)), and specify the resource in a URI, which can include query data.
     
-Where `"{SERVER URL}"` is the root URL to the BAOBAB server, and the `"login_id="` and `"password="` query arguments reference the user string login ID and password (not the Server Secret or API Key).
+**Initial Login Call:**
 
-The response from this call is a simple string, which will be the API Key. Once an API Key is generated, its "clock" starts ticking, and it will not be reset. Also, the server may be configured to prevent the same login from receiving a new API Key while one is still active, so it is important to retain this response.
+    {GET} http[s]://{SERVER URL}/login?login_id={LOGIN ID STRING}&password={PASSWORD STRING}
 
-You log out by calling the logout call, like so:
+The {SERVER URL} is the URL path that specifies the BAOBAB server [REST](https://restfulapi.net) entrypoint (like `"example.com/rest_api/baobab/entrypoint.php"`).
 
-    {GET} http[s]://{SERVER URL}/logout
+In this instance, you directly call the [REST](https://restfulapi.net) entrypoint, specifying only `"login"` (which also means that you can't create a plugin named "login").
+The query parameters are:
 
-This should be accompanied by the authorization header. The requirement for SSL is the one for regular interactions (independent of login). Once this has been successfully called, the API Key is no longer valid, and can be disposed of.
+The query parameters are:
 
+- `login_id`
+
+    This is the user's login ID (a simple string)
+    
+- `password`
+
+    This is the cleartext password for that login.
+    
+This is only called once, and cannot be combined with any other commands. The only operation permitted is a simple login.
+
+The response will be a simple string. This will be a 32-character (or 40-character, for "God" logins) random token that should be applied in the username AND password sections of the [HTTP authorization header](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8) header of subsequent calls.
+    
+**Logout Call:**
+
+    {GET} http[s]://{SERVER URL}/logout[?login_server_secret={SERVER SECRET STRING}&login_api_key={API KEY STRING}]
+
+This is a call that should be made while a valid API key has been assigned to a user. It should be made with the user's valid API key in the [HTTP authorization header](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8), or auth parameters, and will terminate the API key, requiring subsequent calls by the same user to perform another login. 
+    
 **NOTE:** Logout does not return [200 (OK)](https://httpstatuses.com/200) as an HTTP Status. Instead, it returns [205 (Reset Content)](https://httpstatuses.com/205). This indicates to the recipient that there is a different server context, and they should reset their content.
+
+**Use Auth Params Test:**
+
+    {GET} http[s]://{SERVER URL}/use_auth_params
+    
+This simply returns 1, if the caller should send authentication as query parameters (for example, if the server is using FastCGI), or 0, if Basic Auth headers are sufficient.
 
 DATA FORMATS
 ============
